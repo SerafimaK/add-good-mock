@@ -1,0 +1,37 @@
+<script setup>
+import { onMounted } from 'vue'
+import { useCart } from './stores/cart.js'
+import NavBar from './components/NavBar.vue'
+import HeroSection from './components/HeroSection.vue'
+import MarqueeBand from './components/MarqueeBand.vue'
+import ProductsSection from './components/ProductsSection.vue'
+import HowItWorks from './components/HowItWorks.vue'
+import QuizSection from './components/QuizSection.vue'
+import PricingSection from './components/PricingSection.vue'
+import FooterSection from './components/FooterSection.vue'
+
+const { state } = useCart()
+
+onMounted(() => {
+  const ob = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis') })
+  }, { threshold: .05 })
+  document.querySelectorAll('.rv').forEach(el => ob.observe(el))
+})
+</script>
+
+<template>
+  <NavBar />
+  <HeroSection />
+  <MarqueeBand />
+  <ProductsSection />
+  <HowItWorks />
+  <QuizSection />
+  <PricingSection />
+  <FooterSection />
+
+  <!-- Toast -->
+  <div class="toast-msg" :class="{ show: state.toast.visible }">
+    &#10003; {{ state.toast.message }}
+  </div>
+</template>
