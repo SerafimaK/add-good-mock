@@ -1,5 +1,30 @@
-# Vue 3 + Vite
+# add-good-vue
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Vue 3 + Vite landing page.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Railway deploy
+
+Проект уже подготовлен под Railway:
+
+- Добавлен [`railway.json`](./railway.json) с build/start командами.
+- Добавлен `start`-скрипт в `package.json` с поддержкой порта из переменной `PORT`.
+
+Как задеплоить:
+
+1. Запушить репозиторий на GitHub.
+2. В Railway создать `New Project -> Deploy from GitHub repo`.
+3. Выбрать этот репозиторий и дождаться первого деплоя.
+4. В сервисе Railway открыть `Settings -> Networking` и нажать `Generate Domain`.
