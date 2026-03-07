@@ -21,6 +21,7 @@ npm run build
 
 - Добавлен [`railway.json`](./railway.json) с build/start командами.
 - Добавлен `start`-скрипт в `package.json` с поддержкой порта из переменной `PORT`.
+- Для сборки в Railway используется `npm install --include=dev && npm run build` (вместо `npm ci`), чтобы избежать `EBUSY` на кэшируемом `node_modules/.vite`.
 
 Как задеплоить:
 
