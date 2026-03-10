@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, computed } from 'vue'
+import { reactive, ref, computed, onBeforeUnmount } from 'vue'
 import { useCart, BASE_PRICE, RED_GOLD_PRICE } from '../stores/cart.js'
 import { BONUSES, RED_GOLD } from '../data/boosterData.js'
 import FlaskComposition from './FlaskComposition.vue'
@@ -18,16 +18,26 @@ const selectedBonuses = reactive(new Set())
 const redGoldActive = ref(false)
 const expandedIngredientId = ref(null)
 const hoveredBonusId = ref(null)
-let hoverTimer = null
+let hoverEnterTimer = null
+let hoverLeaveTimer = null
+
+function clearHoverTimers() {
+  clearTimeout(hoverEnterTimer)
+  clearTimeout(hoverLeaveTimer)
+}
 
 function onBonusHover(id) {
-  clearTimeout(hoverTimer)
-  hoveredBonusId.value = id
+  clearHoverTimers()
+  hoverEnterTimer = setTimeout(() => {
+    hoveredBonusId.value = id
+  }, 130)
 }
 
 function onBonusLeave() {
-  clearTimeout(hoverTimer)
-  hoverTimer = setTimeout(() => { hoveredBonusId.value = null }, 400)
+  clearHoverTimers()
+  hoverLeaveTimer = setTimeout(() => {
+    hoveredBonusId.value = null
+  }, 260)
 }
 
 const price = computed(() => BASE_PRICE + (redGoldActive.value ? RED_GOLD_PRICE : 0))
@@ -59,15 +69,21 @@ function addAsIs() {
 }
 
 function reset() {
+  clearHoverTimers()
   selectedBonuses.clear()
   redGoldActive.value = false
   expandedIngredientId.value = null
+  hoveredBonusId.value = null
 }
 
 function handleCollapse() {
   reset()
   emit('collapse')
 }
+
+onBeforeUnmount(() => {
+  clearHoverTimers()
+})
 </script>
 
 <template>
@@ -213,6 +229,10 @@ function handleCollapse() {
     transform 0.42s var(--ease-out),
     box-shadow 0.42s var(--ease-out),
     border-color 0.35s ease;
+}
+
+.card.expanded {
+  overflow: visible;
 }
 
 .card:not(.expanded):hover {
@@ -386,7 +406,37 @@ function handleCollapse() {
 
 /* EXPANDED LAB STATE */
 .card-lab {
+  position: relative;
   padding: 0.3rem 0.3rem 0;
+  min-height: 620px;
+}
+
+.lab-flask-bg {
+  position: absolute;
+  top: 4%;
+  right: -25%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.98;
+}
+
+.lab-content {
+  position: relative;
+  z-index: 1;
+  max-width: 64%;
+}
+
+@media (max-width: 980px) {
+  .lab-flask-bg {
+    right: -32%;
+    top: 7%;
+    transform: scale(0.9);
+    transform-origin: top right;
+  }
+
+  .lab-content {
+    max-width: 70%;
+  }
 }
 
 .lab-back {
@@ -526,6 +576,29 @@ function handleCollapse() {
 
 /* Responsive */
 @media (max-width: 760px) {
+  .card.expanded {
+    overflow: hidden;
+  }
+
+  .card-lab {
+    min-height: 0;
+  }
+
+  .lab-flask-bg {
+    position: relative;
+    top: auto;
+    right: auto;
+    display: flex;
+    justify-content: center;
+    margin: -0.4rem 0 0.25rem;
+    opacity: 0.88;
+    transform: none;
+  }
+
+  .lab-content {
+    max-width: none;
+  }
+
   .lab-header {
     flex-direction: column;
     align-items: center;

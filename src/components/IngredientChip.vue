@@ -27,6 +27,7 @@ const emit = defineEmits(['toggle', 'toggle-story'])
           <span class="chip-name">{{ ingredient.nickname || ingredient.name }}</span>
           <span v-if="isPremium" class="chip-badge">+$1.00</span>
         </div>
+        <p class="chip-quote">"{{ ingredient.tagline }}"</p>
         <span class="chip-effects">{{ ingredient.effects.join(' · ') }}</span>
       </div>
       <button
@@ -35,6 +36,7 @@ const emit = defineEmits(['toggle', 'toggle-story'])
         @click.stop="emit('toggle-story')"
         :aria-label="storyOpen ? 'Collapse story' : 'Read story'"
       >
+        <span class="chip-expand-label">{{ storyOpen ? 'Hide' : 'Read more' }}</span>
         <svg viewBox="0 0 16 16" fill="none">
           <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -43,7 +45,6 @@ const emit = defineEmits(['toggle', 'toggle-story'])
 
     <Transition name="story">
       <div v-if="storyOpen" class="chip-story">
-        <p class="chip-tagline">"{{ ingredient.tagline }}"</p>
         <p class="chip-text">{{ ingredient.story }}</p>
         <p v-if="ingredient.evidence" class="chip-evidence">
           <span>Evidence</span>{{ ingredient.evidence }}
@@ -117,8 +118,8 @@ const emit = defineEmits(['toggle', 'toggle-story'])
 }
 
 .chip-name {
-  font-weight: 600;
-  font-size: 0.84rem;
+  font-weight: 700;
+  font-size: 0.88rem;
   color: var(--dark);
 }
 
@@ -135,53 +136,66 @@ const emit = defineEmits(['toggle', 'toggle-story'])
 
 .chip-effects {
   display: block;
-  font-size: 0.72rem;
-  color: var(--mid);
-  margin-top: 0.12rem;
+  font-size: 0.76rem;
+  color: rgba(73, 67, 58, 0.82);
+  margin-top: 0.14rem;
   line-height: 1.3;
 }
 
+.chip-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.84rem;
+  color: rgba(43, 39, 33, 0.9);
+  margin-top: 0.16rem;
+  line-height: 1.28;
+}
+
 .chip-expand {
-  width: 28px;
-  height: 28px;
-  border: none;
-  background: none;
+  min-width: 98px;
+  height: 34px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
   cursor: pointer;
-  color: var(--lt);
-  transition: transform 0.3s var(--ease-out), color 0.2s;
+  color: var(--mid);
+  transition: transform 0.3s var(--ease-out), color 0.2s, border-color 0.2s, background 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.22rem;
   flex-shrink: 0;
-  padding: 0;
+  padding: 0 0.58rem;
 }
 
 .chip-expand svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.28s var(--ease-out);
 }
 
-.chip-expand.open {
+.chip-expand-label {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.chip-expand.open svg {
   transform: rotate(180deg);
 }
 
 .chip-expand:hover {
   color: var(--dark);
+  border-color: rgba(0, 0, 0, 0.14);
+  background: rgba(255, 255, 255, 0.84);
 }
 
 /* Story panel */
 .chip-story {
   padding: 0 0.9rem 0.8rem;
   overflow: hidden;
-}
-
-.chip-tagline {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 0.88rem;
-  color: var(--dark);
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
 }
 
 .chip-text {
