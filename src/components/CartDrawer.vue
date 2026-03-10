@@ -14,14 +14,14 @@ const { state, total, remove, toggle } = useCart()
       </div>
       <div class="cart-items">
         <div v-if="state.items.length === 0" class="cart-empty">Your bag is empty</div>
-        <div v-for="(id, i) in state.items" :key="i" class="ci">
-          <div class="ci-color" :class="'ci-' + PRODUCTS[id].cls"></div>
+        <div v-for="(item, i) in state.items" :key="item.uid" class="ci">
+          <div class="ci-color" :class="'ci-' + PRODUCTS[item.boosterId].cls"></div>
           <div class="ci-info">
-            <div class="ci-name">{{ PRODUCTS[id].name }}</div>
-            <div class="ci-sub">{{ PRODUCTS[id].sub }}</div>
+            <div class="ci-name">{{ PRODUCTS[item.boosterId].name }}</div>
+            <div class="ci-sub">{{ item.sub }}</div>
           </div>
           <div class="ci-right">
-            <div class="ci-price">${{ PRODUCTS[id].price.toFixed(2) }}</div>
+            <div class="ci-price">${{ item.price.toFixed(2) }}</div>
             <button class="ci-remove" @click="remove(i)">Remove</button>
           </div>
         </div>

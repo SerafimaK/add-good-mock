@@ -1,0 +1,173 @@
+{
+  "brand": {
+    "name": "Add Good",
+    "slogan": "add good to your routine",
+    "positioning": "100% plant & fungi based · No animals · Just nature, fermented",
+    "description": "Customizable skincare boosters you add to your own cream. Exotic ingredients with a story. Build your formula."
+  },
+
+  "boosters": [
+    {
+      "id": "glow",
+      "name": "GLOW",
+      "element": "Field",
+      "element_ru": "Поле",
+      "color": "#C89B3C",
+      "hero_ingredient": "Rice Ferment Filtrate (Saccharomyces/Rice Ferment Filtrate)",
+      "active_ingredient": "Niacinamide 5%",
+      "tagline": "Rice water, turned to gold by time",
+      "story": "Rice grows in water. Months under the sun, flooded fields, slow ripening. Fermentation continues what the sun began: Saccharomyces yeast transforms the grain into a concentrate of amino acids, peptides, and organic acids — compounds that weren't in the raw rice. We paired this ferment with niacinamide, one of the most studied actives in dermatology.",
+      "effects": ["Radiance", "Even tone", "Brightening"],
+      "compatible_bonuses": ["centella", "bakuchiol", "licorice"],
+      "compatible_with_red_gold": true
+    },
+    {
+      "id": "plump",
+      "name": "PLUMP",
+      "element": "Forest",
+      "element_ru": "Лес",
+      "color": "#4A7C59",
+      "hero_ingredient": "Snow Mushroom (Tremella Fuciformis Extract)",
+      "active_ingredient": "Multi-molecular Hyaluronic Acid",
+      "tagline": "The translucent mushroom that drinks clouds",
+      "story": "Tremella grows in tropical forests — a translucent, coral-like fungus that holds 500 times its weight in water. In China it was called 'silver ear' and prized at court for its ability to restore freshness to the skin. Together with hyaluronic acid, it delivers hydration at every level, from the surface to the depths.",
+      "effects": ["Deep hydration", "Plumping", "Softness"],
+      "compatible_bonuses": ["centella", "squalane", "bakuchiol"],
+      "compatible_with_red_gold": true
+    },
+    {
+      "id": "firm",
+      "name": "FIRM",
+      "element": "Sea",
+      "element_ru": "Море",
+      "color": "#1E3A5F",
+      "hero_ingredient": "Sea Kelp Bioferment (Lactobacillus/Brown Seaweed Ferment Filtrate)",
+      "active_ingredient": "Peptide Complex (Palmitoyl Tripeptide-1 + Palmitoyl Tetrapeptide-7)",
+      "tagline": "An underwater forest, fermented by light",
+      "story": "Brown kelp grows in the cold currents of the Atlantic — entire underwater forests swaying to the rhythm of the tides. Fermentation with Lactobacillus probiotics breaks open the algae cells, releasing minerals, vitamins, and amino acids in a form the skin accepts immediately. Peptides complete the work — a signal to cells: build collagen.",
+      "effects": ["Firmness", "Lifting", "Tone"],
+      "compatible_bonuses": ["centella", "squalane", "licorice"],
+      "compatible_with_red_gold": true
+    }
+  ],
+
+  "bonus_ingredients": [
+    {
+      "id": "centella",
+      "name": "Centella Asiatica",
+      "inci": "Centella Asiatica Extract",
+      "nickname": "Tiger Grass",
+      "tagline": "The herb that heals hunters",
+      "story": "In the jungles of Laos, villagers noticed wounded tigers lying down in patches of an unremarkable creeping herb — and their wounds closing faster. Centella turned out to be rich in triterpenoids that stimulate collagen and suppress inflammation. Thousands of years of Ayurveda, confirmed by modern science.",
+      "effects": ["Soothes", "Barrier repair", "Anti-inflammatory"],
+      "evidence": "Systematic review (MDPI, 2022): stimulates collagen I, FGF, VEGF; reduces IL-1β, IL-6, TNFα. Multiple RCTs confirm wound healing and scar improvement.",
+      "cost": "Very low",
+      "available_in": ["glow", "plump", "firm"]
+    },
+    {
+      "id": "bakuchiol",
+      "name": "Bakuchiol",
+      "inci": "Bakuchiol",
+      "nickname": "The garden retinol",
+      "tagline": "Ancient seeds, modern proof",
+      "story": "The seeds of the babchi plant were used in India long before chemists synthesized retinol. A double-blind study showed bakuchiol smooths wrinkles and fades pigmentation just as well as retinol, but without the peeling or burning. Safe to use in the daytime.",
+      "effects": ["Anti-aging", "Cell renewal", "Texture refinement"],
+      "evidence": "British Journal of Dermatology (2019): randomized double-blind 12-week study, 44 patients. Bakuchiol 0.5% = retinol 0.5% in reducing wrinkles and hyperpigmentation, with significantly less scaling and stinging.",
+      "cost": "Moderate (low concentrations needed)",
+      "available_in": ["glow", "plump"]
+    },
+    {
+      "id": "licorice",
+      "name": "Licorice Root Extract",
+      "inci": "Glycyrrhiza Glabra Root Extract",
+      "nickname": "Gold from underground",
+      "tagline": "The oldest brightener known to humankind",
+      "story": "Licorice root is one of the first medicines in human history. Egypt, China, Greece — it was known everywhere. Glabridin, hidden inside, precisely inhibits tyrosinase — the enzyme that triggers melanin production. Gentle, with none of the side effects of synthetic lighteners.",
+      "effects": ["Brightening", "Antioxidant", "Even tone"],
+      "evidence": "JCAD: in vitro lightening effect 16× stronger than hydroquinone. PubMed (1998): topical 0.5% glabridin suppresses UVB-induced pigmentation and erythema. Anti-inflammatory via COX inhibition.",
+      "cost": "Low",
+      "available_in": ["glow", "firm"]
+    },
+    {
+      "id": "squalane",
+      "name": "Squalane",
+      "inci": "Squalane (olive-derived)",
+      "nickname": "Your own oil",
+      "tagline": "The molecule already in your skin",
+      "story": "Squalane isn't exotic — it's a molecule already present in your skin, making up about 12% of sebum. It diminishes with age. It used to be extracted from shark liver. Now it comes from olives. Same molecule, different ethics. Locks in moisture, never clogs pores.",
+      "effects": ["Nourishment", "Moisture lock", "Silky texture"],
+      "evidence": "Bioidentical component of human sebum. Non-comedogenic. Compatible with all actives. Extensively used and studied in cosmetic dermatology.",
+      "cost": "Low",
+      "available_in": ["plump", "firm"]
+    }
+  ],
+
+  "red_gold": {
+    "id": "red_gold",
+    "name": "Red Gold",
+    "ingredient": "Astaxanthin",
+    "inci": "Astaxanthin (from Haematococcus Pluvialis Extract)",
+    "nickname": "Red gold of the ocean",
+    "tagline": "The color that protects",
+    "story": "Why are flamingos pink? They eat shrimp. Shrimp eat algae. Algae produce astaxanthin — a carotenoid that turned out to be one of the most powerful natural antioxidants on Earth. We take it directly from Haematococcus pluvialis microalgae. No middlemen in the food chain.",
+    "effects": [
+      "Antioxidant: 6,000× vitamin C",
+      "550× vitamin E",
+      "Photoaging protection"
+    ],
+    "visual_effect": "Astaxanthin tints the booster a warm coral. It leaves no color on the skin — the concentration is too low for visible pigment but sufficient for antioxidant action. You see your formula in the bottle — and it looks different from the standard.",
+    "evidence": "In vitro: singlet oxygen quenching activity 6,000× greater than vitamin C, 550× greater than vitamin E. Clinical studies demonstrate improvements in wrinkles, elasticity, and moisture with oral and topical use.",
+    "cost": "Moderate (micro-doses, viable as +$1–2 option)",
+    "color": "#D4534B",
+    "available_in": ["glow", "plump", "firm"]
+  },
+
+  "compatibility_matrix": {
+    "description": "Each booster has exactly 3 compatible functional bonuses + Red Gold. All combinations within a booster are safe and effective. Users can select 1, 2, 3, or all bonuses plus Red Gold for any booster.",
+    "matrix": {
+      "glow":  { "centella": true,  "bakuchiol": true,  "licorice": true,  "squalane": false, "red_gold": true },
+      "plump": { "centella": true,  "bakuchiol": true,  "licorice": false, "squalane": true,  "red_gold": true },
+      "firm":  { "centella": true,  "bakuchiol": false, "licorice": true,  "squalane": true,  "red_gold": true }
+    },
+    "notes": {
+      "centella": "Universal — compatible with all three boosters. The 'safe for everyone' option.",
+      "bakuchiol": "Available in GLOW and PLUMP. Synergy with niacinamide (GLOW) is clinically documented. Not in FIRM to avoid redundancy with peptides targeting similar pathways.",
+      "licorice": "Available in GLOW and FIRM. Strongest synergy with niacinamide in GLOW (both brighten via different mechanisms). In FIRM adds evening-out benefit to the lifting effect.",
+      "squalane": "Available in PLUMP and FIRM. In PLUMP locks in hydration (oil seal over water-based actives). In FIRM adds nourishment to the firming effect. Not in GLOW to keep the formula lightweight for oily/combination skin types who gravitate toward brightening.",
+      "red_gold": "Universal — compatible with all boosters and all bonus ingredients. Optional add-on. Visual differentiator (coral tint). Premium upsell opportunity (+$1–2)."
+    }
+  },
+
+  "formula_examples": [
+    {
+      "name": "The Full Glow",
+      "booster": "glow",
+      "bonuses": ["centella", "bakuchiol", "licorice", "red_gold"],
+      "formula": "Rice Ferment + Niacinamide + Centella + Bakuchiol + Licorice Root + Astaxanthin",
+      "description": "Maximum radiance and renewal. Brightening from two pathways (niacinamide + licorice), anti-aging (bakuchiol), skin calming (centella), and antioxidant supercharge (astaxanthin)."
+    },
+    {
+      "name": "Sensitive Hydration",
+      "booster": "plump",
+      "bonuses": ["centella", "squalane"],
+      "formula": "Snow Mushroom + Hyaluronic Acid + Centella + Squalane",
+      "description": "Deep hydration sealed with squalane, calmed with centella. Ideal for dry, reactive skin."
+    },
+    {
+      "name": "Ocean Renewal",
+      "booster": "firm",
+      "bonuses": ["squalane", "licorice", "red_gold"],
+      "formula": "Sea Kelp Bioferment + Peptides + Squalane + Licorice Root + Astaxanthin",
+      "description": "Firming peptides with mineral-rich kelp, nourished with squalane, brightened with licorice, and protected with astaxanthin. The coral tint from Red Gold against the deep blue of FIRM — visually stunning."
+    }
+  ],
+
+  "ui_instructions": {
+    "booster_selection": "User first selects one of three boosters (GLOW, PLUMP, FIRM).",
+    "bonus_selection": "For the selected booster, show 3 compatible bonus ingredient chips + Red Gold chip. User can toggle any combination: 0, 1, 2, 3 bonuses, and/or Red Gold. All combinations are safe.",
+    "formula_display": "Show a running formula string as ingredients are added: 'Hero + Active + [selected bonuses]'. Update in real time.",
+    "visual_feedback": "When Red Gold is selected, consider adding a subtle coral tint to the booster card or formula display to preview the color change.",
+    "card_layout": "Each bonus chip expands to show: nickname, short story, effects, scientific evidence. Collapse on second tap.",
+    "pricing_note": "Base booster $9–13. Each bonus ingredient adds to the formula but is included in the base price. Red Gold is an optional premium add-on (+$1–2)."
+  }
+}

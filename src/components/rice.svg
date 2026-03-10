@@ -1,0 +1,67 @@
+<svg width="100%" height="100%" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .draw-line {
+      fill: none;
+      stroke: #1a1a1a;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 2500;
+      stroke-dashoffset: 2500;
+      animation: draw 5s ease-in-out forwards;
+    }
+    
+    /* Небольшая задержка для зерен, чтобы они рисовались после стебля */
+    .grain {
+      fill: none;
+      stroke: #1a1a1a;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: draw-grain 1s ease-out forwards;
+    }
+
+    /* Настройка задержек для каждого зернышка */
+    .g1 { animation-delay: 1.5s; }
+    .g2 { animation-delay: 1.7s; }
+    .g3 { animation-delay: 1.9s; }
+    .g4 { animation-delay: 2.1s; }
+    .g5 { animation-delay: 2.3s; }
+    .g6 { animation-delay: 2.5s; }
+    .g7 { animation-delay: 2.7s; }
+    .g8 { animation-delay: 2.9s; }
+    .g9 { animation-delay: 3.1s; }
+    .g10 { animation-delay: 3.3s; }
+    .g11 { animation-delay: 3.5s; }
+    .g12 { animation-delay: 3.7s; }
+
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes draw-grain {
+      to { stroke-dashoffset: 0; }
+    }
+  </style>
+
+  <path class="draw-line" d="M190,550 C180,420 170,300 210,180 C230,120 280,120 330,190 C360,230 370,280 370,320" />
+  
+  <path class="draw-line" d="M185,480 C150,350 110,230 100,140 C120,200 150,250 188,340" />
+  
+  <path class="draw-line" d="M188,430 C220,360 260,300 310,340 C280,310 230,290 193,330" />
+
+  <path class="grain g1" d="M215,160 C205,145 210,135 220,140 C225,150 215,160 215,160 Z" />
+  <path class="grain g2" d="M235,145 C225,130 230,120 240,125 C245,135 235,145 235,145 Z" />
+  <path class="grain g3" d="M260,140 C250,125 255,115 265,120 C270,130 260,140 260,140 Z" />
+  <path class="grain g4" d="M285,150 C275,135 280,125 290,130 C295,140 285,150 285,150 Z" />
+  <path class="grain g5" d="M310,165 C300,150 305,140 315,145 C320,155 310,165 310,165 Z" />
+  <path class="grain g6" d="M330,195 C320,180 325,170 335,175 C340,185 330,195 330,195 Z" />
+  <path class="grain g7" d="M350,230 C340,215 345,205 355,210 C360,220 350,230 350,230 Z" />
+  <path class="grain g8" d="M360,265 C350,250 355,240 365,245 C370,255 360,265 360,265 Z" />
+
+  <path class="grain g9" d="M245,185 C255,195 245,210 235,205 C225,195 245,185 245,185 Z" />
+  <path class="grain g10" d="M275,205 C285,215 275,230 265,225 C255,215 275,205 275,205 Z" />
+  <path class="grain g11" d="M305,235 C315,245 305,260 295,255 C285,245 305,235 305,235 Z" />
+  <path class="grain g12" d="M325,270 C335,280 325,295 315,290 C305,280 325,270 325,270 Z" />
+</svg>
