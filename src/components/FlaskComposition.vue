@@ -11,8 +11,14 @@ const props = defineProps({
   redGoldActive: Boolean,
 })
 
+const BASE_SPOT_RGB = {
+  glow: '236, 190, 96',
+  plump: '136, 185, 132',
+  firm: '120, 172, 215',
+}
+
 const spotStyle = computed(() => ({
-  '--spot-rgb': props.boosterColor,
+  '--spot-rgb': BASE_SPOT_RGB[props.boosterId] || props.boosterColor,
 }))
 
 // Show bonus if selected OR hovered
@@ -36,18 +42,28 @@ const visibleBonuses = computed(() =>
 
 <template>
   <div class="flask-wrap" :style="spotStyle">
-    <!-- Layer 1: Watercolor color spots — bold, with bokeh and pulse -->
-    <span class="flask-spot flask-spot-base" :class="{ dim: redGoldActive }"></span>
-    <span class="flask-spot flask-spot-base spot-b" :class="{ dim: redGoldActive }"></span>
-    <span class="flask-spot flask-spot-base spot-c" :class="{ dim: redGoldActive }"></span>
-    <span class="flask-spot flask-spot-coral" :class="{ active: redGoldActive }"></span>
-    <span class="flask-spot flask-spot-coral spot-b" :class="{ active: redGoldActive }"></span>
-    <span class="flask-spot flask-spot-coral spot-c" :class="{ active: redGoldActive }"></span>
-    <!-- Bokeh orbs -->
-    <span class="flask-bokeh bokeh-1" :class="{ coral: redGoldActive }"></span>
-    <span class="flask-bokeh bokeh-2" :class="{ coral: redGoldActive }"></span>
-    <span class="flask-bokeh bokeh-3" :class="{ coral: redGoldActive }"></span>
-    <span class="flask-bokeh bokeh-4" :class="{ coral: redGoldActive }"></span>
+    <!-- Layer 1: Base watercolor spots -->
+    <template v-if="!redGoldActive">
+      <span class="flask-spot flask-spot-base"></span>
+      <span class="flask-spot flask-spot-base spot-b"></span>
+      <span class="flask-spot flask-spot-base spot-c"></span>
+      <!-- Bokeh orbs -->
+      <span class="flask-bokeh bokeh-1"></span>
+      <span class="flask-bokeh bokeh-2"></span>
+      <span class="flask-bokeh bokeh-3"></span>
+      <span class="flask-bokeh bokeh-4"></span>
+    </template>
+
+    <!-- Red Gold: single watercolor wash in the background -->
+    <Transition name="wash-fade">
+      <img
+        v-if="redGoldActive"
+        :src="RED_GOLD.image"
+        alt=""
+        class="flask-redgold-wash"
+        loading="lazy"
+      >
+    </Transition>
 
     <!-- Layer 2: Hero ingredient -->
     <img :src="heroImage" alt="" class="flask-hero" loading="lazy">
@@ -69,16 +85,6 @@ const visibleBonuses = computed(() =>
       >
     </TransitionGroup>
 
-    <!-- Layer 5: Red Gold splash -->
-    <Transition name="ing-float">
-      <img
-        v-if="redGoldActive"
-        :src="RED_GOLD.image"
-        alt="Red Gold"
-        class="flask-redgold"
-        loading="lazy"
-      >
-    </Transition>
   </div>
 </template>
 
@@ -136,48 +142,6 @@ const visibleBonuses = computed(() =>
   animation: spotPulse 7.2s ease-in-out 1.2s infinite;
 }
 
-.flask-spot-base.dim {
-  opacity: 0.2;
-}
-
-.flask-spot-coral {
-  --spot-transform: translateX(-50%);
-  width: 330px;
-  height: 330px;
-  bottom: -20px;
-  left: 50%;
-  background:
-    radial-gradient(circle at 40% 45%, rgba(212, 83, 75, 0.62), rgba(212, 83, 75, 0.16) 58%, transparent 80%),
-    radial-gradient(circle at 65% 56%, rgba(230, 130, 120, 0.4), transparent 62%);
-  opacity: 0;
-  animation: spotPulse 7s ease-in-out 1s infinite;
-}
-
-.flask-spot-coral.spot-b {
-  --spot-transform: translateX(-50%);
-  width: 240px;
-  height: 240px;
-  bottom: auto;
-  top: -8%;
-  left: 66%;
-  background: radial-gradient(circle at 50% 50%, rgba(230, 120, 110, 0.42), transparent 64%);
-  animation: spotPulse 9s ease-in-out 3s infinite;
-}
-
-.flask-spot-coral.spot-c {
-  width: 220px;
-  height: 220px;
-  bottom: 20%;
-  right: -6%;
-  left: auto;
-  background: radial-gradient(circle at 50% 50%, rgba(212, 83, 75, 0.32), transparent 66%);
-  animation: spotPulse 8.4s ease-in-out 2.2s infinite;
-}
-
-.flask-spot-coral.active {
-  opacity: 1;
-}
-
 @keyframes spotPulse {
   0%, 100% {
     transform: var(--spot-transform) scale(1);
@@ -190,9 +154,7 @@ const visibleBonuses = computed(() =>
 }
 
 .flask-spot-base.spot-b,
-.flask-spot-coral.spot-b,
-.flask-spot-base.spot-c,
-.flask-spot-coral.spot-c {
+.flask-spot-base.spot-c {
   --pulse-base: 0.7;
   --pulse-peak: 0.9;
 }
@@ -217,7 +179,6 @@ const visibleBonuses = computed(() =>
   filter: blur(11px);
   animation: bokehFloat 7s ease-in-out infinite, bokehPulse 4.2s ease-in-out infinite;
 }
-.bokeh-1.coral { background: rgba(212, 83, 75, 0.24); }
 
 .bokeh-2 {
   width: 34px;
@@ -228,7 +189,6 @@ const visibleBonuses = computed(() =>
   filter: blur(8px);
   animation: bokehFloat 9s ease-in-out 2s infinite, bokehPulse 5.4s ease-in-out 0.8s infinite;
 }
-.bokeh-2.coral { background: rgba(230, 130, 120, 0.28); }
 
 .bokeh-3 {
   width: 44px;
@@ -239,7 +199,6 @@ const visibleBonuses = computed(() =>
   filter: blur(10px);
   animation: bokehFloat 8s ease-in-out 4s infinite, bokehPulse 6s ease-in-out 2s infinite;
 }
-.bokeh-3.coral { background: rgba(212, 83, 75, 0.2); }
 
 .bokeh-4 {
   width: 26px;
@@ -250,7 +209,6 @@ const visibleBonuses = computed(() =>
   filter: blur(6px);
   animation: bokehFloat 6.8s ease-in-out 1.5s infinite, bokehPulse 4.7s ease-in-out 1.3s infinite;
 }
-.bokeh-4.coral { background: rgba(230, 130, 120, 0.23); }
 
 @keyframes bokehFloat {
   0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.58; }
@@ -261,6 +219,41 @@ const visibleBonuses = computed(() =>
 @keyframes bokehPulse {
   0%, 100% { opacity: 0.45; }
   50% { opacity: 0.82; }
+}
+
+.flask-redgold-wash {
+  position: absolute;
+  width: 122%;
+  left: 51%;
+  top: -11%;
+  transform: translateX(-50%);
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  filter: saturate(1.08) blur(1px);
+  z-index: 1;
+  pointer-events: none;
+  animation: redGoldWashPulse 7.4s ease-in-out infinite;
+}
+
+@keyframes redGoldWashPulse {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.08);
+    opacity: 0.36;
+  }
+}
+
+.wash-fade-enter-active,
+.wash-fade-leave-active {
+  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+}
+.wash-fade-enter-from,
+.wash-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-50%) scale(0.92);
 }
 
 /* Layer 2: Hero ingredient */
@@ -313,19 +306,6 @@ const visibleBonuses = computed(() =>
   filter: saturate(1) contrast(1.04);
 }
 
-/* Layer 5: Red Gold splash */
-.flask-redgold {
-  position: absolute;
-  width: 48%;
-  top: 9%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.44;
-  mix-blend-mode: multiply;
-  z-index: 5;
-  pointer-events: none;
-}
-
 /* Ingredient float transition */
 .ing-float-enter-active {
   transition:
@@ -354,6 +334,11 @@ const visibleBonuses = computed(() =>
   .flask-wrap {
     width: 300px;
     height: 340px;
+  }
+
+  .flask-redgold-wash {
+    width: 112%;
+    top: -7%;
   }
 }
 </style>

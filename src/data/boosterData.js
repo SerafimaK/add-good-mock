@@ -124,6 +124,6 @@ export const BOOSTER_ORDER = ['glow', 'plump', 'firm']
 export const BONUS_POSITIONS = {
   centella:  { top: '5%',  left: '2%',  width: '42%' },
   bakuchiol: { top: '8%',  right: '0%', width: '38%' },
-  licorice:  { bottom: '18%', left: '-2%', width: '40%' },
+  licorice:  { bottom: '11%', left: '-2%', width: '40%' },
   squalane:  { bottom: '15%', right: '-2%', width: '38%' },
 }
