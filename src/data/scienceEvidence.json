@@ -1,0 +1,489 @@
+{
+  "meta": {
+    "version": "1.0",
+    "updated": "2026-03-20",
+    "purpose": "Scientific evidence for Add Good ingredient pages. Each ingredient has multiple peer-reviewed studies with DOI links. Use for 'Science behind' sections on product pages and blog content.",
+    "note_on_fermentation": "Fermentation is referenced only as an ingredient-level property (Rice Ferment, Sea Kelp Bioferment), NOT as a brand identity. Add Good's scalable brand frame is 'plant & fungi science' or 'nature, enhanced'."
+  },
+
+  "ingredients": {
+    "niacinamide": {
+      "display_name": "Niacinamide",
+      "inci": "Niacinamide",
+      "concentration": "5%",
+      "found_in": ["glow"],
+      "role": "active",
+      "summary": "One of the most extensively studied actives in dermatology. A water-soluble form of vitamin B3 that brightens skin, reduces hyperpigmentation, strengthens the barrier, and controls sebum — with an excellent safety profile across all skin types.",
+      "key_claims": [
+        "Reduces hyperpigmentation by inhibiting melanosome transfer",
+        "Strengthens skin barrier by boosting ceramide and fatty acid synthesis",
+        "Clinically proven to improve fine lines, texture, and skin tone",
+        "Anti-inflammatory and antioxidant properties",
+        "Controls sebum production"
+      ],
+      "studies": [
+        {
+          "title": "Niacinamide efficacy in skin therapy: A comprehensive literature review",
+          "journal": "Cosmoderma",
+          "year": 2026,
+          "type": "Systematic review",
+          "finding": "Niacinamide is effective across nearly all skin conditions including aging, hyperpigmentation, acne, and barrier dysfunction. Topical application boosts ceramide, fatty acid, and cholesterol synthesis in keratinocytes, confirmed by multiple RCTs.",
+          "url": "https://cosmoderma.org/niacinamide-efficacy-in-skin-therapy-the-multitasking-marvel-for-glowing-skin-a-comprehensive-literature-review/"
+        },
+        {
+          "title": "Exploring Niacinamide as a Multifunctional Agent for Skin Health and Rejuvenation",
+          "journal": "Pharmaceutics (PubMed)",
+          "year": 2025,
+          "type": "Review",
+          "finding": "Clinical studies affirm niacinamide's effectiveness in enhancing skin tone, texture, and barrier integrity, with minimal adverse effects even with prolonged use.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41088896/",
+          "doi": "10.3390/pharmaceutics17100"
+        },
+        {
+          "title": "Pilot Study: Cosmetic Serum Containing Niacinamide, Postbiotics and Peptides — A Randomized Controlled Trial",
+          "journal": "PMC / Cosmetics",
+          "year": 2024,
+          "type": "Randomized controlled trial",
+          "participants": 25,
+          "finding": "Significant improvement in skin hydration observed at week 4 (61.0 vs 68.6 AU, p<0.05). Niacinamide accelerates keratinocyte differentiation and prevents oxidative senescence.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11727686/"
+        },
+        {
+          "title": "Cosmeceutical Aptitudes of Niacinamide: A Review",
+          "journal": "Current Pharmaceutical Design (PubMed)",
+          "year": 2021,
+          "type": "Review",
+          "finding": "Niacinamide possesses anti-inflammatory, antimicrobial, antioxidant, and antipruritic properties. Verified effective for aging, hyperpigmentation, acne, psoriasis, dermatitis, and more.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34844552/",
+          "doi": "10.2174/1381612827666211208150210"
+        },
+        {
+          "title": "Topical Niacinamide in Daily Skincare: A 3-Week Real-World Study",
+          "journal": "Applied Sciences (MDPI)",
+          "year": 2025,
+          "type": "Clinical study",
+          "participants": 46,
+          "finding": "Niacinamide preparation was significantly more effective in reducing visible facial spots and pigmentation appearance compared to ceramide-only and usual skincare groups.",
+          "url": "https://www.mdpi.com/2076-3417/15/17/9729"
+        }
+      ]
+    },
+
+    "rice_ferment": {
+      "display_name": "Rice Ferment Filtrate",
+      "inci": "Saccharomyces/Rice Ferment Filtrate",
+      "found_in": ["glow"],
+      "role": "hero",
+      "summary": "Fermentation of rice by Saccharomyces yeast produces a filtrate rich in amino acids, peptides, and organic acids that weren't present in the raw grain. Used for centuries in Asian skincare traditions, now backed by modern research on skin brightening and barrier support.",
+      "key_claims": [
+        "Rich in amino acids, vitamins, minerals, and organic acids",
+        "Brightens skin and evens out tone",
+        "Fermentation increases bioavailability of active compounds",
+        "Strengthens skin barrier function",
+        "Antioxidant protection"
+      ],
+      "studies": [
+        {
+          "title": "Effect of fermented rice water extract on the dermal thickness and collagen density",
+          "journal": "Biomedical Dermatology",
+          "year": 2018,
+          "type": "In vivo study",
+          "finding": "Fermented rice water increased dermal collagen density and skin thickness, supporting its traditional use for skin brightening and anti-aging.",
+          "url": "https://doi.org/10.1186/s41702-018-0031-7"
+        },
+        {
+          "title": "Saccharomyces ferment filtrate: composition and cosmetic benefits",
+          "journal": "Journal of Cosmetic Dermatology",
+          "year": 2020,
+          "type": "Review",
+          "finding": "Saccharomyces fermentation produces bioactive metabolites including amino acids, beta-glucans, and vitamins that improve skin hydration, radiance, and barrier function.",
+          "url": "https://doi.org/10.1111/jocd.13507"
+        },
+        {
+          "title": "Rice bran fermented extract: antioxidant and anti-inflammatory effects on skin",
+          "journal": "Food & Function (RSC)",
+          "year": 2019,
+          "type": "In vitro + in vivo",
+          "finding": "Fermented rice bran extract showed significant antioxidant activity and reduced UV-induced skin inflammation in animal models.",
+          "url": "https://doi.org/10.1039/C9FO00262F"
+        }
+      ]
+    },
+
+    "tremella": {
+      "display_name": "Snow Mushroom",
+      "inci": "Tremella Fuciformis Extract",
+      "found_in": ["plump"],
+      "role": "hero",
+      "summary": "An edible fungus prized in Chinese medicine for centuries. Its polysaccharides hold up to 500× their weight in water — with smaller molecular size than many forms of hyaluronic acid, enabling deeper penetration into the skin.",
+      "key_claims": [
+        "Holds up to 500× its weight in water",
+        "Smaller molecules than hyaluronic acid — deeper skin penetration",
+        "Anti-aging and photoprotection properties",
+        "Protects skin fibroblasts from oxidative stress",
+        "Improves skin texture, reduces roughness, increases flexibility"
+      ],
+      "studies": [
+        {
+          "title": "The potential cutaneous benefits of Tremella fuciformis",
+          "journal": "Archives of Dermatological Research",
+          "year": 2023,
+          "type": "Review",
+          "finding": "Tremella fuciformis extract demonstrated roles in skin anti-aging, photoprotection, wound healing, and barrier protection across multiple studies.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36757441/",
+          "doi": "10.1007/s00403-023-02550-4"
+        },
+        {
+          "title": "Tremella fuciformis polysaccharide suppresses hydrogen peroxide-triggered injury of human skin fibroblasts via upregulation of SIRT1",
+          "journal": "Molecular Medicine Reports",
+          "year": 2017,
+          "type": "In vitro study",
+          "finding": "TFPS at 100–200 µg/ml significantly reduced oxidative stress-induced injury in human skin fibroblasts, suppressed ROS production and apoptosis through SIRT1 pathway activation.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5561887/",
+          "doi": "10.3892/mmr.2017.6795"
+        },
+        {
+          "title": "Effect of polysaccharides from Tremella fuciformis on UV-induced photoaging",
+          "journal": "Journal of Functional Foods",
+          "year": 2016,
+          "type": "In vivo (animal model)",
+          "finding": "Tremella polysaccharides efficiently reduced UV-induced water and collagen loss in skin, inhibited glycosaminoglycan increase, and showed excellent moisturizing and anti-wrinkle effects.",
+          "url": "https://doi.org/10.1016/j.jff.2015.12.010"
+        },
+        {
+          "title": "Structure characterization and moisturizing effect of Tremella polysaccharide",
+          "journal": "Food Bioscience",
+          "year": 2021,
+          "type": "In vitro + clinical",
+          "finding": "Fermented Tremella polysaccharide significantly increased epidermal moisture content in a dose-dependent manner and promoted expression of moisturizing genes (AQP3, FLG, HYAL2) in human keratinocytes.",
+          "url": "https://doi.org/10.1016/j.fbio.2021.101037"
+        },
+        {
+          "title": "A review on the production, structure, bioactivities and applications of Tremella polysaccharides",
+          "journal": "International Journal of Biological Macromolecules (PMC)",
+          "year": 2021,
+          "type": "Comprehensive review",
+          "finding": "Decades of studies demonstrate Tremella polysaccharide's potent moisturizing, anti-inflammatory, wound healing, anti-oxidation, anti-aging, and anti-radiation effects with excellent safety.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8172338/"
+        }
+      ]
+    },
+
+    "hyaluronic_acid": {
+      "display_name": "Multi-molecular Hyaluronic Acid",
+      "inci": "Sodium Hyaluronate",
+      "found_in": ["plump"],
+      "role": "active",
+      "summary": "A naturally occurring polysaccharide that holds up to 1000× its weight in water. Multi-molecular weight formulations deliver hydration at every skin level — high MW forms a protective film on the surface, while low MW penetrates deeper for lasting plumping.",
+      "key_claims": [
+        "Holds up to 1000× its weight in water",
+        "Multi-molecular weight ensures hydration at every skin layer",
+        "Clinically proven to reduce wrinkle depth and improve skin elasticity",
+        "Biocompatible — naturally present in human skin"
+      ],
+      "studies": [
+        {
+          "title": "Efficacy of cream-based novel formulations of hyaluronic acid of different molecular weights in anti-wrinkle treatment",
+          "journal": "Journal of Drugs in Dermatology",
+          "year": 2012,
+          "type": "Clinical study",
+          "participants": 76,
+          "finding": "Multi-molecular HA formulation significantly reduced wrinkle depth (up to 40%) and improved skin hydration and elasticity after 60 days of treatment.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22648220/"
+        },
+        {
+          "title": "Hyaluronic acid: A key molecule in skin aging",
+          "journal": "Dermato-Endocrinology",
+          "year": 2012,
+          "type": "Review",
+          "finding": "HA plays a critical role in skin moisture, tissue repair, and structural integrity. Its depletion is a major factor in skin aging.",
+          "url": "https://doi.org/10.4161/derm.21923"
+        }
+      ]
+    },
+
+    "sea_kelp_bioferment": {
+      "display_name": "Sea Kelp Bioferment",
+      "inci": "Lactobacillus/Brown Seaweed Ferment Filtrate",
+      "found_in": ["firm"],
+      "role": "hero",
+      "summary": "Brown kelp from cold Atlantic currents, fermented with Lactobacillus probiotics. Fermentation breaks open algae cells, releasing minerals, vitamins, and amino acids in a bioavailable form the skin readily accepts.",
+      "key_claims": [
+        "Rich in minerals (iodine, calcium, magnesium, zinc, iron)",
+        "Fermentation increases bioavailability of active compounds",
+        "Anti-inflammatory and antioxidant properties",
+        "Supports collagen synthesis and skin firmness"
+      ],
+      "studies": [
+        {
+          "title": "Brown seaweed polysaccharides: biological properties and potential applications in dermatology",
+          "journal": "Marine Drugs",
+          "year": 2020,
+          "type": "Review",
+          "finding": "Brown seaweed polysaccharides (fucoidans, alginates, laminarins) exhibit anti-aging, anti-inflammatory, antioxidant, and wound healing properties relevant to dermatological applications.",
+          "url": "https://doi.org/10.3390/md18020115"
+        },
+        {
+          "title": "Marine bioactives as functional ingredients for cosmeceuticals",
+          "journal": "Cosmetics (MDPI)",
+          "year": 2017,
+          "type": "Review",
+          "finding": "Marine-derived bioactives including kelp extracts demonstrate significant photoprotective, anti-wrinkle, and moisturizing effects through multiple mechanisms.",
+          "url": "https://doi.org/10.3390/cosmetics4040046"
+        },
+        {
+          "title": "Lactobacillus fermentation enhances bioactivity of marine polysaccharides",
+          "journal": "International Journal of Biological Macromolecules",
+          "year": 2019,
+          "type": "In vitro",
+          "finding": "Probiotic fermentation of seaweed polysaccharides significantly increased antioxidant activity and improved bioavailability of minerals and amino acids compared to non-fermented extracts.",
+          "url": "https://doi.org/10.1016/j.ijbiomac.2019.05.113"
+        }
+      ]
+    },
+
+    "peptide_complex": {
+      "display_name": "Peptide Complex",
+      "inci": "Palmitoyl Tripeptide-1, Palmitoyl Tetrapeptide-7",
+      "found_in": ["firm"],
+      "role": "active",
+      "commercial_name": "Matrixyl 3000",
+      "summary": "A signal peptide complex that communicates with skin cells to stimulate collagen production and reduce inflammation. Palmitoyl Tripeptide-1 mimics the body's own collagen-building signals, while Palmitoyl Tetrapeptide-7 suppresses inflammatory mediators.",
+      "key_claims": [
+        "Stimulates collagen I and III synthesis",
+        "Reduces appearance of wrinkles and fine lines",
+        "Anti-inflammatory — reduces IL-6 production",
+        "Clinically proven efficacy in 6-month studies"
+      ],
+      "studies": [
+        {
+          "title": "Effect of a cosmetic product containing Palmitoyl Oligopeptide and Palmitoyl Tetrapeptide-7 on wrinkles",
+          "journal": "International Journal of Cosmetic Science",
+          "year": 2005,
+          "type": "Clinical study",
+          "participants": 60,
+          "duration": "6 months",
+          "finding": "Significant reduction in wrinkle depth and volume after 2 months of twice-daily application. Improvements continued through 6 months with measurable increase in skin firmness and elasticity.",
+          "url": "https://doi.org/10.1111/j.1467-2494.2005.00248.x"
+        },
+        {
+          "title": "Topical peptides as cosmeceuticals",
+          "journal": "International Journal of Cosmetic Science",
+          "year": 2018,
+          "type": "Review",
+          "finding": "Signal peptides including palmitoyl tripeptide-1 and tetrapeptide-7 demonstrate collagen-stimulating and anti-inflammatory effects, with growing clinical evidence supporting their anti-aging claims.",
+          "url": "https://doi.org/10.1111/ics.12472"
+        }
+      ]
+    },
+
+    "centella": {
+      "display_name": "Centella Asiatica",
+      "inci": "Centella Asiatica Extract",
+      "nickname": "Tiger Grass",
+      "found_in": ["glow", "plump", "firm"],
+      "role": "bonus",
+      "summary": "One of the most well-documented botanical ingredients in dermatology. Its triterpenoids (madecassoside, asiaticoside) stimulate collagen synthesis, suppress inflammation, and accelerate wound healing — validated by thousands of years of Ayurvedic use and modern clinical trials.",
+      "key_claims": [
+        "Stimulates collagen I synthesis and fibroblast growth factor (FGF)",
+        "Reduces inflammatory cytokines (IL-1β, IL-6, TNFα)",
+        "Accelerates wound healing and scar improvement",
+        "Strengthens skin barrier",
+        "Safe for sensitive and reactive skin"
+      ],
+      "studies": [
+        {
+          "title": "Centella asiatica in dermatology: An overview of its benefits",
+          "journal": "MDPI Molecules",
+          "year": 2022,
+          "type": "Systematic review",
+          "finding": "Stimulates collagen I, FGF, and VEGF production. Reduces IL-1β, IL-6, and TNFα. Multiple RCTs confirm wound healing and scar improvement efficacy.",
+          "url": "https://doi.org/10.3390/molecules27196131"
+        },
+        {
+          "title": "Asiaticoside and madecassoside stimulate collagen synthesis",
+          "journal": "International Journal of Molecular Sciences",
+          "year": 2017,
+          "type": "In vitro + review",
+          "finding": "Madecassoside from Centella significantly stimulates type I collagen synthesis in human dermal fibroblasts and promotes wound healing through TGF-β signaling pathway.",
+          "url": "https://doi.org/10.3390/ijms18071259"
+        },
+        {
+          "title": "Centella asiatica: phytochemistry and mechanisms of wound healing",
+          "journal": "Journal of Ethnopharmacology",
+          "year": 2015,
+          "type": "Review",
+          "finding": "Comprehensive evidence supports Centella's wound healing, anti-inflammatory, and collagen-stimulating effects. Triterpenoid saponins are the primary active compounds.",
+          "url": "https://doi.org/10.1016/j.jep.2015.01.002"
+        }
+      ]
+    },
+
+    "bakuchiol": {
+      "display_name": "Bakuchiol",
+      "inci": "Bakuchiol",
+      "nickname": "The garden retinol",
+      "found_in": ["glow", "plump"],
+      "role": "bonus",
+      "summary": "A meroterpene from the babchi plant (Psoralea corylifolia) clinically proven to match retinol's anti-aging effects — without irritation, peeling, or photosensitivity. Safe for daytime use and all skin types including sensitive skin.",
+      "key_claims": [
+        "Comparable to retinol 0.5% in reducing wrinkles and hyperpigmentation",
+        "Significantly better tolerated — less scaling and stinging",
+        "Stimulates collagen types I, III, and IV",
+        "No photosensitivity — safe for daytime use",
+        "Suitable for sensitive skin including rosacea"
+      ],
+      "studies": [
+        {
+          "title": "Prospective, randomized, double-blind assessment of topical bakuchiol and retinol for facial photoageing",
+          "journal": "British Journal of Dermatology",
+          "year": 2019,
+          "type": "Randomized double-blind clinical trial",
+          "participants": 44,
+          "duration": "12 weeks",
+          "finding": "Bakuchiol 0.5% was comparable to retinol 0.5% in reducing wrinkle severity and hyperpigmentation, with significantly less scaling and stinging. Bakuchiol is a more tolerable alternative to retinol.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29947134/",
+          "doi": "10.1111/bjd.16918"
+        },
+        {
+          "title": "Bakuchiol: a retinol-like functional compound revealed by gene expression profiling",
+          "journal": "International Journal of Cosmetic Science",
+          "year": 2014,
+          "type": "Gene expression profiling + clinical case study",
+          "finding": "Bakuchiol showed great overall similarity to retinol in gene expression profiles. Upregulated types I, III, and IV collagen. 12-week clinical application showed significant improvement in wrinkles, pigmentation, elasticity, and firmness without retinol side effects.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24471735/",
+          "doi": "10.1111/ics.12117"
+        },
+        {
+          "title": "Multidirectional activity of bakuchiol against cellular mechanisms of facial ageing",
+          "journal": "International Journal of Cosmetic Science (PMC)",
+          "year": 2022,
+          "type": "In vitro + ex vivo + in vivo",
+          "finding": "Bakuchiol demonstrated superior antioxidant capacity over retinol, stimulated collagen I and VII production, and promoted wound re-epithelialization in ex vivo human skin models.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9328396/",
+          "doi": "10.1111/ics.12798"
+        }
+      ]
+    },
+
+    "licorice": {
+      "display_name": "Licorice Root Extract",
+      "inci": "Glycyrrhiza Glabra Root Extract",
+      "nickname": "Gold from underground",
+      "found_in": ["glow", "firm"],
+      "role": "bonus",
+      "summary": "One of the oldest medicinal plants in human history — used in Egypt, China, and Greece. Its active compound glabridin precisely inhibits tyrosinase, the enzyme triggering melanin production, offering gentle brightening without the side effects of synthetic lighteners.",
+      "key_claims": [
+        "In vitro brightening effect 16× stronger than hydroquinone",
+        "Inhibits UVB-induced pigmentation",
+        "Anti-inflammatory via COX inhibition",
+        "Antioxidant protection",
+        "Gentle — no side effects of synthetic depigmenting agents"
+      ],
+      "studies": [
+        {
+          "title": "Glabridin: a skin-lightening agent from licorice",
+          "journal": "Journal of Clinical and Aesthetic Dermatology (JCAD)",
+          "year": 2019,
+          "type": "Review",
+          "finding": "Glabridin demonstrates in vitro skin-lightening effect 16× stronger than hydroquinone. Anti-inflammatory properties through COX and lipoxygenase inhibition make it suitable for sensitive skin.",
+          "url": "https://doi.org/10.5005/jp-journals-10066-0029"
+        },
+        {
+          "title": "Depigmenting effect of topical glabridin",
+          "journal": "PubMed",
+          "year": 1998,
+          "type": "Clinical study",
+          "finding": "Topical application of 0.5% glabridin suppressed UVB-induced pigmentation and erythema in human subjects without irritation.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/9828867/"
+        },
+        {
+          "title": "Licorice extract as a source of anti-inflammatory and skin-whitening compounds",
+          "journal": "Journal of Cosmetic Dermatology",
+          "year": 2019,
+          "type": "Review",
+          "finding": "Comprehensive review confirms licorice extract's multiple dermatological benefits: tyrosinase inhibition, anti-inflammatory action, and antioxidant protection. Multiple compounds (glabridin, liquiritin, isoliquiritigenin) contribute synergistically.",
+          "url": "https://doi.org/10.1111/jocd.12905"
+        }
+      ]
+    },
+
+    "squalane": {
+      "display_name": "Squalane",
+      "inci": "Squalane (olive-derived)",
+      "nickname": "Your own oil",
+      "found_in": ["plump", "firm"],
+      "role": "bonus",
+      "summary": "A bioidentical molecule already present in human skin, making up ~12% of sebum. Derived from olives instead of shark liver. Locks in moisture, never clogs pores, and is compatible with every active ingredient.",
+      "key_claims": [
+        "Bioidentical to human sebum (~12% of natural sebum)",
+        "Non-comedogenic — doesn't clog pores",
+        "Locks in moisture (occlusive seal over water-based actives)",
+        "Compatible with all actives and skin types",
+        "Olive-derived — 100% plant-based, no animal origin"
+      ],
+      "studies": [
+        {
+          "title": "Squalene and squalane: natural components of human sebum",
+          "journal": "International Journal of Pharmaceutics",
+          "year": 2009,
+          "type": "Review",
+          "finding": "Squalane is the fully saturated form of squalene, a natural component of human sebum. It is non-comedogenic, non-irritating, and serves as an excellent emollient and carrier for active ingredients.",
+          "url": "https://doi.org/10.1016/j.ijpharm.2008.12.033"
+        },
+        {
+          "title": "The role of emollients in dermatological treatment",
+          "journal": "Journal of the European Academy of Dermatology (JEADV)",
+          "year": 2017,
+          "type": "Review",
+          "finding": "Squalane is classified among the most skin-compatible emollients due to its structural identity with endogenous lipids. It enhances skin barrier function and improves penetration of co-applied actives.",
+          "url": "https://doi.org/10.1111/jdv.14456"
+        }
+      ]
+    },
+
+    "astaxanthin": {
+      "display_name": "Astaxanthin (Red Gold)",
+      "inci": "Astaxanthin (from Haematococcus Pluvialis Extract)",
+      "nickname": "Red gold of the ocean",
+      "found_in": ["glow", "plump", "firm"],
+      "role": "premium_addon",
+      "summary": "A carotenoid pigment from Haematococcus pluvialis microalgae — the molecule that makes flamingos pink. One of the most powerful natural antioxidants ever measured: 6,000× stronger than vitamin C, 550× stronger than vitamin E in singlet oxygen quenching.",
+      "key_claims": [
+        "Antioxidant power: 6,000× vitamin C, 550× vitamin E (singlet oxygen quenching)",
+        "Photoaging protection — reduces UV-induced damage",
+        "Improves wrinkles, elasticity, and skin moisture",
+        "Visually stunning — tints the product coral (but doesn't stain skin)",
+        "100% plant-based — from microalgae, not fish"
+      ],
+      "studies": [
+        {
+          "title": "Cosmetic benefits of astaxanthin on human subjects",
+          "journal": "Acta Biochimica Polonica",
+          "year": 2012,
+          "type": "Clinical study",
+          "participants": 30,
+          "duration": "8 weeks",
+          "finding": "Combined oral and topical astaxanthin treatment improved wrinkles, age spot size, skin texture, and moisture content. Improvements in elasticity and corneocyte condition observed in both men and women.",
+          "url": "https://doi.org/10.18388/abp.2012_2168"
+        },
+        {
+          "title": "Astaxanthin: sources, extraction, stability, biological activities and its commercial applications",
+          "journal": "Marine Drugs",
+          "year": 2018,
+          "type": "Comprehensive review",
+          "finding": "In vitro singlet oxygen quenching activity 6,000× greater than vitamin C and 550× greater than vitamin E. Multiple clinical studies demonstrate topical and oral benefits for skin aging, including wrinkle reduction and UV protection.",
+          "url": "https://doi.org/10.3390/md16030097"
+        },
+        {
+          "title": "Protective effects of astaxanthin against skin photoaging",
+          "journal": "Nutrients",
+          "year": 2018,
+          "type": "Review of clinical trials",
+          "finding": "Multiple RCTs confirm that astaxanthin supplementation (oral and topical) significantly reduces UV-induced skin deterioration, improves moisture retention, and enhances elasticity.",
+          "url": "https://doi.org/10.3390/nu10040522"
+        }
+      ]
+    }
+  }
+}

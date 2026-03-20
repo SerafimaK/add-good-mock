@@ -6,6 +6,7 @@ import HeroSection from './components/HeroSection.vue'
 import MarqueeBand from './components/MarqueeBand.vue'
 import ProductsSection from './components/ProductsSection.vue'
 import HowItWorks from './components/HowItWorks.vue'
+import ScienceSection from './components/ScienceSection.vue'
 import QuizSection from './components/QuizSection.vue'
 import PricingSection from './components/PricingSection.vue'
 import FooterSection from './components/FooterSection.vue'
@@ -26,6 +27,7 @@ onMounted(() => {
   <MarqueeBand />
   <ProductsSection />
   <HowItWorks />
+  <ScienceSection />
   <QuizSection />
   <PricingSection />
   <FooterSection />
