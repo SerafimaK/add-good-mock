@@ -66,5 +66,9 @@ export function useCart() {
     toastTimer = setTimeout(() => { state.toast.visible = false }, 2200)
   }
 
-  return { state, count, total, add, remove, toggle, showToast, PRODUCTS }
+  function clearCart() {
+    state.items.splice(0, state.items.length)
+  }
+
+  return { state, count, total, add, remove, toggle, showToast, clearCart, PRODUCTS }
 }

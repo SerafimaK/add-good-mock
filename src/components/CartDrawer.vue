@@ -1,7 +1,14 @@
 <script setup>
+import { useRouter } from 'vue-router'
 import { useCart, PRODUCTS } from '../stores/cart.js'
 
+const router = useRouter()
 const { state, total, remove, toggle } = useCart()
+
+function goToCheckout() {
+  toggle()
+  router.push('/checkout')
+}
 </script>
 
 <template>
@@ -31,7 +38,7 @@ const { state, total, remove, toggle } = useCart()
           <span>Total</span>
           <span>${{ total.toFixed(2) }}</span>
         </div>
-        <button class="checkout-btn">Checkout</button>
+        <button class="checkout-btn" @click="goToCheckout">Checkout</button>
       </div>
     </div>
   </Teleport>

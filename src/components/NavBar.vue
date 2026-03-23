@@ -1,9 +1,12 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useCart } from '../stores/cart.js'
+import { useAuth } from '../stores/auth.js'
 import CartDrawer from './CartDrawer.vue'
 
-const { state, count, toggle } = useCart()
+const { state: cartState, count, toggle } = useCart()
+const { state: authState, isAuthenticated, openAuthModal, logout } = useAuth()
+
 const scrolled = ref(false)
 
 function onScroll() {
@@ -12,23 +15,36 @@ function onScroll() {
 
 onMounted(() => window.addEventListener('scroll', onScroll))
 onUnmounted(() => window.removeEventListener('scroll', onScroll))
+
+const userInitial = computed(() => {
+  if (authState.user?.name) return authState.user.name.charAt(0).toUpperCase()
+  return '?'
+})
 </script>
 
 <template>
   <nav :class="{ s: scrolled }">
-    <a href="#" class="logo">Add <b>Good</b></a>
+    <router-link to="/" class="logo">Add <b>Good</b></router-link>
     <ul class="nav-links">
-      <li><a href="#products" class="lk">Boosters</a></li>
-      <li><a href="#howto" class="lk">How It Works</a></li>
-      <li><a href="#quiz" class="lk">Find Yours</a></li>
-      <li><a href="#reviews" class="lk">Reviews</a></li>
+      <li><router-link :to="{ path: '/', hash: '#products' }" class="lk">Boosters</router-link></li>
+      <li><router-link :to="{ path: '/', hash: '#howto' }" class="lk">How It Works</router-link></li>
+      <li><router-link :to="{ path: '/', hash: '#quiz' }" class="lk">Find Yours</router-link></li>
+      <li><router-link :to="{ path: '/', hash: '#reviews' }" class="lk">Reviews</router-link></li>
     </ul>
     <div class="nav-r">
+      <!-- User icon -->
+      <router-link v-if="isAuthenticated" to="/account" class="user-btn" aria-label="Account">
+        <span class="user-initial">{{ userInitial }}</span>
+      </router-link>
+      <button v-else class="user-btn user-btn--guest" aria-label="Log in" @click="openAuthModal('login')">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+
       <button class="cart-btn" @click="toggle" aria-label="Cart">
         <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         <div class="cart-count" :class="{ show: count > 0 }">{{ count }}</div>
       </button>
-      <a href="#pricing" class="ncta">Shop</a>
+      <router-link :to="{ path: '/', hash: '#pricing' }" class="ncta">Shop</router-link>
     </div>
   </nav>
   <CartDrawer />
@@ -56,6 +72,27 @@ nav.s {
 }
 .lk:hover { color: var(--dark); }
 .nav-r { display: flex; align-items: center; gap: 1rem; }
+.user-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%;
+  text-decoration: none; transition: all .2s;
+}
+.user-btn--guest {
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.user-btn--guest svg {
+  width: 22px; height: 22px; fill: none; stroke: var(--dark);
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.user-btn--guest:hover svg { stroke: var(--forest); }
+.user-initial {
+  background: var(--forest); color: #fff;
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-size: .75rem; font-weight: 700;
+  transition: transform .2s;
+}
+.user-initial:hover { transform: scale(1.08); }
 .cart-btn {
   position: relative; background: none; border: none; cursor: pointer; padding: .4rem;
 }
