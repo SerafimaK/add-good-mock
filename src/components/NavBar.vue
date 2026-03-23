@@ -21,6 +21,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       <li><a href="#products" class="lk">Boosters</a></li>
       <li><a href="#howto" class="lk">How It Works</a></li>
       <li><a href="#quiz" class="lk">Find Yours</a></li>
+      <li><a href="#reviews" class="lk">Reviews</a></li>
     </ul>
     <div class="nav-r">
       <button class="cart-btn" @click="toggle" aria-label="Cart">
