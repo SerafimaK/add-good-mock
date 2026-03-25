@@ -1,9 +1,8 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCart } from '../stores/cart.js'
 import { useAuth } from '../stores/auth.js'
-import CheckoutStepAuth from '../components/checkout/CheckoutStepAuth.vue'
 import CheckoutStepShipping from '../components/checkout/CheckoutStepShipping.vue'
 import CheckoutStepReview from '../components/checkout/CheckoutStepReview.vue'
 import OrderSummary from '../components/checkout/OrderSummary.vue'
@@ -12,44 +11,32 @@ const router = useRouter()
 const { state: cartState, total, clearCart } = useCart()
 const { state: authState, isAuthenticated, register, addOrder, addAddress } = useAuth()
 
-const step = ref(isAuthenticated.value ? 2 : 1)
-const authChoice = ref(null) // 'guest' | 'create' | null
+const step = ref(1)
 const shippingAddress = ref(null)
+const contactInfo = ref(null)
 const accountFields = ref(null)
 const placing = ref(false)
-
-// If user logs in via auth modal during checkout, advance to step 2
-watch(isAuthenticated, (val) => {
-  if (val && step.value === 1) {
-    step.value = 2
-    authChoice.value = null
-  }
-})
 
 // Redirect if cart is empty
 if (cartState.items.length === 0) {
   router.replace('/')
 }
 
-const stepLabels = ['Account', 'Shipping', 'Review']
+const stepLabels = ['Shipping', 'Review']
 const currentStepIndex = computed(() => step.value - 1)
 
-function handleAuthChoice(choice) {
-  authChoice.value = choice
-  step.value = 2
-}
-
-function handleShippingSubmit({ address, accountFields: accFields }) {
+function handleShippingSubmit({ address, contact, accountFields: accFields }) {
   shippingAddress.value = address
+  contactInfo.value = contact
   accountFields.value = accFields
-  step.value = 3
+  step.value = 2
 }
 
 async function handlePlaceOrder() {
   placing.value = true
 
-  // Create account if needed
-  if (authChoice.value === 'create' && accountFields.value) {
+  // Create account if user opted in
+  if (accountFields.value) {
     const ok = await register(
       accountFields.value.name,
       accountFields.value.emailOrPhone,
@@ -80,6 +67,7 @@ async function handlePlaceOrder() {
     })),
     total: total.value,
     shippingAddress: { ...shippingAddress.value },
+    ...(contactInfo.value && { contact: contactInfo.value }),
   })
 
   clearCart()
@@ -108,35 +96,28 @@ async function handlePlaceOrder() {
 
       <div class="co-body">
         <div class="co-main">
-          <!-- Step 1: Auth -->
-          <CheckoutStepAuth
-            v-if="step === 1"
-            @choose="handleAuthChoice"
-          />
-
-          <!-- Step 2: Shipping -->
+          <!-- Step 1: Shipping -->
           <CheckoutStepShipping
-            v-if="step === 2"
+            v-if="step === 1"
             :addresses="authState.user?.addresses || []"
-            :showAccountFields="authChoice === 'create'"
             :isLoggedIn="isAuthenticated"
             @submit="handleShippingSubmit"
           />
 
-          <!-- Step 3: Review -->
+          <!-- Step 2: Review -->
           <CheckoutStepReview
-            v-if="step === 3"
+            v-if="step === 2"
             :items="cartState.items"
             :total="total"
             :address="shippingAddress"
             :loading="placing"
             @placeOrder="handlePlaceOrder"
-            @back="step = 2"
+            @back="step = 1"
           />
         </div>
 
-        <!-- Sidebar order summary (visible on step 2 & 3) -->
-        <div v-if="step >= 2" class="co-sidebar">
+        <!-- Sidebar order summary -->
+        <div class="co-sidebar">
           <OrderSummary :items="cartState.items" :total="total" />
         </div>
       </div>
