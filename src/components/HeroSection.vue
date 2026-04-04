@@ -1,7 +1,10 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useAuth } from '../stores/auth.js'
 
 defineEmits(['open-promo'])
+
+const { isAuthenticated } = useAuth()
 
 const boosters = [
   {
@@ -290,7 +293,7 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <button class="floating-cta" @click="$emit('open-promo')">
+    <button v-if="!isAuthenticated" class="floating-cta" @click="$emit('open-promo')">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1L10 5.5L15 6L11.5 9.5L12.5 14.5L8 12L3.5 14.5L4.5 9.5L1 6L6 5.5L8 1Z" fill="currentColor"/></svg>
       <span>Get 15% off</span>
       <strong>your first order</strong>

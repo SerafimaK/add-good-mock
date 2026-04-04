@@ -28,7 +28,7 @@ const userInitial = computed(() => {
     <ul class="nav-links">
       <li><router-link :to="{ path: '/', hash: '#products' }" class="lk">Boosters</router-link></li>
       <li><router-link :to="{ path: '/', hash: '#howto' }" class="lk">How It Works</router-link></li>
-      <li><router-link :to="{ path: '/', hash: '#science' }" class="lk">Find Yours</router-link></li>
+
       <li><router-link :to="{ path: '/', hash: '#reviews' }" class="lk">Reviews</router-link></li>
     </ul>
     <div class="nav-r">

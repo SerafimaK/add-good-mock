@@ -107,7 +107,7 @@ function reset() {
 
             <label class="promo-check">
               <input type="checkbox" v-model="agreed">
-              <span>I'd like to receive updates and offers from Add Good</span>
+              <span>I'd like to receive updates and offers from Add Good. We email rarely and only when it matters. Unsubscribe anytime.</span>
             </label>
 
             <p v-if="error" class="promo-error">{{ error }}</p>

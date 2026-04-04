@@ -144,8 +144,8 @@ const showCards = computed(() => selectedIngredient.value || showAll.value)
         </div>
 
         <div class="sci-btn-row">
-          <button class="sci-show-all" @click="showAllIngredients">Explore all ingredients</button>
           <button v-if="showCards" class="sci-show-all sci-hide" @click="hideAll">Hide</button>
+          <button v-else class="sci-show-all" @click="showAllIngredients">Explore all ingredients</button>
         </div>
       </div>
 

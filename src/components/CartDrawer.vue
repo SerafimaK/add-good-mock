@@ -1,9 +1,16 @@
 <script setup>
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCart, PRODUCTS, FREE_SHIPPING_QTY } from '../stores/cart.js'
+import { useAuth } from '../stores/auth.js'
 
 const router = useRouter()
 const { state, total, freeShipping, remove, toggle } = useCart()
+const { state: authState, isAuthenticated } = useAuth()
+
+const showPromo = computed(() =>
+  isAuthenticated.value && (!authState.user?.orders || authState.user.orders.length === 0)
+)
 
 function goToCheckout() {
   toggle()
@@ -32,6 +39,11 @@ function goToCheckout() {
             <button class="ci-remove" @click="remove(i)">Remove</button>
           </div>
         </div>
+      </div>
+      <div v-if="showPromo" class="cart-promo">
+        <span class="cart-promo-label">Your 15% off code</span>
+        <span class="cart-promo-code">WELCOME15</span>
+        <span class="cart-promo-hint">Applied automatically at checkout</span>
       </div>
       <div v-if="state.items.length > 0" class="cart-footer">
         <div v-if="freeShipping" class="cart-shipping">Free shipping</div>
@@ -111,4 +123,19 @@ function goToCheckout() {
   transition: all .3s;
 }
 .checkout-btn:hover { background: var(--forest); }
+.cart-promo {
+  text-align: center; padding: 1rem 2rem; border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.cart-promo-label {
+  display: block; font-size: .68rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--mid); margin-bottom: .4rem;
+}
+.cart-promo-code {
+  display: inline-block; font-family: var(--serif); font-size: 1.2rem; font-weight: 600;
+  color: var(--forest); letter-spacing: .08em; padding: .3rem .8rem;
+  border: 1.5px dashed var(--forest); border-radius: 8px; margin-bottom: .3rem;
+}
+.cart-promo-hint {
+  display: block; font-size: .72rem; color: var(--lt);
+}
 </style>

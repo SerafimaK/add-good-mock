@@ -49,19 +49,18 @@ function scrollToProducts() {
       <div class="prc rv">
         <h3>Single Booster</h3>
         <div class="prp">from $11.90</div>
-        <div class="prd">30 ml · ~30 uses<br>+ $1 per custom active · + $2 Red Gold</div>
+        <div class="prd">30 ml</div>
         <button class="prbt prbt-primary" @click="scrollToProducts">Customize</button>
       </div>
       <div class="prc ft rv">
-        <div class="prbd">Best value</div>
-        <h3>The Trio</h3>
-        <div class="prp">$29.90 <small>$35.70</small></div>
-        <div class="prd">All three · Save 16%</div>
+        <div class="prbd">Free shipping</div>
+        <h3>3 boosters</h3>
+        <div class="prp">Best value</div>
+        <div class="prd">Mix and match</div>
         <button class="prbt prbt-primary" @click="scrollToProducts">Build your set</button>
       </div>
     </div>
 
-    <p class="pricing-note rv">Free shipping on orders of 3+ bottles.</p>
   </section>
 </template>
 
@@ -175,13 +174,6 @@ function scrollToProducts() {
 .prbt-sm:hover { background: var(--dark); color: var(--bg); }
 .prbt-primary { background: var(--dark); color: var(--bg); padding: .75rem 1.6rem; }
 .prbt-primary:hover { background: var(--forest); }
-
-.pricing-note {
-  text-align: center;
-  font-size: .82rem;
-  color: var(--lt);
-  margin-top: 1.5rem;
-}
 
 @media (max-width: 700px) {
   .prg { grid-template-columns: 1fr; max-width: 360px; }
