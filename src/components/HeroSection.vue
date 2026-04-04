@@ -232,24 +232,16 @@ onUnmounted(() => {
           @mouseenter="onStageEnter"
           @mouseleave="onStageLeave"
         >
-          <div class="color-fog" aria-hidden="true">
-            <span class="fog fog-glow"></span>
-            <span class="fog fog-plump"></span>
-            <span class="fog fog-firm"></span>
+          <!-- Watercolor pulsating spots -->
+          <div class="watercolor-spots" aria-hidden="true">
+            <span class="wc-spot wc-spot-1"></span>
+            <span class="wc-spot wc-spot-2"></span>
+            <span class="wc-spot wc-spot-3"></span>
+            <span class="wc-spot wc-spot-4"></span>
           </div>
 
-          <div class="ingredient-ghosts" aria-hidden="true">
-            <img
-              v-for="story in boosters"
-              :key="story.id"
-              :src="story.ingredient"
-              alt=""
-              loading="lazy"
-              :class="['ingredient', 'ingredient-' + story.id, { 'is-active': focusStoryId === story.id }]"
-            >
-          </div>
-
-          <div class="drop-cluster" aria-label="Booster drops">
+          <!-- Three drops arranged diagonally -->
+          <div class="drop-diagonal" aria-label="Booster drops">
             <button
               v-for="story in boosters"
               :key="story.id"
@@ -263,31 +255,17 @@ onUnmounted(() => {
               @click="focusStory(story.id)"
             >
               <img :src="story.drop" alt="" class="drop-image" loading="lazy">
-              <span class="drop-chip">{{ story.name }}</span>
             </button>
           </div>
 
+          <!-- Bottle on the right, top layer -->
+          <div class="bottle-hero" aria-hidden="true">
+            <img src="/bottle.png" alt="" class="bottle-image" loading="lazy">
+          </div>
+
+          <!-- Cream smear at the bottom -->
           <div class="cream-hero" aria-hidden="true">
             <img src="/cream.png" alt="" class="cream-image" loading="lazy">
-          </div>
-
-          <div class="story-row">
-            <button
-              v-for="story in boosters"
-              :key="story.id"
-              type="button"
-              :class="['story-item', 'story-' + story.id, { 'is-active': focusStoryId === story.id }]"
-              @mouseenter="onDropEnter(story.id)"
-              @mouseleave="onDropLeave"
-              @focus="onDropEnter(story.id)"
-              @blur="onDropLeave"
-              @click="scrollTo('pb-' + story.id)"
-            >
-              <span class="story-source">{{ story.source }}</span>
-              <span class="story-name">{{ story.name }}</span>
-              <span class="story-ingr">{{ story.ingr }}</span>
-              <span class="story-mini">{{ story.mini }}</span>
-            </button>
           </div>
         </div>
       </div>
@@ -481,176 +459,76 @@ h1 i {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6.5rem 2.8rem 3.9rem 1.4rem;
+  padding: 4rem 0 0 0;
+  overflow: visible;
 }
 
 .atmo-stage {
   --mx: 0;
   --my: 0;
-  width: min(670px, 100%);
-  min-height: 600px;
+  width: 100%;
+  min-height: 100vh;
   position: relative;
   isolation: isolate;
-  padding: 0.4rem 0.8rem 5.4rem;
 }
 
-.atmo-stage::before {
-  content: '';
+/* Watercolor pulsating spots */
+.watercolor-spots {
   position: absolute;
-  inset: 10% 4% 23%;
-  border-radius: 46% 54% 49% 51% / 55% 40% 60% 45%;
-  background:
-    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0) 52%),
-    radial-gradient(circle at 22% 70%, rgba(208, 224, 202, 0.3), rgba(208, 224, 202, 0) 55%),
-    radial-gradient(circle at 73% 64%, rgba(183, 212, 224, 0.3), rgba(183, 212, 224, 0) 56%);
-  filter: blur(18px);
-  transform: translate3d(calc(var(--mx) * 8px), calc(var(--my) * 8px), 0);
-  transition: transform 0.3s ease;
-  z-index: 0;
-}
-
-.atmo-stage::after {
-  content: '';
-  position: absolute;
-  width: 74%;
-  height: 54%;
-  left: 11%;
-  top: 18%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0));
-  filter: blur(30px);
-  transform: translate3d(calc(var(--mx) * -12px), calc(var(--my) * -10px), 0);
-  transition: transform 0.3s ease;
+  inset: 0;
   z-index: 1;
   pointer-events: none;
 }
 
-.color-fog {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.fog {
+.wc-spot {
   position: absolute;
   border-radius: 50%;
-  filter: blur(20px);
-  transform: translate3d(calc(var(--mx) * var(--drift-x, 8px)), calc(var(--my) * var(--drift-y, 7px)), 0);
-  transition: transform 0.35s ease, opacity 0.45s ease;
-  animation: fogPulse var(--dur, 9s) ease-in-out infinite;
+  filter: blur(32px);
 }
 
-.fog-glow {
-  width: 320px;
-  height: 320px;
-  top: 92px;
-  left: 8%;
-  --drift-x: -16px;
-  --drift-y: -8px;
-  --dur: 8.6s;
-  background: radial-gradient(circle, rgba(222, 188, 126, 0.34), rgba(222, 188, 126, 0));
+.wc-spot-1 {
+  width: 360px;
+  height: 360px;
+  top: 5%;
+  right: 8%;
+  --wc-dur: 7.5s;
+  background: radial-gradient(circle, rgba(245, 170, 195, 0.45), rgba(245, 170, 195, 0));
 }
 
-.fog-plump {
-  width: 310px;
-  height: 310px;
-  top: 120px;
-  right: 2%;
-  --drift-x: 15px;
-  --drift-y: -10px;
-  --dur: 9.1s;
-  background: radial-gradient(circle, rgba(153, 196, 145, 0.29), rgba(153, 196, 145, 0));
+.wc-spot-2 {
+  width: 300px;
+  height: 300px;
+  top: 42%;
+  left: 2%;
+  --wc-dur: 9s;
+  background: radial-gradient(circle, rgba(235, 160, 185, 0.38), rgba(235, 160, 185, 0));
 }
 
-.fog-firm {
-  width: 320px;
-  height: 320px;
-  bottom: 66px;
-  left: 33%;
-  --drift-x: 10px;
-  --drift-y: 12px;
-  --dur: 8.2s;
-  background: radial-gradient(circle, rgba(132, 181, 207, 0.3), rgba(132, 181, 207, 0));
+.wc-spot-3 {
+  width: 340px;
+  height: 340px;
+  bottom: 10%;
+  right: 18%;
+  --wc-dur: 8.2s;
+  background: radial-gradient(circle, rgba(250, 185, 210, 0.42), rgba(250, 185, 210, 0));
 }
 
-.focus-glow .fog-glow,
-.focus-plump .fog-plump,
-.focus-firm .fog-firm {
-  opacity: 1;
-  filter: blur(18px);
+.wc-spot-4 {
+  width: 250px;
+  height: 250px;
+  top: 22%;
+  left: 25%;
+  --wc-dur: 10s;
+  background: radial-gradient(circle, rgba(242, 190, 212, 0.35), rgba(242, 190, 212, 0));
 }
 
-.focus-glow .fog:not(.fog-glow),
-.focus-plump .fog:not(.fog-plump),
-.focus-firm .fog:not(.fog-firm) {
-  opacity: 0.76;
-}
 
-.ingredient-ghosts {
+/* Diagonal drop layout */
+.drop-diagonal {
   position: absolute;
   inset: 0;
+  z-index: 4;
   pointer-events: none;
-  z-index: 3;
-}
-
-.ingredient {
-  --flip: 1;
-  --scale: 0.92;
-  position: absolute;
-  opacity: 0;
-  transform: translate3d(calc(var(--mx) * var(--px, 0px)), calc(var(--my) * var(--py, 0px)), 0) scaleX(var(--flip))
-    scale(var(--scale));
-  transition: opacity 0.45s ease, transform 0.45s ease;
-  mix-blend-mode: soft-light;
-  filter: saturate(0.86) blur(0.2px);
-}
-
-.ingredient-glow {
-  --flip: -1;
-  width: clamp(148px, 22vw, 220px);
-  top: 90px;
-  left: 0%;
-  --px: -18px;
-  --py: -18px;
-}
-
-.ingredient-plump {
-  width: clamp(136px, 20vw, 194px);
-  top: 74px;
-  right: 2%;
-  --px: 16px;
-  --py: -13px;
-}
-
-.ingredient-firm {
-  width: clamp(136px, 20vw, 206px);
-  right: 8%;
-  bottom: 104px;
-  --px: 18px;
-  --py: 14px;
-}
-
-.ingredient.is-active {
-  --scale: 1;
-  opacity: 0.4;
-}
-
-.ingredient-plump.is-active {
-  opacity: 0.52;
-  filter: saturate(1.03) blur(0);
-}
-
-.drop-cluster {
-  position: absolute;
-  top: 26px;
-  left: 50%;
-  transform: translate3d(calc(-50% + var(--mx) * 10px), calc(var(--my) * -6px), 0);
-  display: flex;
-  align-items: flex-end;
-  gap: 5rem;
-  z-index: 6;
-  transition: transform 0.3s ease;
 }
 
 .drop-orb {
@@ -658,250 +536,84 @@ h1 i {
   background: transparent;
   padding: 0;
   cursor: pointer;
-  position: relative;
-  transition: transform 0.32s ease, filter 0.32s ease;
-  transform-origin: center bottom;
-}
-
-.drop-orb::before {
-  content: '';
   position: absolute;
-  inset: 17% 22% 22%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0));
-  opacity: 0.7;
-  pointer-events: none;
+  pointer-events: auto;
+  transition: transform 0.32s ease, filter 0.32s ease;
+  transform-origin: center center;
 }
 
 .drop-image {
-  width: clamp(72px, 6.8vw, 94px);
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 16px 22px rgba(108, 95, 79, 0.2));
-  animation: floatDrop 6.2s ease-in-out infinite;
+  filter: drop-shadow(0 12px 20px rgba(108, 95, 79, 0.22));
 }
 
-.drop-glow .drop-image {
-  animation-delay: 0.1s;
+/* Drops on a perfect diagonal: equal vertical (8.4%) and horizontal (18%) spacing */
+
+/* Green drop — bottom left */
+.drop-plump {
+  top: 320px;
+  left: 4%;
 }
 
 .drop-plump .drop-image {
-  animation-delay: 0.7s;
+  width: 89px;
+}
+
+/* Blue drop — center */
+.drop-firm {
+  top: 245px;
+  left: 22%;
 }
 
 .drop-firm .drop-image {
-  animation-delay: 1.3s;
+  width: 90px;
 }
 
-.drop-chip {
+/* Gold drop — top right */
+.drop-glow {
+  top: 170px;
+  left: 40%;
+}
+
+.drop-glow .drop-image {
+  width: 99px;
+}
+
+.drop-orb {
+  cursor: default;
+}
+
+/* Bottle — right side, overlapping cream */
+.bottle-hero {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -14px;
-  font-size: 0.56rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(55, 54, 50, 0.72);
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 999px;
-  padding: 0.2rem 0.48rem;
-  backdrop-filter: blur(5px);
+  right: 12%;
+  top: 160px;
+  width: 145px;
+  z-index: 6;
 }
 
-.drop-orb:hover,
-.drop-orb.is-active,
-.drop-orb:focus-visible {
-  transform: translateY(32px) scale(1.06) rotate(calc(var(--mx) * 4deg));
+.bottle-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(-12px 20px 40px rgba(80, 70, 55, 0.22));
 }
 
-.drop-glow:hover,
-.drop-glow.is-active,
-.focus-glow .drop-glow {
-  filter: drop-shadow(0 0 12px rgba(227, 186, 109, 0.44));
-}
-
-.drop-plump:hover,
-.drop-plump.is-active,
-.focus-plump .drop-plump {
-  filter: drop-shadow(0 0 12px rgba(142, 191, 134, 0.45));
-}
-
-.drop-firm:hover,
-.drop-firm.is-active,
-.focus-firm .drop-firm {
-  filter: drop-shadow(0 0 12px rgba(114, 174, 205, 0.48));
-}
-
+/* Cream smear — behind drops and bottle, fixed relative to bottle */
 .cream-hero {
   position: absolute;
-  left: 51%;
-  bottom: 164px;
-  width: min(510px, 96%);
-  transform: translate3d(calc(-50% + var(--mx) * -14px), calc(var(--my) * -10px), 0);
-  z-index: 5;
-  transition: transform 0.32s ease;
+  right: 12%;
+  top: 400px;
+  width: 390px;
+  z-index: 3;
 }
 
 .cream-image {
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 27px 34px rgba(108, 95, 78, 0.25));
-  animation: breathe 7s ease-in-out infinite;
-}
-
-.tone-glow {
-  border-color: rgba(220, 184, 121, 0.55);
-  background: linear-gradient(145deg, rgba(255, 246, 230, 0.52), rgba(255, 255, 255, 0.18));
-}
-
-.tone-plump {
-  border-color: rgba(149, 193, 143, 0.52);
-  background: linear-gradient(145deg, rgba(239, 251, 237, 0.46), rgba(255, 255, 255, 0.17));
-}
-
-.tone-firm {
-  border-color: rgba(126, 178, 204, 0.56);
-  background: linear-gradient(145deg, rgba(235, 245, 251, 0.49), rgba(255, 255, 255, 0.18));
-}
-
-.callout-eyebrow {
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(78, 75, 70, 0.74);
-  margin-bottom: 0.28rem;
-}
-
-.callout-text {
-  font-family: var(--serif);
-  font-size: 1rem;
-  color: rgba(42, 41, 37, 0.9);
-  line-height: 1.22;
-  margin-bottom: 0;
-}
-
-.story-row {
-  position: absolute;
-  left: 1%;
-  right: 1%;
-  bottom: 16px;
-  display: flex;
-  align-items: flex-end;
-  gap: 0.55rem;
-  z-index: 8;
-}
-
-.story-item {
-  flex: 1 1 0;
-  border: 0;
-  cursor: pointer;
-  text-align: left;
-  padding: 0.68rem 0.68rem 0.7rem;
-  border-radius: 0.88rem;
-  background: linear-gradient(170deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.16));
-  border: 1px solid rgba(255, 255, 255, 0.52);
-  backdrop-filter: blur(6px);
-  display: flex;
-  flex-direction: column;
-  gap: 0.14rem;
-  transition: transform 0.26s ease, border-color 0.26s ease, background 0.26s ease;
-}
-
-.story-item:hover,
-.story-item:focus-visible,
-.story-item.is-active {
-  transform: translateY(-2px);
-}
-
-.story-item.is-active {
-  transform: translateY(-6px) scale(1.07);
-  box-shadow: 0 16px 30px rgba(110, 99, 84, 0.15);
-}
-
-.story-name {
-  font-family: var(--serif);
-  font-size: 1rem;
-  line-height: 1.1;
-  color: rgba(38, 38, 36, 0.92);
-}
-
-.story-source {
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  color: rgba(88, 83, 74, 0.74);
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transform: translateY(-4px);
-  transition: opacity 0.24s ease, max-height 0.24s ease, transform 0.24s ease;
-}
-
-.story-item.is-active .story-source {
-  opacity: 1;
-  max-height: 1rem;
-  transform: translateY(0);
-}
-
-.story-mini {
-  position: relative;
-  padding-top: 0;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  font-size: 0.71rem;
-  line-height: 1.34;
-  color: rgba(79, 75, 69, 0.86);
-  transform: translateY(-4px);
-  transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-}
-
-.story-mini::before {
-  content: '';
-  display: block;
-  width: 48%;
-  height: 1px;
-  margin-bottom: 0.24rem;
-  background: rgba(92, 85, 75, 0.24);
-  opacity: 0;
-  transition: opacity 0.24s ease;
-}
-
-.story-item.is-active .story-mini {
-  padding-top: 0.12rem;
-  max-height: 3.5rem;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.story-item.is-active .story-mini::before {
-  opacity: 1;
-}
-
-.story-ingr {
-  font-size: 0.7rem;
-  line-height: 1.28;
-  color: rgba(86, 82, 75, 0.88);
-}
-
-.story-glow:hover,
-.story-glow.is-active {
-  border-color: rgba(208, 183, 139, 0.68);
-  background: linear-gradient(170deg, rgba(255, 246, 230, 0.56), rgba(255, 255, 255, 0.18));
-}
-
-.story-plump:hover,
-.story-plump.is-active {
-  border-color: rgba(154, 185, 142, 0.68);
-  background: linear-gradient(170deg, rgba(240, 250, 239, 0.54), rgba(255, 255, 255, 0.18));
-}
-
-.story-firm:hover,
-.story-firm.is-active {
-  border-color: rgba(132, 178, 197, 0.7);
-  background: linear-gradient(170deg, rgba(235, 246, 252, 0.56), rgba(255, 255, 255, 0.18));
+  filter: drop-shadow(0 8px 24px rgba(108, 95, 78, 0.18));
 }
 
 .floating-cta {
@@ -965,35 +677,7 @@ h1 i {
   }
 }
 
-@keyframes floatDrop {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(8px);
-  }
-}
 
-@keyframes breathe {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.024);
-  }
-}
-
-@keyframes fogPulse {
-  0%,
-  100% {
-    transform: translate3d(calc(var(--mx) * var(--drift-x, 8px)), calc(var(--my) * var(--drift-y, 7px)), 0) scale(1);
-  }
-  50% {
-    transform: translate3d(calc(var(--mx) * var(--drift-x, 8px)), calc(var(--my) * var(--drift-y, 7px)), 0) scale(1.05);
-  }
-}
 
 @media (max-width: 1120px) {
   .hero-content {
@@ -1017,13 +701,47 @@ h1 i {
   }
 
   .hero-visual {
-    padding: 0 1.2rem 3.2rem;
+    padding: 0;
   }
 
   .atmo-stage {
-    min-height: 560px;
+    min-height: 360px;
   }
 
+  .drop-plump {
+    top: 200px;
+    left: 6%;
+  }
+  .drop-plump .drop-image { width: 60px; }
+
+  .drop-firm {
+    top: 140px;
+    left: 22%;
+  }
+  .drop-firm .drop-image { width: 62px; }
+
+  .drop-glow {
+    top: 80px;
+    left: 38%;
+  }
+  .drop-glow .drop-image { width: 68px; }
+
+  .bottle-hero {
+    right: 14%;
+    top: 80px;
+    width: 100px;
+  }
+
+  .cream-hero {
+    right: 14%;
+    top: 260px;
+    width: 260px;
+  }
+
+  .wc-spot-1 { width: 180px; height: 180px; }
+  .wc-spot-2 { width: 150px; height: 150px; }
+  .wc-spot-3 { width: 160px; height: 160px; }
+  .wc-spot-4 { width: 130px; height: 130px; }
 }
 
 @media (max-width: 760px) {
@@ -1032,77 +750,44 @@ h1 i {
   }
 
   .atmo-stage {
-    min-height: 510px;
-    padding: 0.25rem 0.2rem 4.6rem;
+    min-height: 260px;
   }
 
-  .atmo-stage::before {
-    inset: 14% 2% 22%;
-    filter: blur(16px);
+  .drop-plump {
+    top: 140px;
+    left: 8%;
   }
+  .drop-plump .drop-image { width: 44px; }
 
-  .atmo-stage::after {
-    width: 88%;
-    left: 6%;
-    top: 22%;
+  .drop-firm {
+    top: 95px;
+    left: 26%;
   }
+  .drop-firm .drop-image { width: 46px; }
 
-  .drop-cluster {
-    top: 28px;
-    gap: 5rem;
-    transform: translateX(-50%);
+  .drop-glow {
+    top: 50px;
+    left: 44%;
   }
+  .drop-glow .drop-image { width: 50px; }
 
-  .drop-orb:hover,
-  .drop-orb.is-active,
-  .drop-orb:focus-visible {
-    transform: translateY(12px) scale(1.03);
-  }
-
-  .drop-image {
-    width: 56px;
-  }
-
-  .drop-chip {
-    font-size: 0.52rem;
-    letter-spacing: 0.13em;
+  .bottle-hero {
+    right: 6%;
+    top: 55px;
+    width: 72px;
   }
 
   .cream-hero {
-    bottom: 136px;
-    width: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 6%;
+    top: 165px;
+    width: 185px;
   }
 
-  .ingredient {
-    opacity: 0;
-    --scale: 0.9;
-    transform: scaleX(var(--flip)) scale(var(--scale));
-  }
-
-  .ingredient.is-active {
-    --scale: 0.98;
-    opacity: 0.2;
-  }
-
-  .story-row {
-    display: grid;
-    align-items: initial;
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-  .story-item {
-    padding: 0.64rem;
-  }
-
-  .story-item.is-active {
-    transform: translateY(-2px) scale(1.02);
-  }
+  .wc-spot { filter: blur(20px); }
+  .wc-spot-1 { width: 120px; height: 120px; }
+  .wc-spot-2 { width: 100px; height: 100px; }
+  .wc-spot-3 { width: 110px; height: 110px; }
+  .wc-spot-4 { width: 90px; height: 90px; }
 
   .floating-cta {
     right: 0.9rem;
@@ -1111,20 +796,18 @@ h1 i {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fog,
+  .wc-spot,
   .drop-orb,
   .cream-image,
+  .bottle-image,
   .pulse,
   .floating-cta {
     animation: none !important;
   }
 
   .atmo-stage,
-  .drop-cluster,
   .cream-hero,
-  .fog,
-  .ingredient,
-  .story-item,
+  .bottle-hero,
   .drop-orb {
     transition: none !important;
   }
