@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref, computed, onBeforeUnmount } from 'vue'
-import { useCart, BASE_PRICE, RED_GOLD_PRICE } from '../stores/cart.js'
+import { useCart, BASE_PRICE, BONUS_PRICE, RED_GOLD_PRICE } from '../stores/cart.js'
 import { BONUSES, RED_GOLD } from '../data/boosterData.js'
 import FlaskComposition from './FlaskComposition.vue'
 import IngredientChip from './IngredientChip.vue'
@@ -40,7 +40,7 @@ function onBonusLeave() {
   }, 260)
 }
 
-const price = computed(() => BASE_PRICE + (redGoldActive.value ? RED_GOLD_PRICE : 0))
+const price = computed(() => BASE_PRICE + (selectedBonuses.size * BONUS_PRICE) + (redGoldActive.value ? RED_GOLD_PRICE : 0))
 
 const formulaString = computed(() => {
   const parts = [props.booster.heroIngredient, props.booster.activeIngredient]
@@ -116,11 +116,11 @@ onBeforeUnmount(() => {
             {{ booster.heroIngredient }} · {{ booster.activeIngredient }}
           </p>
 
-          <p class="card-tagline">"{{ booster.tagline }}"</p>
+          <p class="card-tagline">{{ booster.tagline }}</p>
         </div>
 
         <div class="card-actions">
-          <span class="card-price">${{ BASE_PRICE.toFixed(2) }}</span>
+          <span class="card-price">from ${{ BASE_PRICE.toFixed(2) }}</span>
           <div class="card-btns">
             <button class="btn-customize" @click="emit('expand')">Customize</button>
             <button class="btn-asis" @click.stop="addAsIs">Add as-is</button>
@@ -161,7 +161,7 @@ onBeforeUnmount(() => {
               <span>Actives</span>
               {{ booster.heroIngredient }} · {{ booster.activeIngredient }}
             </p>
-            <p class="card-tagline">"{{ booster.tagline }}"</p>
+            <p class="card-tagline">{{ booster.tagline }}</p>
           </div>
 
           <div class="lab-section">

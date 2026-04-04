@@ -1,8 +1,8 @@
 <script setup>
 const steps = [
-  { num: '1', title: 'Your cream', text: 'Any moisturizer you already use.', color: 'gold' },
-  { num: '2', title: 'Add 2\u20133 drops', text: 'Pick your booster. Drop it in.', color: 'forest' },
-  { num: '3', title: 'Blend & glow', text: 'Mix and apply. Leveled up.', color: 'ocean' },
+  { num: '1', title: 'Pump', text: '1–2 presses of your booster onto your palm.', color: 'gold' },
+  { num: '2', title: 'Add your cream', text: 'Any moisturizer you already use — right on top.', color: 'forest' },
+  { num: '3', title: 'Mix & apply', text: 'Blend with your fingertip. Done.', color: 'ocean' },
 ]
 </script>
 

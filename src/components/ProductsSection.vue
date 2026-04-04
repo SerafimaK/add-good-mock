@@ -14,8 +14,8 @@ const boosters = BOOSTER_ORDER.map(id => BOOSTERS[id])
   <section class="products" id="products">
     <div class="s-hdr rv">
       <span class="s-lab">The Trio</span>
-      <h2 class="s-ttl">Three drops. <i>Your formula.</i></h2>
-      <p class="s-sub">Each booster is great on its own — or customize it with extra actives.</p>
+      <h2 class="s-ttl">Three boosters. <i>Your formula.</i></h2>
+      <p class="s-sub">Each booster is a complete formula. Customize with extra actives to match exactly what your skin needs.</p>
     </div>
 
     <div class="products-grid" :class="{ 'grid-expanded': expandedId }">

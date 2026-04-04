@@ -68,7 +68,7 @@ function retake() {
     <div class="quiz-glow"></div>
     <div class="s-hdr" style="position: relative; z-index: 1">
       <span class="s-lab rv" style="color: var(--gold)">Your ritual</span>
-      <h2 class="s-ttl rv" style="color: var(--bg)">Which drops are <i style="color: var(--gold)">your good?</i></h2>
+      <h2 class="s-ttl rv" style="color: var(--bg)">Which booster is <i style="color: var(--gold)">your good?</i></h2>
     </div>
 
     <div class="qw">
@@ -102,13 +102,13 @@ function retake() {
               <div class="rt">Morning</div>
               <div class="rc">{{ icons[results.top] }}</div>
               <div class="rn">{{ names[results.top] }}</div>
-              <div class="rd">2\u20133 drops \u00B7 day cream</div>
+              <div class="rd">1\u20132 presses \u00B7 day cream</div>
             </div>
             <div v-if="results.second" class="ri">
               <div class="rt">Evening</div>
               <div class="rc">{{ icons[results.second] }}</div>
               <div class="rn">{{ names[results.second] }}</div>
-              <div class="rd">2\u20133 drops \u00B7 night cream</div>
+              <div class="rd">1\u20132 presses \u00B7 night cream</div>
             </div>
           </div>
           <div style="margin-top: 1.5rem">

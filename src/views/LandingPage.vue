@@ -1,15 +1,17 @@
 <script setup>
-import { onMounted, nextTick } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import HeroSection from '../components/HeroSection.vue'
 import MarqueeBand from '../components/MarqueeBand.vue'
 import ProductsSection from '../components/ProductsSection.vue'
 import HowItWorks from '../components/HowItWorks.vue'
 import ReviewsSection from '../components/ReviewsSection.vue'
 import ScienceSection from '../components/ScienceSection.vue'
-import QuizSection from '../components/QuizSection.vue'
 import PricingSection from '../components/PricingSection.vue'
 import FAQSection from '../components/FAQSection.vue'
 import FooterSection from '../components/FooterSection.vue'
+import PromoPopup from '../components/PromoPopup.vue'
+
+const promoOpen = ref(false)
 
 onMounted(async () => {
   await nextTick()
@@ -21,14 +23,14 @@ onMounted(async () => {
 </script>
 
 <template>
-  <HeroSection />
+  <HeroSection @open-promo="promoOpen = true" />
   <MarqueeBand />
   <ProductsSection />
   <HowItWorks />
   <ReviewsSection />
   <ScienceSection />
-  <QuizSection />
   <PricingSection />
   <FAQSection />
   <FooterSection />
+  <PromoPopup :open="promoOpen" @close="promoOpen = false" />
 </template>

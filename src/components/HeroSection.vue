@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 
+defineEmits(['open-promo'])
+
 const boosters = [
   {
     id: 'glow',
@@ -210,12 +212,11 @@ onUnmounted(() => {
         <div class="h-tag"><span class="pulse"></span> Skincare boosters</div>
         <h1>Don't replace<br>your cream.<br><i>Add good</i> to it.</h1>
         <p class="h-sub">
-          Three concentrated drops from rice fields, ancient forests, and the deep ocean. Add them to any cream you already love.
+          Your cream is already good. Add Good makes it work harder. 1–2 presses onto your palm, your moisturizer on top, blend with your fingertip, apply. Choose your booster by what your skin needs right now.
         </p>
-        <p class="h-note">Add 2-3 drops to any moisturizer.</p>
         <div class="h-btns">
           <a href="#pricing" class="bp">Shop now</a>
-          <a href="#quiz" class="bg-l">Find your match</a>
+          <a href="#science" class="bg-l">Explore ingredients</a>
         </div>
       </div>
 
@@ -289,10 +290,11 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <a href="#pricing" class="floating-cta">
-      <span>The Trio</span>
-      <strong>$29.90</strong>
-    </a>
+    <button class="floating-cta" @click="$emit('open-promo')">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1L10 5.5L15 6L11.5 9.5L12.5 14.5L8 12L3.5 14.5L4.5 9.5L1 6L6 5.5L8 1Z" fill="currentColor"/></svg>
+      <span>Get 15% off</span>
+      <strong>your first order</strong>
+    </button>
   </section>
 </template>
 
@@ -919,6 +921,9 @@ h1 i {
   transition: all 0.3s;
   text-transform: uppercase;
   animation: floatIn 1s 1.5s both;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
 }
 
 .floating-cta strong {

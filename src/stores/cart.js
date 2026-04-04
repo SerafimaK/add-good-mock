@@ -1,14 +1,14 @@
 import { reactive, computed } from 'vue'
 
 export const BASE_PRICE = 11.90
-export const RED_GOLD_PRICE = 1.00
-export const TRIO_PRICE = 29.90
+export const BONUS_PRICE = 1.00
+export const RED_GOLD_PRICE = 2.00
+export const FREE_SHIPPING_QTY = 3
 
 export const PRODUCTS = {
   glow: { id: 'glow', name: 'Glow', sub: 'Rice Ferment + Niacinamide', cls: 'glow', icon: '🌾' },
   plump: { id: 'plump', name: 'Plump', sub: 'Snow Mushroom + HA', cls: 'plump', icon: '🍄' },
   firm: { id: 'firm', name: 'Firm', sub: 'Sea Kelp + Peptides', cls: 'firm', icon: '🌊' },
-  trio: { id: 'trio', name: 'The Trio', sub: 'Glow + Plump + Firm', cls: 'glow', icon: '✨' },
 }
 
 const BONUS_NAMES = {
@@ -30,10 +30,12 @@ export function useCart() {
   const count = computed(() => state.items.length)
   const total = computed(() => state.items.reduce((s, item) => s + item.price, 0))
 
+  const freeShipping = computed(() => state.items.length >= FREE_SHIPPING_QTY)
+
   function add(boosterId, bonuses = [], redGold = false) {
-    const price = boosterId === 'trio'
-      ? TRIO_PRICE
-      : BASE_PRICE + (redGold ? RED_GOLD_PRICE : 0)
+    const price = BASE_PRICE
+      + (bonuses.length * BONUS_PRICE)
+      + (redGold ? RED_GOLD_PRICE : 0)
 
     const bonusNames = bonuses.map(b => BONUS_NAMES[b] || b)
     let sub = PRODUCTS[boosterId].sub
@@ -70,5 +72,5 @@ export function useCart() {
     state.items.splice(0, state.items.length)
   }
 
-  return { state, count, total, add, remove, toggle, showToast, clearCart, PRODUCTS }
+  return { state, count, total, freeShipping, add, remove, toggle, showToast, clearCart, PRODUCTS }
 }

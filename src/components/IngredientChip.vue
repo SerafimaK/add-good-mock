@@ -25,9 +25,8 @@ const emit = defineEmits(['toggle', 'toggle-story'])
       <div class="chip-info">
         <div class="chip-name-row">
           <span class="chip-name">{{ ingredient.nickname || ingredient.name }}</span>
-          <span v-if="isPremium" class="chip-badge">+$1.00</span>
+          <span class="chip-badge" :class="{ 'chip-badge-premium': isPremium }">{{ isPremium ? '+$2.00' : '+$1.00' }}</span>
         </div>
-        <p class="chip-quote">"{{ ingredient.tagline }}"</p>
         <span class="chip-effects">{{ ingredient.effects.join(' · ') }}</span>
       </div>
       <button
@@ -127,11 +126,16 @@ const emit = defineEmits(['toggle', 'toggle-story'])
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: #c0443e;
-  background: rgba(212, 83, 75, 0.1);
+  color: var(--mid);
+  background: rgba(0, 0, 0, 0.06);
   padding: 0.15rem 0.45rem;
   border-radius: 50px;
   white-space: nowrap;
+}
+
+.chip-badge-premium {
+  color: #c0443e;
+  background: rgba(212, 83, 75, 0.1);
 }
 
 .chip-effects {

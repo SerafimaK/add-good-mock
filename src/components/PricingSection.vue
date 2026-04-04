@@ -1,39 +1,135 @@
 <script setup>
-import { useCart } from '../stores/cart.js'
-
-const { add } = useCart()
+function scrollToProducts() {
+  document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })
+}
 </script>
 
 <template>
   <section class="pricing" id="pricing">
-    <div class="s-hdr rv">
-      <span class="s-lab">Shop</span>
-      <h2 class="s-ttl">One drop or <i>the whole story</i></h2>
+    <div class="routine rv">
+      <span class="s-lab">The routine</span>
+      <h2 class="routine-ttl">Same cream. <i>Different day.</i></h2>
+
+      <p class="routine-lead">Your skin doesn't ask for the same thing every day.</p>
+
+      <div class="routine-steps">
+        <div class="routine-step">
+          <svg class="routine-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="7" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="16" y1="26" x2="16" y2="30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="2" y1="16" x2="6" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="26" y1="16" x2="30" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6.1" y1="6.1" x2="8.9" y2="8.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="23.1" y1="23.1" x2="25.9" y2="25.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6.1" y1="25.9" x2="8.9" y2="23.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="23.1" y1="8.9" x2="25.9" y2="6.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span>Radiance before work</span>
+        </div>
+        <div class="routine-step">
+          <svg class="routine-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M27 16A11 11 0 0 1 16 27 11 11 0 0 1 5 16 11 11 0 0 1 16 5c0 6.075 4.925 11 11 11Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <span>Deep hydration overnight</span>
+        </div>
+        <div class="routine-step">
+          <svg class="routine-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4v2M16 26v2M4 16h2M26 16h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M16 10l1.5 4H22l-3.5 2.5L20 21l-4-3-4 3 1.5-4.5L10 14h4.5L16 10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <span>A firming boost when your skin feels tired</span>
+        </div>
+      </div>
+
+      <p class="routine-outro">One moisturizer handles it all with the right booster.</p>
     </div>
+
     <div class="prg">
       <div class="prc rv">
         <h3>Single Booster</h3>
-        <div class="prp">$11.90</div>
-        <div class="prd">· 15 ml ·<br>Choose to add:<br></div>
-        <div class="pr-btns">
-          <button class="prbt prbt-sm" @click="add('glow')">Glow</button>
-          <button class="prbt prbt-sm" @click="add('plump')">Plump</button>
-          <button class="prbt prbt-sm" @click="add('firm')">Firm</button>
-        </div>
+        <div class="prp">from $11.90</div>
+        <div class="prd">30 ml · ~30 uses<br>+ $1 per custom active · + $2 Red Gold</div>
+        <button class="prbt prbt-primary" @click="scrollToProducts">Customize</button>
       </div>
       <div class="prc ft rv">
         <div class="prbd">Best value</div>
         <h3>The Trio</h3>
         <div class="prp">$29.90 <small>$35.70</small></div>
         <div class="prd">All three · Save 16%</div>
-        <button class="prbt prbt-primary" @click="add('trio')">Get the trio</button>
+        <button class="prbt prbt-primary" @click="scrollToProducts">Build your set</button>
       </div>
     </div>
+
+    <p class="pricing-note rv">Free shipping on orders of 3+ bottles.</p>
   </section>
 </template>
 
 <style scoped>
 .pricing { padding: 4rem 2rem; background: var(--bg2); }
+
+/* Routine */
+.routine {
+  max-width: 560px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.routine-ttl {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 400;
+  color: var(--dark);
+  margin: .3rem 0 1.5rem;
+}
+
+.routine-ttl i {
+  color: var(--forest);
+}
+
+.routine-lead {
+  font-size: 1rem;
+  color: var(--dark);
+  line-height: 1.6;
+  margin-bottom: 1.6rem;
+}
+
+.routine-steps {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  margin-bottom: 1.6rem;
+}
+
+.routine-step {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  justify-content: center;
+}
+
+.routine-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: var(--forest);
+}
+
+.routine-step span {
+  font-size: .92rem;
+  color: var(--mid);
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.routine-outro {
+  font-size: 1rem;
+  color: var(--dark);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Pricing grid */
 .prg {
   display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
   max-width: 700px; margin: 0 auto;
@@ -79,6 +175,13 @@ const { add } = useCart()
 .prbt-sm:hover { background: var(--dark); color: var(--bg); }
 .prbt-primary { background: var(--dark); color: var(--bg); padding: .75rem 1.6rem; }
 .prbt-primary:hover { background: var(--forest); }
+
+.pricing-note {
+  text-align: center;
+  font-size: .82rem;
+  color: var(--lt);
+  margin-top: 1.5rem;
+}
 
 @media (max-width: 700px) {
   .prg { grid-template-columns: 1fr; max-width: 360px; }

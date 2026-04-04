@@ -24,7 +24,7 @@ const groups = [
     items: [
       {
         q: 'What is Add Good?',
-        a: 'Add Good makes customizable skincare boosters — concentrated drops you mix into your own moisturizer. Each booster features a hero ingredient from nature, paired with a clinically proven active. You choose the booster, pick your bonus ingredients, and build a formula that fits your skin.'
+        a: 'Add Good makes customizable skincare boosters — plant & fungi formulas in airless pump bottles that you mix into your own moisturizer. Each booster features a hero ingredient from nature, paired with a clinically proven active. You choose the booster, pick your bonus ingredients, and build a formula that fits your skin.'
       },
       {
         q: 'What boosters do you have?',
@@ -51,7 +51,7 @@ const groups = [
     items: [
       {
         q: 'How do I use the boosters?',
-        a: 'Three steps, three seconds: 1) Take your regular moisturizer. 2) Add 2–3 drops of your booster. 3) Mix and apply as usual. No extra steps, no new routine — just an upgrade to what you already do.'
+        a: 'Three steps, three seconds: 1) Pump 1–2 presses of your booster onto your palm. 2) Add your moisturizer on top. 3) Blend with your fingertip and apply. No extra steps, no new routine — just an upgrade to what you already do.'
       },
       {
         q: 'Can I use a booster without my own cream?',
@@ -62,8 +62,8 @@ const groups = [
         a: 'We recommend using one booster at a time per application. But you can absolutely use different boosters at different times — for example, GLOW in the morning and PLUMP at night.'
       },
       {
-        q: 'How long does one sachet last?',
-        a: 'Each sachet contains 15 ml. At 2–3 drops per day, one sachet lasts approximately 60–90 days (about 2–3 months).'
+        q: 'How long does one bottle last?',
+        a: 'Each bottle contains 30 ml. At 1–2 presses per day, one bottle lasts approximately 30 applications (about 1 month).'
       }
     ]
   },
@@ -97,7 +97,7 @@ const groups = [
     items: [
       {
         q: 'How much does a booster cost?',
-        a: 'A single booster is $11.90. The Trio (all three boosters) is $29.90 — a 16% saving. Red Gold is an optional add-on for +$1.00 per booster.'
+        a: 'A single booster starts at $11.90. Custom actives are +$1.00 each, Red Gold (Astaxanthin) is +$2.00. Maximum customization is $16.90. Buy any 3 boosters and shipping is free.'
       },
       {
         q: 'Do you ship internationally?',
@@ -105,11 +105,11 @@ const groups = [
       },
       {
         q: 'How much is shipping?',
-        a: 'Shipping is calculated at checkout based on your order. Our sachets are lightweight, so costs are kept low.'
+        a: 'Shipping is free on orders of 3 or more bottles. For smaller orders, shipping is calculated at checkout.'
       },
       {
         q: 'What\'s in the package?',
-        a: 'Each order arrives in a branded envelope containing your sachet(s), a wooden mixing stick, and a scented instruction card. We designed the unboxing to be a small sensory experience, not just a delivery.'
+        a: 'Each order arrives in a branded box containing your airless pump bottle(s) and a scented instruction card. We designed the unboxing to be a small sensory experience, not just a delivery.'
       }
     ]
   },
@@ -117,12 +117,12 @@ const groups = [
     category: 'About the Brand',
     items: [
       {
-        q: 'Why sachets instead of bottles?',
-        a: 'Sachets are how we start — they keep our costs low and our prices accessible. They\'re also practical: lightweight, travel-friendly, and you use every drop. As we grow, the format may evolve, but the philosophy stays the same — great ingredients at a fair price.'
+        q: 'Why airless pump bottles?',
+        a: 'Airless pump bottles keep the formula sealed from air and bacteria, preserving potency from first press to last. They\'re also precise — each press delivers the right dose. 30 ml gives you about a month of daily use.'
       },
       {
         q: 'What does "add good to your routine" mean?',
-        a: 'It\'s literal. You already have a routine. We\'re not asking you to replace anything — just add something good to it. A few drops that bring plant and fungi science into whatever cream you already trust.'
+        a: 'It\'s literal. You already have a routine. We\'re not asking you to replace anything — just add something good to it. 1–2 presses that bring plant and fungi science into whatever cream you already trust.'
       },
       {
         q: 'Where are your products made?',

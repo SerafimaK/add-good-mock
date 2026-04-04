@@ -1,9 +1,9 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { useCart, PRODUCTS } from '../stores/cart.js'
+import { useCart, PRODUCTS, FREE_SHIPPING_QTY } from '../stores/cart.js'
 
 const router = useRouter()
-const { state, total, remove, toggle } = useCart()
+const { state, total, freeShipping, remove, toggle } = useCart()
 
 function goToCheckout() {
   toggle()
@@ -34,6 +34,8 @@ function goToCheckout() {
         </div>
       </div>
       <div v-if="state.items.length > 0" class="cart-footer">
+        <div v-if="freeShipping" class="cart-shipping">Free shipping</div>
+        <a v-else href="#products" class="cart-shipping cart-shipping-hint" @click="toggle">Add {{ FREE_SHIPPING_QTY - state.items.length }} more for free shipping →</a>
         <div class="cart-total">
           <span>Total</span>
           <span>${{ total.toFixed(2) }}</span>
@@ -89,6 +91,15 @@ function goToCheckout() {
 }
 .ci-remove:hover { color: #c44; }
 .cart-footer { padding: 1.5rem 2rem; border-top: 1px solid rgba(0,0,0,.06); }
+.cart-shipping {
+  text-align: center; font-size: .78rem; font-weight: 600; color: var(--forest);
+  margin-bottom: .8rem; letter-spacing: .04em; text-transform: uppercase;
+}
+.cart-shipping-hint {
+  color: var(--mid); font-weight: 400; text-decoration: none;
+  display: block; cursor: pointer; transition: color .2s;
+}
+.cart-shipping-hint:hover { color: var(--dark); }
 .cart-total {
   display: flex; justify-content: space-between; margin-bottom: 1rem; font-weight: 600;
 }

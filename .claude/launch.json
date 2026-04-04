@@ -3,8 +3,9 @@
   "configurations": [
     {
       "name": "dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "--host"],
+      "runtimeExecutable": "/opt/homebrew/opt/node@22/bin/npx",
+      "runtimeArgs": ["vite", "--host"],
+      "env": { "PATH": "/opt/homebrew/opt/node@22/bin:/usr/bin:/bin" },
       "port": 5173
     }
   ]
