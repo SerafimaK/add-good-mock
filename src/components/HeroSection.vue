@@ -215,7 +215,7 @@ onUnmounted(() => {
         <div class="h-tag"><span class="pulse"></span> Skincare boosters</div>
         <h1>Don't replace<br>your cream.<br><i>Add good</i> to it.</h1>
         <p class="h-sub">
-          Your cream is already good. Add Good makes it work harder. 1–2 presses onto your palm, your moisturizer on top, blend with your fingertip, apply. Choose your booster by what your skin needs right now.
+          Your cream is already good. Add Good makes it work harder. Choose your booster by what your skin needs right now.
         </p>
         <div class="h-btns">
           <a href="#pricing" class="bp">Shop now</a>

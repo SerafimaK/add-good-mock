@@ -42,7 +42,7 @@ function scrollToProducts() {
         </div>
       </div>
 
-      <p class="routine-outro">One moisturizer handles it all with the right booster.</p>
+      <p class="routine-outro">Same cream. Different booster. Your skin gets what it needs, when it needs it.</p>
     </div>
 
     <div class="prg">
