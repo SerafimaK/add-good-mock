@@ -254,7 +254,7 @@ onBeforeUnmount(() => {
 }
 
 .card-num {
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -262,7 +262,7 @@ onBeforeUnmount(() => {
 }
 
 .card-element {
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -355,9 +355,9 @@ onBeforeUnmount(() => {
 .btn-customize {
   border: 1px solid rgba(var(--tone-rgb), 0.4);
   border-radius: 999px;
-  padding: 0.6rem 1.2rem;
+  padding: 0.7rem 1.3rem;
   font-family: var(--sans);
-  font-size: 0.73rem;
+  font-size: 0.82rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   font-weight: 600;
@@ -379,16 +379,20 @@ onBeforeUnmount(() => {
   border: none;
   background: none;
   font-family: var(--sans);
-  font-size: 0.64rem;
-  letter-spacing: 0.06em;
-  color: var(--lt);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--mid);
   cursor: pointer;
-  padding: 0.15rem 0;
-  transition: color 0.2s;
+  padding: 0.5rem 0.6rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(73, 67, 58, 0.25);
+  transition: color 0.2s, text-decoration-color 0.2s;
 }
 
 .btn-asis:hover {
-  color: var(--mid);
+  color: var(--dark);
+  text-decoration-color: var(--dark);
 }
 
 /* EXPANDED LAB STATE */

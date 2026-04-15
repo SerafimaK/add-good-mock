@@ -138,4 +138,9 @@ function goToCheckout() {
 .cart-promo-hint {
   display: block; font-size: .72rem; color: var(--lt);
 }
+
+@media (max-width: 480px) {
+  .cart-drawer { width: 100vw; max-width: 100vw; }
+  .cart-header, .cart-items, .cart-footer, .cart-promo { padding-left: 1.25rem; padding-right: 1.25rem; }
+}
 </style>

@@ -6,6 +6,13 @@ defineEmits(['open-promo'])
 
 const { isAuthenticated } = useAuth()
 
+const ctaDismissed = ref(false)
+
+function dismissCta() {
+  ctaDismissed.value = true
+  document.body.classList.remove('has-floating-cta')
+}
+
 const boosters = [
   {
     id: 'glow',
@@ -110,7 +117,11 @@ function scrollTo(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
+const ctaVisible = computed(() => !isAuthenticated.value && !ctaDismissed.value)
+
 onMounted(() => {
+  if (ctaVisible.value) document.body.classList.add('has-floating-cta')
+
   const canvas = canvasRef.value
   if (!canvas) return
 
@@ -201,6 +212,7 @@ onUnmounted(() => {
   if (animId) cancelAnimationFrame(animId)
   if (resizeHandler) window.removeEventListener('resize', resizeHandler)
   if (storyTicker) clearInterval(storyTicker)
+  document.body.classList.remove('has-floating-cta')
 })
 </script>
 
@@ -271,11 +283,14 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <button v-if="!isAuthenticated" class="floating-cta" @click="$emit('open-promo')">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1L10 5.5L15 6L11.5 9.5L12.5 14.5L8 12L3.5 14.5L4.5 9.5L1 6L6 5.5L8 1Z" fill="currentColor"/></svg>
-      <span>Get 15% off</span>
-      <strong>your first order</strong>
-    </button>
+    <div v-if="ctaVisible" class="floating-cta-wrap">
+      <button class="floating-cta" @click="$emit('open-promo')">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1L10 5.5L15 6L11.5 9.5L12.5 14.5L8 12L3.5 14.5L4.5 9.5L1 6L6 5.5L8 1Z" fill="currentColor"/></svg>
+        <span>Get 15% off</span>
+        <strong>your first order</strong>
+      </button>
+      <button class="floating-cta-close" aria-label="Dismiss promo" @click="dismissCta">&times;</button>
+    </div>
   </section>
 </template>
 
@@ -616,11 +631,42 @@ h1 i {
   filter: drop-shadow(0 8px 24px rgba(108, 95, 78, 0.18));
 }
 
-.floating-cta {
+.floating-cta-wrap {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
   z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  animation: floatIn 1s 1.5s both;
+}
+
+.floating-cta-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--dark);
+  color: var(--bg);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  opacity: 0.78;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.floating-cta-close:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.floating-cta {
   background: var(--dark);
   color: var(--bg);
   text-decoration: none;
@@ -635,7 +681,6 @@ h1 i {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
   text-transform: uppercase;
-  animation: floatIn 1s 1.5s both;
   border: none;
   cursor: pointer;
   font-family: var(--sans);
@@ -789,7 +834,7 @@ h1 i {
   .wc-spot-3 { width: 110px; height: 110px; }
   .wc-spot-4 { width: 90px; height: 90px; }
 
-  .floating-cta {
+  .floating-cta-wrap {
     right: 0.9rem;
     bottom: 1rem;
   }

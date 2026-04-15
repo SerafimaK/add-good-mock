@@ -396,7 +396,7 @@ function formatDate(iso) {
   color: var(--forest);
   padding: 0.15rem 0.5rem;
   border-radius: 50px;
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: 600;
 }
 

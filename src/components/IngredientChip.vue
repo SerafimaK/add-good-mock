@@ -12,20 +12,20 @@ const emit = defineEmits(['toggle'])
 <template>
   <div class="chip" :class="{ selected, premium: isPremium }" :style="{ '--tone-rgb': toneRgb }">
     <div class="chip-row" @click="emit('toggle')">
-      <span
-        class="chip-check"
-        :style="selected ? `--check-rgb: ${isPremium ? '212, 83, 75' : toneRgb}` : ''"
-        :class="{ checked: selected }"
-      >
-        <svg v-if="selected" viewBox="0 0 16 16" fill="none" class="chip-tick">
-          <path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-      <div class="chip-info">
+      <div class="chip-head">
+        <span
+          class="chip-check"
+          :style="selected ? `--check-rgb: ${isPremium ? '212, 83, 75' : toneRgb}` : ''"
+          :class="{ checked: selected }"
+        >
+          <svg v-if="selected" viewBox="0 0 16 16" fill="none" class="chip-tick">
+            <path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
         <span class="chip-name">{{ ingredient.name }}<template v-if="ingredient.nickname"> — {{ ingredient.nickname }}</template></span>
-        <span class="chip-effects">{{ ingredient.effects.join(' · ') }}</span>
+        <span class="chip-price" :class="{ 'chip-price-premium': isPremium }">{{ isPremium ? '+$2.00' : '+$1.00' }}</span>
       </div>
-      <span class="chip-price" :class="{ 'chip-price-premium': isPremium }">{{ isPremium ? '+$2.00' : '+$1.00' }}</span>
+      <span class="chip-effects">{{ ingredient.effects.join(' · ') }}</span>
     </div>
 
     <div class="chip-story">
@@ -59,9 +59,9 @@ const emit = defineEmits(['toggle'])
 
 .chip-row {
   display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.72rem 0.8rem;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.72rem 0.9rem;
   cursor: pointer;
   user-select: none;
 }
@@ -91,35 +91,36 @@ const emit = defineEmits(['toggle'])
   color: rgb(var(--check-rgb));
 }
 
-.chip-info {
-  flex: 1;
-  min-width: 0;
+.chip-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 .chip-name {
-  display: block;
+  flex: 1;
+  min-width: 0;
   font-weight: 700;
   font-size: 0.94rem;
   color: var(--dark);
+  line-height: 1.3;
 }
 
 .chip-price {
-  min-width: 68px;
-  height: 34px;
+  height: 26px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: rgba(255, 255, 255, 0.6);
   border-radius: 999px;
   color: var(--mid);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  padding: 0 0.7rem;
+  padding: 0 0.55rem;
   font-family: var(--sans);
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   white-space: nowrap;
 }
 
@@ -149,6 +150,10 @@ const emit = defineEmits(['toggle'])
 /* Story panel */
 .chip-story {
   padding: 0 0.9rem 0.8rem;
+}
+
+.chip-effects {
+  padding-left: 0;
 }
 
 .chip-text {
