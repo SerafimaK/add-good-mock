@@ -31,7 +31,7 @@ export const BOOSTERS = {
     toneInk: '#245833',
     btnText: '#1d5030',
     heroIngredient: 'Snow Mushroom',
-    activeIngredient: 'Low-molecular Sodium Hyaluronate',
+    activeIngredient: 'Sodium Hyaluronate',
     tagline: 'The translucent mushroom that drinks clouds',
     benefit: 'Water cushion + bounce',
     story: 'Tremella grows in tropical forests — a translucent, coral-like fungus that holds 500 times its weight in water. In China it was called "silver ear" and prized for its ability to restore freshness to the skin. Paired with low-molecular sodium hyaluronate that penetrates to the deeper layers, not just the surface.',

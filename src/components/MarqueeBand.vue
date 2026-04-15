@@ -3,9 +3,15 @@ const items = [
   { text: 'Rice Ferment', dot: 'gold' },
   { text: 'Snow Mushroom', dot: 'forest' },
   { text: 'Sea Kelp Bioferment', dot: 'ocean' },
-  { text: 'Add good to your routine', dot: 'gold' },
-  { text: '100% vegan', dot: 'forest' },
+  { text: '100% vegan', dot: 'gold' },
+  { text: 'Add good to your routine', dot: 'forest' },
   { text: 'Made to mix', dot: 'ocean' },
+  { text: 'Glow', dot: 'gold' },
+  { text: 'Plump', dot: 'forest' },
+  { text: 'Firm', dot: 'ocean' },
+  { text: 'Plant & Fungi based', dot: 'gold' },
+  { text: '100% vegan', dot: 'forest' },
+  { text: 'Cruelty-free', dot: 'ocean' },
 ]
 </script>
 

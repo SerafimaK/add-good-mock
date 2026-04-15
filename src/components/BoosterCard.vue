@@ -110,14 +110,17 @@ onBeforeUnmount(() => {
           <h3 class="card-name">{{ booster.name }}</h3>
           <p class="card-benefit">{{ booster.benefit }}</p>
 
-          <p class="card-tagline">{{ booster.tagline }}</p>
+          <p class="card-actives">
+            <span>Actives</span>
+            {{ booster.heroIngredient }} · {{ booster.activeIngredient }}
+          </p>
+
         </div>
 
         <div class="card-actions">
           <span class="card-price">from ${{ BASE_PRICE.toFixed(2) }}</span>
           <div class="card-btns">
             <button class="btn-customize" @click="emit('expand')">Customize</button>
-            <button class="btn-asis" @click.stop="addAsIs">Add as-is</button>
           </div>
         </div>
       </div>
