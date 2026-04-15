@@ -13,9 +13,10 @@ export const PRODUCTS = {
 
 const BONUS_NAMES = {
   centella: 'Centella',
-  bakuchiol: 'Bakuchiol',
+  ghk_cu: 'GHK-Cu',
   licorice: 'Licorice',
-  squalane: 'Squalane',
+  beta_glucan: 'Beta-Glucan',
+  pga: 'PGA',
 }
 
 const state = reactive({

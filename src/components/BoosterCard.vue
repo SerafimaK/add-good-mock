@@ -175,10 +175,8 @@ onBeforeUnmount(() => {
                 :key="bonusId"
                 :ingredient="BONUSES[bonusId]"
                 :selected="selectedBonuses.has(bonusId)"
-                :story-open="expandedIngredientId === bonusId"
                 :tone-rgb="booster.toneRgb"
                 @toggle="toggleBonus(bonusId)"
-                @toggle-story="toggleStory(bonusId)"
                 @mouseenter="onBonusHover(bonusId)"
                 @mouseleave="onBonusLeave"
               />
