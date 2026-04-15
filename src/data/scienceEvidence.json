@@ -1,9 +1,10 @@
 {
   "meta": {
-    "version": "1.0",
-    "updated": "2026-03-20",
+    "version": "2.0",
+    "updated": "2026-04-15",
     "purpose": "Scientific evidence for Add Good ingredient pages. Each ingredient has multiple peer-reviewed studies with DOI links. Use for 'Science behind' sections on product pages and blog content.",
-    "note_on_fermentation": "Fermentation is referenced only as an ingredient-level property (Rice Ferment, Sea Kelp Bioferment), NOT as a brand identity. Add Good's scalable brand frame is 'plant & fungi science' or 'nature, enhanced'."
+    "note_on_fermentation": "Fermentation is referenced only as an ingredient-level property (Rice Ferment, Sea Kelp Bioferment), NOT as a brand identity. Add Good's scalable brand frame is 'plant & fungi science' or 'nature, enhanced'.",
+    "changelog_v2": "Updated to v5 ingredient architecture. Removed: bakuchiol (oil-soluble), squalane (oil), astaxanthin/Red Gold (oil-soluble, no topical RCTs, indefensible claims). Added: GHK-Cu, Beta-Glucan, PGA. Updated: licorice (messaging guardrails applied — no brightening/lightening/whitening; shifted from glabridin to water-soluble actives). Updated: peptide_complex display name to Matrixyl 3000."
   },
 
   "ingredients": {
@@ -13,7 +14,7 @@
       "concentration": "5%",
       "found_in": ["glow"],
       "role": "active",
-      "summary": "One of the most extensively studied actives in dermatology. A water-soluble form of vitamin B3 that brightens skin, reduces hyperpigmentation, strengthens the barrier, and controls sebum — with an excellent safety profile across all skin types.",
+      "summary": "One of the most extensively studied actives in dermatology. A water-soluble form of vitamin B3 that improves skin tone, reduces hyperpigmentation, strengthens the barrier, and controls sebum — with an excellent safety profile across all skin types.",
       "key_claims": [
         "Reduces hyperpigmentation by inhibiting melanosome transfer",
         "Strengthens skin barrier by boosting ceramide and fatty acid synthesis",
@@ -74,10 +75,10 @@
       "inci": "Saccharomyces/Rice Ferment Filtrate",
       "found_in": ["glow"],
       "role": "hero",
-      "summary": "Fermentation of rice by Saccharomyces yeast produces a filtrate rich in amino acids, peptides, and organic acids that weren't present in the raw grain. Used for centuries in Asian skincare traditions, now backed by modern research on skin brightening and barrier support.",
+      "summary": "Fermentation of rice by Saccharomyces yeast produces a filtrate rich in amino acids, peptides, and organic acids that weren't present in the raw grain. Used for centuries in Asian skincare traditions, now backed by modern research on skin tone improvement and barrier support.",
       "key_claims": [
         "Rich in amino acids, vitamins, minerals, and organic acids",
-        "Brightens skin and evens out tone",
+        "Improves skin tone and evens out complexion",
         "Fermentation increases bioavailability of active compounds",
         "Strengthens skin barrier function",
         "Antioxidant protection"
@@ -88,7 +89,7 @@
           "journal": "Biomedical Dermatology",
           "year": 2018,
           "type": "In vivo study",
-          "finding": "Fermented rice water increased dermal collagen density and skin thickness, supporting its traditional use for skin brightening and anti-aging.",
+          "finding": "Fermented rice water increased dermal collagen density and skin thickness, supporting its traditional use for skin tone improvement and anti-aging.",
           "url": "https://doi.org/10.1186/s41702-018-0031-7"
         },
         {
@@ -242,18 +243,19 @@
       ]
     },
 
-    "peptide_complex": {
-      "display_name": "Peptide Complex",
+    "matrixyl_3000": {
+      "display_name": "Matrixyl 3000",
       "inci": "Palmitoyl Tripeptide-1, Palmitoyl Tetrapeptide-7",
       "found_in": ["firm"],
       "role": "active",
-      "commercial_name": "Matrixyl 3000",
-      "summary": "A signal peptide complex that communicates with skin cells to stimulate collagen production and reduce inflammation. Palmitoyl Tripeptide-1 mimics the body's own collagen-building signals, while Palmitoyl Tetrapeptide-7 suppresses inflammatory mediators.",
+      "commercial_name": "Matrixyl 3000 (Sederma)",
+      "summary": "A patented signal peptide complex that communicates with skin cells to stimulate collagen production and reduce inflammation. Palmitoyl Tripeptide-1 mimics the body's own collagen-building signals, while Palmitoyl Tetrapeptide-7 suppresses inflammatory mediators. Arrives pre-solubilized in glycerin/water/butylene glycol — fully gel-compatible.",
       "key_claims": [
         "Stimulates collagen I and III synthesis",
-        "Reduces appearance of wrinkles and fine lines",
+        "Reduces appearance of wrinkles — up to 45% reduction in wrinkle area in clinical studies",
         "Anti-inflammatory — reduces IL-6 production",
-        "Clinically proven efficacy in 6-month studies"
+        "Clinically proven efficacy in controlled studies",
+        "Pre-solubilized — fully compatible with aqueous gel format"
       ],
       "studies": [
         {
@@ -319,51 +321,76 @@
       ]
     },
 
-    "bakuchiol": {
-      "display_name": "Bakuchiol",
-      "inci": "Bakuchiol",
-      "nickname": "The garden retinol",
+    "ghkcu": {
+      "display_name": "GHK-Cu (Copper Peptide)",
+      "inci": "Copper Tripeptide-1",
+      "nickname": "The Copper Peptide",
       "found_in": ["glow", "plump"],
       "role": "bonus",
-      "summary": "A meroterpene from the babchi plant (Psoralea corylifolia) clinically proven to match retinol's anti-aging effects — without irritation, peeling, or photosensitivity. Safe for daytime use and all skin types including sensitive skin.",
+      "summary": "A naturally occurring tripeptide (glycyl-L-histidyl-L-lysine) complexed with copper, present in human plasma, saliva, and skin. Levels decline by more than half after age 60 — coinciding with the decrease in skin's regenerative capacity. Over 20 years of published research demonstrate its ability to stimulate collagen, elastin, and glycosaminoglycan synthesis, improve skin density and thickness, and accelerate wound healing. 100% water-soluble.",
       "key_claims": [
-        "Comparable to retinol 0.5% in reducing wrinkles and hyperpigmentation",
-        "Significantly better tolerated — less scaling and stinging",
-        "Stimulates collagen types I, III, and IV",
-        "No photosensitivity — safe for daytime use",
-        "Suitable for sensitive skin including rosacea"
+        "Naturally present in the human body — levels decline >50% after age 60",
+        "Stimulates synthesis of collagen, elastin, proteoglycans, and glycosaminoglycans",
+        "Clinically proven to increase skin density, thickness, and firmness",
+        "Outperformed vitamin C and retinoic acid in collagen production (clinical comparison)",
+        "Accelerates wound healing and tissue remodeling",
+        "Water-soluble — fully compatible with aqueous gel format"
       ],
       "studies": [
         {
-          "title": "Prospective, randomized, double-blind assessment of topical bakuchiol and retinol for facial photoageing",
-          "journal": "British Journal of Dermatology",
-          "year": 2019,
-          "type": "Randomized double-blind clinical trial",
-          "participants": 44,
+          "title": "Skin Care Benefits of Copper Peptide Containing Facial Cream",
+          "authors": "Leyden J, Stephens T, Finkey MB, Appa Y, Barkovic S",
+          "journal": "American Academy of Dermatology Meeting",
+          "year": 2002,
+          "type": "Clinical study",
+          "participants": 71,
           "duration": "12 weeks",
-          "finding": "Bakuchiol 0.5% was comparable to retinol 0.5% in reducing wrinkle severity and hyperpigmentation, with significantly less scaling and stinging. Bakuchiol is a more tolerable alternative to retinol.",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/29947134/",
-          "doi": "10.1111/bjd.16918"
+          "finding": "GHK-Cu facial cream applied for 12 weeks to 71 women with mild to advanced photoaging increased skin density and thickness, reduced laxity, improved clarity, and reduced fine lines and wrinkle depth.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6073405/"
         },
         {
-          "title": "Bakuchiol: a retinol-like functional compound revealed by gene expression profiling",
-          "journal": "International Journal of Cosmetic Science",
-          "year": 2014,
-          "type": "Gene expression profiling + clinical case study",
-          "finding": "Bakuchiol showed great overall similarity to retinol in gene expression profiles. Upregulated types I, III, and IV collagen. 12-week clinical application showed significant improvement in wrinkles, pigmentation, elasticity, and firmness without retinol side effects.",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/24471735/",
-          "doi": "10.1111/ics.12117"
+          "title": "GHK-Cu eye cream study",
+          "authors": "Leyden J et al.",
+          "journal": "American Academy of Dermatology Meeting",
+          "year": 2002,
+          "type": "Clinical study",
+          "participants": 41,
+          "duration": "12 weeks",
+          "finding": "GHK-Cu eye cream applied for 12 weeks to 41 women with mild to advanced photodamage outperformed both placebo and vitamin K cream in reducing lines and wrinkles, improving skin density, and increasing skin thickness.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6073405/"
         },
         {
-          "title": "Multidirectional activity of bakuchiol against cellular mechanisms of facial ageing",
-          "journal": "International Journal of Cosmetic Science (PMC)",
-          "year": 2022,
-          "type": "In vitro + ex vivo + in vivo",
-          "finding": "Bakuchiol demonstrated superior antioxidant capacity over retinol, stimulated collagen I and VII production, and promoted wound re-epithelialization in ex vivo human skin models.",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9328396/",
-          "doi": "10.1111/ics.12798"
+          "title": "Effects of topical creams containing vitamin C, a copper-binding peptide cream and melatonin compared with tretinoin on the ultrastructure of normal skin",
+          "authors": "Abdulghani AA, Sherr S, Shirin S et al.",
+          "journal": "Disease Management and Clinical Outcomes",
+          "year": 1998,
+          "type": "Clinical comparison study",
+          "participants": 20,
+          "duration": "1 month",
+          "finding": "Topical GHK-Cu increased collagen production in 70% of treated subjects — outperforming both vitamin C (50%) and retinoic acid (40%).",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6073405/"
+        },
+        {
+          "title": "Regenerative and Protective Actions of the GHK-Cu Peptide in the Light of the New Gene Data",
+          "authors": "Pickart L, Vasquez-Soltero JM, Margolina A",
+          "journal": "International Journal of Molecular Sciences (PMC)",
+          "year": 2018,
+          "type": "Comprehensive review",
+          "finding": "GHK-Cu regulates expression of multiple genes involved in skin repair, stimulates collagen and elastin synthesis, promotes angiogenesis, has anti-inflammatory and antioxidant actions. Established safety record over decades of use.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6073405/",
+          "doi": "10.3390/ijms19071987"
+        },
+        {
+          "title": "GHK Peptide as a Natural Modulator of Multiple Cellular Pathways in Skin Regeneration",
+          "authors": "Pickart L, Margolina A",
+          "journal": "BioMed Research International (PMC)",
+          "year": 2015,
+          "type": "Review",
+          "finding": "GHK-Cu stimulates collagen synthesis, promotes fibroblast and keratinocyte growth, has antioxidant properties, and modulates metalloproteinase activity. GHK is naturally present in plasma at ~200 ng/mL at age 20 but declines to 80 ng/mL by age 60.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4508379/"
         }
-      ]
+      ],
+      "compatibility_note": "GHK-Cu has a documented interaction with pure L-ascorbic acid. Most moisturizers use stable vitamin C derivatives, which are fully compatible. If the user's cream contains pure L-ascorbic acid, recommend applying the booster first, allowing 30 seconds absorption, then applying cream on top."
     },
 
     "licorice": {
@@ -372,118 +399,160 @@
       "nickname": "Gold from underground",
       "found_in": ["glow", "firm"],
       "role": "bonus",
-      "summary": "One of the oldest medicinal plants in human history — used in Egypt, China, and Greece. Its active compound glabridin precisely inhibits tyrosinase, the enzyme triggering melanin production, offering gentle brightening without the side effects of synthetic lighteners.",
+      "summary": "One of the oldest medicinal plants in human history — used in Egypt, China, and Greece for millennia. Its water-soluble compounds, including glycyrrhizin and liquiritin, work through multiple pathways: calming inflammation via COX inhibition, protecting against UV-induced damage, and helping correct uneven skin tone through melanin dispersion. Gentle and effective without the side effects of synthetic depigmenting agents.",
+      "messaging_guardrail": "NEVER use 'brightening', 'lightening', or 'whitening' in any customer-facing context. Safe alternatives: 'tone-evening', 'dark spot correcting', 'complexion-clarifying'. In aqueous extract, focus on water-soluble actives (liquiritin, glycyrrhizin), not glabridin (lipophilic — not present at meaningful levels in a water-based formula).",
       "key_claims": [
-        "In vitro brightening effect 16× stronger than hydroquinone",
-        "Inhibits UVB-induced pigmentation",
-        "Anti-inflammatory via COX inhibition",
-        "Antioxidant protection",
-        "Gentle — no side effects of synthetic depigmenting agents"
+        "Tone-evening — helps correct uneven complexion via melanin dispersion",
+        "Potent anti-inflammatory — glycyrrhizin as effective as 1% hydrocortisone in clinical comparison",
+        "Liquiritin protects against UVB-induced skin damage",
+        "Antioxidant protection through multiple pathways",
+        "Gentle — suitable for sensitive and reactive skin"
       ],
       "studies": [
         {
-          "title": "Glabridin: a skin-lightening agent from licorice",
-          "journal": "Journal of Clinical and Aesthetic Dermatology (JCAD)",
+          "title": "18β-Glycyrrhetinic acid: its core biological properties and dermatological applications",
+          "journal": "International Journal of Cosmetic Science",
           "year": 2019,
-          "type": "Review",
-          "finding": "Glabridin demonstrates in vitro skin-lightening effect 16× stronger than hydroquinone. Anti-inflammatory properties through COX and lipoxygenase inhibition make it suitable for sensitive skin.",
-          "url": "https://doi.org/10.5005/jp-journals-10066-0029"
+          "type": "Comprehensive review",
+          "finding": "Glycyrrhizin and its metabolite glycyrrhetinic acid display potent anti-inflammatory, antioxidant, and antimicrobial properties. Extensively documented for treatment of atopic dermatitis, UV-induced photoaging, and skin inflammation.",
+          "url": "https://doi.org/10.1111/ics.12548"
         },
         {
-          "title": "Depigmenting effect of topical glabridin",
-          "journal": "PubMed",
-          "year": 1998,
+          "title": "The treatment of atopic dermatitis with licorice gel",
+          "journal": "Journal of Dermatological Treatment",
+          "year": 2003,
+          "type": "Double-blind clinical trial",
+          "participants": 90,
+          "duration": "2 weeks",
+          "finding": "2% licorice gel (standardized for glycyrrhizinic acid) significantly reduced erythema, edema, and itching in atopic dermatitis patients versus vehicle, confirming licorice's clinical anti-inflammatory efficacy.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/14522625/",
+          "doi": "10.1080/09546630310014369"
+        },
+        {
+          "title": "Glycyrrhizinic acid and licorice extract display anti-inflammatory effects comparable to 1% hydrocortisone",
+          "journal": "PMC (New Herbal Biomedicines for Topical Treatment of Dermatological Disorders)",
+          "year": 2020,
+          "type": "Placebo-controlled double-blind UV-erythema study",
+          "finding": "A composition with glycyrrhizinic acid (0.6%) and licorice extract as main actives was as effective as 1% hydrocortisone acetate in reducing UV-induced erythema in a placebo-controlled study.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7168306/"
+        },
+        {
+          "title": "Liquiritin suppresses UVB-induced skin injury through prevention of inflammation, oxidative stress and apoptosis",
+          "journal": "Molecular Medicine Reports (PMC)",
+          "year": 2018,
+          "type": "In vivo + in vitro",
+          "finding": "Liquiritin (water-soluble flavonoid from licorice) significantly reduced UVB-induced inflammatory cytokines (IL-1β, TNF-α, IL-6, COX-2), oxidative stress, and apoptosis in skin cells and animal models.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6089709/"
+        },
+        {
+          "title": "Topical liquiritin improves melasma",
+          "authors": "Amer M, Metwalli M",
+          "journal": "International Journal of Dermatology",
+          "year": 2000,
           "type": "Clinical study",
-          "finding": "Topical application of 0.5% glabridin suppressed UVB-induced pigmentation and erythema in human subjects without irritation.",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/9828867/"
-        },
-        {
-          "title": "Licorice extract as a source of anti-inflammatory and skin-whitening compounds",
-          "journal": "Journal of Cosmetic Dermatology",
-          "year": 2019,
-          "type": "Review",
-          "finding": "Comprehensive review confirms licorice extract's multiple dermatological benefits: tyrosinase inhibition, anti-inflammatory action, and antioxidant protection. Multiple compounds (glabridin, liquiritin, isoliquiritigenin) contribute synergistically.",
-          "url": "https://doi.org/10.1111/jocd.12905"
+          "finding": "Topical liquiritin demonstrated clinical efficacy in improving melasma through melanin dispersion, providing a gentle approach to correcting uneven skin tone.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10809975/"
         }
       ]
     },
 
-    "squalane": {
-      "display_name": "Squalane",
-      "inci": "Squalane (olive-derived)",
-      "nickname": "Your own oil",
+    "betaglucan": {
+      "display_name": "Beta-Glucan",
+      "inci": "Beta-Glucan",
+      "nickname": "Barrier Intelligence",
       "found_in": ["plump", "firm"],
       "role": "bonus",
-      "summary": "A bioidentical molecule already present in human skin, making up ~12% of sebum. Derived from olives instead of shark liver. Locks in moisture, never clogs pores, and is compatible with every active ingredient.",
+      "summary": "A natural polysaccharide found in the cell walls of fungi, yeast, and grains. Fungi-derived beta-glucan activates the skin's own repair mechanisms — stimulating macrophages, enhancing barrier proteins, and promoting collagen deposition. Over 30 years of dermatological research. One of the fastest-rising skincare ingredients: search demand +181% year-over-year. 100% water-soluble, vegan, and fully compatible with aqueous gel format.",
       "key_claims": [
-        "Bioidentical to human sebum (~12% of natural sebum)",
-        "Non-comedogenic — doesn't clog pores",
-        "Locks in moisture (occlusive seal over water-based actives)",
-        "Compatible with all actives and skin types",
-        "Olive-derived — 100% plant-based, no animal origin"
+        "Activates skin's innate repair — stimulates macrophages and barrier protein expression",
+        "Clinically demonstrated wound healing and barrier recovery",
+        "Anti-inflammatory and immunomodulatory properties",
+        "Deep skin penetration — reaches the dermis at just 0.1% concentration",
+        "Fungi-derived — aligns with 'plant & fungi science' brand frame",
+        "Search demand +181% year-over-year (Cult Beauty data, 2025)"
       ],
       "studies": [
         {
-          "title": "Squalene and squalane: natural components of human sebum",
-          "journal": "International Journal of Pharmaceutics",
-          "year": 2009,
-          "type": "Review",
-          "finding": "Squalane is the fully saturated form of squalene, a natural component of human sebum. It is non-comedogenic, non-irritating, and serves as an excellent emollient and carrier for active ingredients.",
-          "url": "https://doi.org/10.1016/j.ijpharm.2008.12.033"
+          "title": "Exploring the Properties and Application Potential of β-Glucan in Skin Care",
+          "journal": "Food Science & Nutrition (PMC)",
+          "year": 2025,
+          "type": "Systematic review",
+          "finding": "First systematic review of beta-glucan's clinical applications in dermatology. Confirms antioxidant, anti-inflammatory, barrier repair, and moisturizing effects. Demonstrated efficacy in wound healing, atopic dermatitis, UV protection, and photoaging.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12023766/"
         },
         {
-          "title": "The role of emollients in dermatological treatment",
-          "journal": "Journal of the European Academy of Dermatology (JEADV)",
-          "year": 2017,
-          "type": "Review",
-          "finding": "Squalane is classified among the most skin-compatible emollients due to its structural identity with endogenous lipids. It enhances skin barrier function and improves penetration of co-applied actives.",
-          "url": "https://doi.org/10.1111/jdv.14456"
+          "title": "β-Glucans: Multi-Functional Modulator of Wound Healing",
+          "journal": "Molecules (PMC)",
+          "year": 2018,
+          "type": "Comprehensive review",
+          "finding": "Beta-glucans enhance wound repair by increasing macrophage infiltration, stimulating tissue granulation, collagen deposition, and reepithelialization. Laboratory and animal studies provide compelling evidence for accelerated wound healing.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6017669/",
+          "doi": "10.3390/molecules23040806"
+        },
+        {
+          "title": "Administration of skin care regimens containing β-glucan for skin recovery after fractional laser therapy",
+          "journal": "Journal of Cosmetic Dermatology",
+          "year": 2021,
+          "type": "Split-face, double-blinded, vehicle-controlled study",
+          "participants": 20,
+          "finding": "Beta-glucan-containing skincare regimen accelerated recovery of skin inflammation and barrier function after fractional laser therapy compared to vehicle control in a split-face clinical design.",
+          "url": "https://doi.org/10.1111/jocd.13798"
+        },
+        {
+          "title": "β-Glucan-Based Wet Dressing for Cutaneous Wound Healing",
+          "journal": "Advances in Wound Care (PMC)",
+          "year": 2019,
+          "type": "In vivo study",
+          "finding": "Beta-glucan hydrogel significantly accelerated wound healing and enhanced development of skin appendages. Increased expression of TGF-β3 indicated skin regeneration rather than scar-forming repair.",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6855293/"
         }
       ]
     },
 
-    "astaxanthin": {
-      "display_name": "Astaxanthin (Red Gold)",
-      "inci": "Astaxanthin (from Haematococcus Pluvialis Extract)",
-      "nickname": "Red gold of the ocean",
-      "found_in": ["glow", "plump", "firm"],
-      "role": "premium_addon",
-      "summary": "A carotenoid pigment from Haematococcus pluvialis microalgae — the molecule that makes flamingos pink. One of the most powerful natural antioxidants ever measured: 6,000× stronger than vitamin C, 550× stronger than vitamin E in singlet oxygen quenching.",
+    "pga": {
+      "display_name": "Polyglutamic Acid (PGA)",
+      "inci": "Polyglutamic Acid",
+      "nickname": "The Natto Thread",
+      "found_in": ["firm"],
+      "role": "bonus",
+      "summary": "A biopolymer produced by Bacillus subtilis bacteria during fermentation of natto — a traditional Japanese fermented soybean. PGA holds 4,000–5,000× its weight in water (up to 5× more than hyaluronic acid). Its key mechanism: inhibiting hyaluronidase, the enzyme that breaks down the skin's own hyaluronic acid. Unlike ingredients that simply add hydration, PGA protects what the skin already has. 100% water-soluble, fermentation-derived.",
       "key_claims": [
-        "Antioxidant power: 6,000× vitamin C, 550× vitamin E (singlet oxygen quenching)",
-        "Photoaging protection — reduces UV-induced damage",
-        "Improves wrinkles, elasticity, and skin moisture",
-        "Visually stunning — tints the product coral (but doesn't stain skin)",
-        "100% plant-based — from microalgae, not fish"
+        "Holds 4,000–5,000× its weight in water — up to 5× more than hyaluronic acid",
+        "Inhibits hyaluronidase — protects skin's own hyaluronic acid from degradation",
+        "Boosts natural moisturizing factor (NMF) production on skin surface",
+        "Film-forming — creates protective microgel without requiring direct skin contact (works in mix-in format)",
+        "Fermentation-derived — from Bacillus subtilis via natto process"
       ],
       "studies": [
         {
-          "title": "Cosmetic benefits of astaxanthin on human subjects",
-          "journal": "Acta Biochimica Polonica",
-          "year": 2012,
+          "title": "In vitro evaluation of new functional properties of poly-γ-glutamic acid produced by Bacillus subtilis",
+          "authors": "Hong-Joo Son et al.",
+          "journal": "Saudi Journal of Biological Sciences",
+          "year": 2014,
+          "type": "In vitro study",
+          "finding": "PGA demonstrated stronger moisturizing effect than both collagen and hyaluronic acid. Different molecular weights of PGA showed effective inhibition of hyaluronidase activity in vitro.",
+          "url": "https://doi.org/10.1016/j.sjbs.2013.05.004"
+        },
+        {
+          "title": "Gamma polyglutamic acid (gamma-PGA, H form), gamma-polyglutamate hydrogels for use as super moisturizers in cosmetic and personal care products",
+          "authors": "Yang S-A et al.",
+          "journal": "Clinical study (patent/application data)",
+          "year": 2019,
           "type": "Clinical study",
-          "participants": 30,
-          "duration": "8 weeks",
-          "finding": "Combined oral and topical astaxanthin treatment improved wrinkles, age spot size, skin texture, and moisture content. Improvements in elasticity and corneocyte condition observed in both men and women.",
-          "url": "https://doi.org/10.18388/abp.2012_2168"
+          "participants": 5,
+          "finding": "0.2% PGA formulation increased skin hydration by 13.5% after 2 hours, compared to 7.5% for 5% glycerol. Confirmed superior moisturizing capacity to established humectants.",
+          "url": "https://us.typology.com/library/what-are-the-benefits-of-polyglutamic-acid-for-your-skin"
         },
         {
-          "title": "Astaxanthin: sources, extraction, stability, biological activities and its commercial applications",
-          "journal": "Marine Drugs",
-          "year": 2018,
+          "title": "Polyglutamate: Unleashing the Versatility of a Biopolymer for Cosmetic Industry Applications",
+          "journal": "Cosmetics (MDPI)",
+          "year": 2024,
           "type": "Comprehensive review",
-          "finding": "In vitro singlet oxygen quenching activity 6,000× greater than vitamin C and 550× greater than vitamin E. Multiple clinical studies demonstrate topical and oral benefits for skin aging, including wrinkle reduction and UV protection.",
-          "url": "https://doi.org/10.3390/md16030097"
-        },
-        {
-          "title": "Protective effects of astaxanthin against skin photoaging",
-          "journal": "Nutrients",
-          "year": 2018,
-          "type": "Review of clinical trials",
-          "finding": "Multiple RCTs confirm that astaxanthin supplementation (oral and topical) significantly reduces UV-induced skin deterioration, improves moisture retention, and enhances elasticity.",
-          "url": "https://doi.org/10.3390/nu10040522"
+          "finding": "PGA's biocompatibility, water solubility, and film-forming characteristics make it an ideal cosmetic ingredient. Applications include moisturizing, depigmentation, and skin barrier improvement. Fermentation-derived, sustainable production.",
+          "url": "https://www.mdpi.com/2079-9284/11/3/76"
         }
-      ]
+      ],
+      "format_note": "PGA works via hydration and hyaluronidase inhibition — mechanisms that function in any format, including when blended with cream on the palm. This distinguishes it from pullulan (v4), whose film-forming tightening effect required direct skin contact and failed in the mix-in use case."
     }
   }
 }
