@@ -7,8 +7,8 @@ const items = [
   { text: 'Hyaluronic Acid', dot: 'forest' },
   { text: 'Peptides', dot: 'ocean' },
   { text: 'Add good to your routine', dot: 'gold' },
-  { text: 'from $11.90 per booster', dot: 'forest' },
-  { text: '1\u20132 presses is all you need', dot: 'ocean' },
+  { text: '100% vegan', dot: 'forest' },
+  { text: 'Made to mix', dot: 'ocean' },
 ]
 </script>
 
