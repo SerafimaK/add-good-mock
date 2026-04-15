@@ -289,9 +289,9 @@ const visibleBonuses = computed(() =>
   z-index: 4;
   pointer-events: none;
   transition:
-    opacity 0.52s var(--ease-out),
-    filter 0.52s ease,
-    transform 0.52s var(--ease-out);
+    opacity 0.25s var(--ease-out),
+    filter 0.25s ease,
+    transform 0.25s var(--ease-out);
 }
 
 /* Ghost state: visible on hover, semi-transparent, fades in with delay */

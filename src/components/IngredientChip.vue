@@ -11,7 +11,7 @@ const emit = defineEmits(['toggle', 'toggle-story'])
 </script>
 
 <template>
-  <div class="chip" :class="{ selected, premium: isPremium }">
+  <div class="chip" :class="{ selected, premium: isPremium }" :style="{ '--tone-rgb': toneRgb }">
     <div class="chip-row" @click="emit('toggle')">
       <span
         class="chip-check"
@@ -58,7 +58,12 @@ const emit = defineEmits(['toggle', 'toggle-story'])
   border-radius: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.07);
   background: rgba(255, 255, 255, 0.5);
-  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.chip:hover:not(.selected) {
+  border-color: rgba(var(--tone-rgb, 180, 180, 180), 0.25);
+  background: rgba(var(--tone-rgb, 180, 180, 180), 0.04);
 }
 
 .chip.selected {
@@ -118,7 +123,7 @@ const emit = defineEmits(['toggle', 'toggle-story'])
 
 .chip-name {
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.94rem;
   color: var(--dark);
 }
 
@@ -140,7 +145,7 @@ const emit = defineEmits(['toggle', 'toggle-story'])
 
 .chip-effects {
   display: block;
-  font-size: 0.76rem;
+  font-size: 0.84rem;
   color: rgba(73, 67, 58, 0.82);
   margin-top: 0.14rem;
   line-height: 1.3;
@@ -203,14 +208,14 @@ const emit = defineEmits(['toggle', 'toggle-story'])
 }
 
 .chip-text {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: var(--mid);
   line-height: 1.6;
   margin-bottom: 0.5rem;
 }
 
 .chip-evidence {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: var(--lt);
   line-height: 1.5;
 }
@@ -245,5 +250,17 @@ const emit = defineEmits(['toggle', 'toggle-story'])
 .story-leave-from {
   max-height: 400px;
   opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .chip-expand {
+    min-width: 34px;
+    width: 34px;
+    padding: 0;
+  }
+
+  .chip-expand-label {
+    display: none;
+  }
 }
 </style>

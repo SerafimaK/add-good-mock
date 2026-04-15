@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, ref, computed, onBeforeUnmount } from 'vue'
-import { useCart, BASE_PRICE, BONUS_PRICE, RED_GOLD_PRICE } from '../stores/cart.js'
-import { BONUSES, RED_GOLD } from '../data/boosterData.js'
+import { useCart, BASE_PRICE, BONUS_PRICE } from '../stores/cart.js'
+import { BONUSES } from '../data/boosterData.js'
 import FlaskComposition from './FlaskComposition.vue'
 import IngredientChip from './IngredientChip.vue'
 
@@ -15,8 +15,8 @@ const emit = defineEmits(['expand', 'collapse'])
 const { add } = useCart()
 
 const selectedBonuses = reactive(new Set())
-const redGoldActive = ref(false)
 const expandedIngredientId = ref(null)
+const storyOpen = ref(false)
 const hoveredBonusId = ref(null)
 let hoverEnterTimer = null
 let hoverLeaveTimer = null
@@ -30,24 +30,23 @@ function onBonusHover(id) {
   clearHoverTimers()
   hoverEnterTimer = setTimeout(() => {
     hoveredBonusId.value = id
-  }, 130)
+  }, 50)
 }
 
 function onBonusLeave() {
   clearHoverTimers()
   hoverLeaveTimer = setTimeout(() => {
     hoveredBonusId.value = null
-  }, 260)
+  }, 80)
 }
 
-const price = computed(() => BASE_PRICE + (selectedBonuses.size * BONUS_PRICE) + (redGoldActive.value ? RED_GOLD_PRICE : 0))
+const price = computed(() => BASE_PRICE + (selectedBonuses.size * BONUS_PRICE))
 
 const formulaString = computed(() => {
   const parts = [props.booster.heroIngredient, props.booster.activeIngredient]
   for (const id of selectedBonuses) {
     parts.push(BONUSES[id].name)
   }
-  if (redGoldActive.value) parts.push('Astaxanthin')
   return parts.join(' + ')
 })
 
@@ -61,7 +60,7 @@ function toggleStory(id) {
 }
 
 function addToCart() {
-  add(props.booster.id, [...selectedBonuses], redGoldActive.value)
+  add(props.booster.id, [...selectedBonuses])
 }
 
 function addAsIs() {
@@ -71,8 +70,8 @@ function addAsIs() {
 function reset() {
   clearHoverTimers()
   selectedBonuses.clear()
-  redGoldActive.value = false
   expandedIngredientId.value = null
+  storyOpen.value = false
   hoveredBonusId.value = null
 }
 
@@ -111,11 +110,6 @@ onBeforeUnmount(() => {
           <h3 class="card-name">{{ booster.name }}</h3>
           <p class="card-benefit">{{ booster.benefit }}</p>
 
-          <p class="card-actives">
-            <span>Actives</span>
-            {{ booster.heroIngredient }} · {{ booster.activeIngredient }}
-          </p>
-
           <p class="card-tagline">{{ booster.tagline }}</p>
         </div>
 
@@ -138,7 +132,7 @@ onBeforeUnmount(() => {
             :hero-image="booster.heroImage"
             :selected-bonuses="[...selectedBonuses]"
             :hovered-bonus="hoveredBonusId"
-            :red-gold-active="redGoldActive"
+            :red-gold-active="false"
           />
         </div>
 
@@ -157,11 +151,20 @@ onBeforeUnmount(() => {
             </div>
             <h3 class="card-name">{{ booster.name }}</h3>
             <p class="card-benefit">{{ booster.benefit }}</p>
-            <p class="card-actives">
-              <span>Actives</span>
-              {{ booster.heroIngredient }} · {{ booster.activeIngredient }}
-            </p>
-            <p class="card-tagline">{{ booster.tagline }}</p>
+            <div class="lab-tagline-row">
+              <p class="card-tagline">{{ booster.tagline }}</p>
+              <button class="btn-the-story" :class="{ open: storyOpen }" @click="storyOpen = !storyOpen">
+                <span class="btn-the-story-label">{{ storyOpen ? 'Hide' : 'The story' }}</span>
+                <svg viewBox="0 0 16 16" fill="none">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            <Transition name="story-slide">
+              <div v-if="storyOpen" class="lab-story">
+                <p>{{ booster.story }}</p>
+              </div>
+            </Transition>
           </div>
 
           <div class="lab-section">
@@ -180,19 +183,6 @@ onBeforeUnmount(() => {
                 @mouseleave="onBonusLeave"
               />
             </div>
-          </div>
-
-          <div class="lab-section lab-premium">
-            <span class="lab-label">Premium add-on</span>
-            <IngredientChip
-              :ingredient="RED_GOLD"
-              :selected="redGoldActive"
-              :story-open="expandedIngredientId === 'red_gold'"
-              :is-premium="true"
-              :tone-rgb="booster.toneRgb"
-              @toggle="redGoldActive = !redGoldActive"
-              @toggle-story="toggleStory('red_gold')"
-            />
           </div>
 
           <div class="lab-summary">
@@ -266,19 +256,19 @@ onBeforeUnmount(() => {
 }
 
 .card-num {
-  font-size: 0.62rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(73, 67, 58, 0.62);
+  color: rgba(73, 67, 58, 0.5);
 }
 
 .card-element {
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--tone-ink);
-  opacity: 0.76;
+  color: rgba(73, 67, 58, 0.5);
 }
 
 .card-icon-wrap {
@@ -308,16 +298,15 @@ onBeforeUnmount(() => {
 }
 
 .card-benefit {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--tone-ink);
-  line-height: 1.2;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  color: rgba(73, 67, 58, 0.82);
+  line-height: 1.3;
   margin-bottom: 0.5rem;
 }
 
 .card-actives {
-  font-size: 0.76rem;
+  font-size: 0.86rem;
   color: rgba(70, 65, 58, 0.86);
   line-height: 1.52;
   margin-bottom: 0.5rem;
@@ -326,18 +315,18 @@ onBeforeUnmount(() => {
 .card-actives span {
   display: block;
   margin-bottom: 0.12rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  font-size: 0.58rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  color: rgba(86, 79, 70, 0.6);
+  color: rgba(73, 67, 58, 0.5);
 }
 
 .card-tagline {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 0.84rem;
-  color: var(--mid);
+  font-size: 1.12rem;
+  color: var(--tone-ink);
   line-height: 1.35;
   margin-bottom: 0.6rem;
 }
@@ -446,7 +435,7 @@ onBeforeUnmount(() => {
   border: none;
   background: none;
   font-family: var(--sans);
-  font-size: 0.76rem;
+  font-size: 0.84rem;
   color: var(--mid);
   cursor: pointer;
   padding: 0.4rem 0;
@@ -468,10 +457,103 @@ onBeforeUnmount(() => {
 .lab-intro {
   flex: 1;
   padding-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .lab-intro .card-name {
   font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+}
+
+.lab-tagline-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.5rem 0;
+  margin-bottom: 0.2rem;
+}
+
+.card-collapsed .card-tagline {
+  font-size: 0.94rem;
+}
+
+.lab-tagline-row .card-tagline {
+  margin-bottom: 0;
+}
+
+.btn-the-story {
+  min-width: 98px;
+  height: 34px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--mid);
+  transition: transform 0.3s var(--ease-out), color 0.2s, border-color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  flex-shrink: 0;
+  padding: 0 0.58rem;
+}
+
+.btn-the-story svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.28s var(--ease-out);
+}
+
+.btn-the-story-label {
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.btn-the-story.open svg {
+  transform: rotate(180deg);
+}
+
+.btn-the-story:hover {
+  color: var(--dark);
+  border-color: rgba(0, 0, 0, 0.14);
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.lab-story {
+  margin-top: 0.5rem;
+  margin-bottom: 0.6rem;
+  padding: 0.7rem 0.6rem 0.7rem 1rem;
+  background: linear-gradient(to right, rgba(var(--tone-rgb), 0.08), transparent 80%);
+  border-radius: 0.5rem;
+}
+
+.lab-story p {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--dark);
+  margin: 0;
+}
+
+.story-slide-enter-active {
+  transition: all 0.3s var(--ease-out);
+}
+.story-slide-leave-active {
+  transition: all 0.2s ease;
+}
+.story-slide-enter-from,
+.story-slide-leave-to {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  padding: 0 0.8rem;
+}
+.story-slide-enter-to,
+.story-slide-leave-from {
+  max-height: 200px;
 }
 
 .lab-section {
@@ -480,9 +562,9 @@ onBeforeUnmount(() => {
 
 .lab-label {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba(73, 67, 58, 0.5);
   margin-bottom: 0.6rem;
@@ -503,18 +585,18 @@ onBeforeUnmount(() => {
 
 .lab-summary-label {
   display: block;
-  font-size: 0.58rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(73, 67, 58, 0.45);
+  color: rgba(73, 67, 58, 0.5);
   margin-bottom: 0.3rem;
 }
 
 .lab-formula {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 0.9rem;
+  font-size: 0.96rem;
   color: var(--dark);
   line-height: 1.45;
 }
@@ -524,7 +606,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.6rem 0 0.4rem;
+  padding: 0.6rem 0 0;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
