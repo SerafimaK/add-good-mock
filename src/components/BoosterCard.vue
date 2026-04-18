@@ -58,6 +58,10 @@ function addToCart() {
   add(props.booster.id, [...selectedBonuses])
 }
 
+function addAsIs() {
+  add(props.booster.id)
+}
+
 function reset() {
   clearHoverTimers()
   selectedBonuses.clear()
@@ -120,9 +124,9 @@ onBeforeUnmount(() => {
             <span class="val">${{ BASE_PRICE.toFixed(2) }}</span>
           </div>
           <div class="bcard-actions">
-            <button class="bcard-customize" @click.stop="emit('expand')">Customize</button>
-            <button class="bcard-add" @click.stop="addToCart">
-              Add to bag <span class="arrow">→</span>
+            <button class="bcard-asis" @click.stop="addAsIs">Add as-is</button>
+            <button class="bcard-primary" @click.stop="emit('expand')">
+              Customize <span class="arrow">→</span>
             </button>
           </div>
         </div>
@@ -148,8 +152,8 @@ onBeforeUnmount(() => {
           <div class="lab-left">
             <div class="lab-intro">
               <div class="lab-meta-row">
-                <span><span class="n-sym">№</span> {{ booster.num }}</span><span>·</span>
-                <span class="el">{{ booster.element }}</span>
+                <span class="lab-num"><span class="n-sym">№</span> {{ booster.num }}</span>
+                <span class="lab-element">{{ booster.element }}</span>
               </div>
               <h3 class="lab-name">{{ booster.name }}</h3>
               <div class="lab-benefit">{{ booster.benefit }}</div>
@@ -355,7 +359,7 @@ onBeforeUnmount(() => {
 .bcard-meta {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  justify-content: space-between;
   font-family: var(--sans);
   font-size: 0.68rem;
   letter-spacing: 0.18em;
@@ -365,33 +369,23 @@ onBeforeUnmount(() => {
   position: relative;
   z-index: 2;
 }
-.bcard-meta-sep {
-  color: var(--lt);
-  font-weight: 400;
-  letter-spacing: 0;
-}
 
 .bcard-num {
-  font-family: var(--sans);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--lt);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--tone-ink);
   line-height: 1;
   display: inline-flex;
   align-items: baseline;
-  gap: 0.3rem;
+  gap: 0.25rem;
 }
 .bcard-num .n-sym {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 0.95rem;
-  letter-spacing: 0;
-  color: var(--tone-ink);
-  text-transform: none;
-  font-weight: 400;
-  line-height: 1;
+  font: inherit;
+  color: inherit;
 }
 
 .bcard-element {
@@ -400,6 +394,13 @@ onBeforeUnmount(() => {
   gap: 0.42rem;
   font-weight: 700;
   color: var(--tone-ink);
+}
+.bcard-element::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(var(--tone-rgb), 0.85);
+  box-shadow: 0 0 0 3px rgba(var(--tone-rgb), 0.2);
 }
 
 .bcard-name {
@@ -521,7 +522,7 @@ onBeforeUnmount(() => {
   gap: 0.5rem;
 }
 
-.bcard-customize {
+.bcard-asis {
   border: none;
   background: none;
   font-family: var(--sans);
@@ -536,13 +537,14 @@ onBeforeUnmount(() => {
   text-underline-offset: 4px;
   text-decoration-color: rgba(21, 18, 16, 0.18);
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  white-space: nowrap;
 }
-.bcard-customize:hover {
+.bcard-asis:hover {
   color: var(--dark);
   text-decoration-color: var(--dark);
 }
 
-.bcard-add {
+.bcard-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -560,13 +562,13 @@ onBeforeUnmount(() => {
   transition: all 0.25s ease;
   white-space: nowrap;
 }
-.bcard-add:hover {
+.bcard-primary:hover {
   background: var(--tone-ink);
   border-color: var(--tone-ink);
   transform: translateY(-2px);
   box-shadow: 0 10px 22px -8px rgba(var(--tone-rgb), 0.7);
 }
-.bcard-add .arrow {
+.bcard-primary .arrow {
   transition: transform 0.3s var(--ease-out);
   display: inline-block;
 }
@@ -647,7 +649,7 @@ onBeforeUnmount(() => {
 .lab-meta-row {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  justify-content: space-between;
   font-family: var(--sans);
   font-size: 0.68rem;
   font-weight: 700;
@@ -656,16 +658,35 @@ onBeforeUnmount(() => {
   color: var(--lt);
   margin-bottom: 0.4rem;
 }
-.lab-meta-row .el { color: var(--tone-ink); }
-.lab-meta-row .n-sym {
+.lab-num {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 0.95rem;
-  letter-spacing: 0;
-  color: var(--tone-ink);
-  text-transform: none;
+  font-size: 1.1rem;
   font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--tone-ink);
   line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+.lab-num .n-sym {
+  font: inherit;
+  color: inherit;
+}
+.lab-element {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  color: var(--tone-ink);
+}
+.lab-element::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(var(--tone-rgb), 0.85);
+  box-shadow: 0 0 0 3px rgba(var(--tone-rgb), 0.2);
 }
 
 .lab-name {
@@ -726,20 +747,20 @@ onBeforeUnmount(() => {
 }
 .lab-story p { margin: 0; }
 
-/* Step labels */
+/* Step labels — numeral sits inline, quietly leading the label */
 .lab-step {
   display: flex;
   align-items: baseline;
-  gap: 0.7rem;
+  gap: 0.45rem;
   margin-bottom: 0.7rem;
 }
 .lab-step-num {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 1.3rem;
+  font-size: 0.95rem;
   color: var(--tone-ink);
   line-height: 1;
-  min-width: 24px;
+  flex-shrink: 0;
 }
 .lab-step-label {
   font-family: var(--sans);
@@ -972,5 +993,30 @@ onBeforeUnmount(() => {
   .lab-right { padding: 1.4rem 1.2rem 1.2rem; }
   .readout-foot { flex-direction: column; align-items: stretch; }
   .btn-add { justify-content: center; }
+}
+
+/* Narrow phones — stack Add as-is under Customize so the primary button never clips */
+@media (max-width: 560px) {
+  .bcard-foot {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+  .bcard-price {
+    justify-content: flex-start;
+  }
+  .bcard-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 0.55rem;
+    width: 100%;
+  }
+  .bcard-primary {
+    justify-content: center;
+  }
+  .bcard-asis {
+    text-align: center;
+    padding: 0.3rem 0.2rem;
+  }
 }
 </style>

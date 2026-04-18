@@ -27,11 +27,10 @@ const aboutOpen = ref(false)
           </svg>
         </span>
         <div class="chip-body">
-          <span class="chip-name">{{ ingredient.name }}<template v-if="ingredient.nickname"> — {{ ingredient.nickname }}</template></span>
+          <span class="chip-name">
+            {{ ingredient.name }}<template v-if="ingredient.nickname"><span class="chip-nickname"> — {{ ingredient.nickname }}</span></template>
+          </span>
           <span class="chip-effects">{{ ingredient.effects.join(' · ') }}</span>
-        </div>
-        <div class="chip-aside">
-          <span class="chip-price" :class="{ 'chip-price-premium': isPremium }">{{ isPremium ? '+$2.00' : '+$1.00' }}</span>
           <button
             type="button"
             class="chip-about-toggle"
@@ -43,6 +42,9 @@ const aboutOpen = ref(false)
               <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
+        </div>
+        <div class="chip-aside">
+          <span class="chip-price" :class="{ 'chip-price-premium': isPremium }">{{ isPremium ? '+$2.00' : '+$1.00' }}</span>
         </div>
       </div>
     </div>
@@ -134,6 +136,10 @@ const aboutOpen = ref(false)
   color: var(--dark);
   line-height: 1.3;
 }
+.chip-nickname {
+  font-weight: 400;
+  color: var(--mid);
+}
 
 .chip-effects {
   font-size: 0.82rem;
@@ -174,9 +180,10 @@ const aboutOpen = ref(false)
 
 /* About toggle — sits directly under the price pill */
 .chip-about-toggle {
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.28rem;
   background: none;
   border: none;
   font-family: var(--sans);
@@ -186,14 +193,12 @@ const aboutOpen = ref(false)
   text-transform: uppercase;
   color: var(--lt);
   cursor: pointer;
-  padding: 0.2rem 0.35rem;
-  border-radius: 6px;
-  transition: color 0.2s ease, background 0.2s ease;
+  padding: 0.18rem 0;
+  margin-top: 0.15rem;
+  border-radius: 4px;
+  transition: color 0.2s ease;
 }
-.chip-about-toggle:hover {
-  color: var(--dark);
-  background: rgba(0, 0, 0, 0.04);
-}
+.chip-about-toggle:hover { color: var(--dark); }
 .chip-about-toggle svg { transition: transform 0.3s ease; }
 .chip-about-toggle.open svg { transform: rotate(180deg); }
 

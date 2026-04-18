@@ -78,7 +78,7 @@ export const BONUSES = {
     tagline: 'The signal to rebuild',
     story: 'A signal peptide your body already produces — but less and less with age. GHK-Cu tells skin to rebuild collagen, elastin, and the structures that keep it firm. The blue tint is the copper — and it\'s your freshness indicator.',
     effects: ['Anti-aging', 'Collagen boost', 'Skin remodeling'],
-    image: '/lines_no_background/centella-removebg-preview.png',
+    image: '/molecule-1.png',
   },
   licorice: {
     id: 'licorice',
@@ -96,7 +96,7 @@ export const BONUSES = {
     tagline: 'What mushrooms taught our skin',
     story: 'Mushrooms use beta-glucan to build their cell walls. Applied to skin, the same polysaccharide triggers barrier repair — your skin learns from fungi how to protect itself.',
     effects: ['Barrier repair', 'Deep hydration', 'Skin resilience'],
-    image: '/lines_no_background/centella-removebg-preview.png',
+    image: '/molecule-2.png',
   },
   pga: {
     id: 'pga',
@@ -105,7 +105,7 @@ export const BONUSES = {
     tagline: 'The fermented water-holder',
     story: 'A biopolymer spun by bacteria during natto fermentation. PGA holds 5× more water than hyaluronic acid — but its real trick is protecting your skin\'s own HA by inhibiting the enzyme that breaks it down.',
     effects: ['Lifting', 'HA protection', 'Moisture lock'],
-    image: '/lines_no_background/centella-removebg-preview.png',
+    image: '/molecule-3.png',
   },
 }
 
