@@ -12,10 +12,11 @@ const boosters = BOOSTER_ORDER.map(id => BOOSTERS[id])
 
 <template>
   <section class="products" id="products">
-    <div class="s-hdr rv">
-      <span class="s-lab">The Trio</span>
-      <h2 class="s-ttl">Three boosters. <i>Your formula.</i></h2>
-      <p class="s-sub">Each booster is a complete formula. Customize with extra actives to match exactly what your skin needs.</p>
+    <div class="trio-hdr rv">
+      <div class="hdr-left">
+      </div>
+      <h2 class="hdr-title">Three boosters.<br><i>Your formula.</i></h2>
+      <p class="hdr-right">Each booster is a complete formula. Customize with extra actives to match exactly what your skin needs.</p>
     </div>
 
     <div class="products-grid" :class="{ 'grid-expanded': expandedId }">
@@ -42,15 +43,41 @@ const boosters = BOOSTER_ORDER.map(id => BOOSTERS[id])
     linear-gradient(180deg, #f6f1e9 0%, var(--bg) 45%, #f7f2ea 100%);
 }
 
-.s-sub {
-  font-size: 0.92rem;
-  color: var(--mid);
-  margin-top: 0.6rem;
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
+/* Editorial header — 3-column grid */
+.trio-hdr {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 0.4rem 1.8rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 2rem;
+  border-bottom: 1px solid rgba(21, 18, 16, 0.08);
+}
+.hdr-left { display: flex; flex-direction: column; gap: 0.6rem; }
+.hdr-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
   text-align: center;
+  margin: 0;
+}
+.hdr-title i { font-style: italic; color: var(--mid); }
+.hdr-right {
+  text-align: right;
+  font-size: 0.88rem;
+  color: var(--mid);
+  max-width: 280px;
+  justify-self: end;
   line-height: 1.5;
+  margin: 0;
+}
+@media (max-width: 920px) {
+  .trio-hdr { grid-template-columns: 1fr; text-align: center; }
+  .hdr-left, .hdr-right { text-align: center; justify-self: center; max-width: none; align-items: center; }
+  .hdr-meta { justify-content: center; }
 }
 
 .products-grid {
@@ -64,7 +91,7 @@ const boosters = BOOSTER_ORDER.map(id => BOOSTERS[id])
 
 .products-grid.grid-expanded {
   grid-template-columns: 1fr;
-  max-width: 800px;
+  max-width: 1060px;
 }
 
 @media (max-width: 1080px) {
@@ -80,7 +107,7 @@ const boosters = BOOSTER_ORDER.map(id => BOOSTERS[id])
 
   .products-grid.grid-expanded {
     grid-template-columns: 1fr;
-    max-width: 680px;
+    max-width: 900px;
   }
 }
 
