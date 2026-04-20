@@ -1,129 +1,60 @@
-// Structured product data for the customization UI
-// Source: addgood-content-en.json
+// Product catalog:
+// - Content (name, tagline, benefit, story, effects, compatibleBonuses, basePrice, nickname, price)
+//   is fetched from the API and merged into BOOSTERS / BONUSES at app startup (see loadProducts).
+// - Visual/design tokens (colors, element labels, images, positions) live here as static maps
+//   keyed by product id. They are merged onto the API response at load time.
 
-export const BOOSTERS = {
+import { getBoosters, getBonuses } from '../api/products.js'
+
+export const BOOSTER_ORDER = ['glow', 'plump', 'firm']
+
+// UI-only metadata for boosters — colors, element labels, artwork
+const BOOSTER_UI = {
   glow: {
-    id: 'glow',
-    name: 'GLOW',
     num: '01',
     element: 'Field',
     color: '#C89B3C',
     toneRgb: '221, 186, 124',
     toneInk: '#6d4f1c',
     btnText: '#614617',
-    heroIngredient: 'Rice Ferment Filtrate',
-    activeIngredient: 'Niacinamide 5%',
-    tagline: 'Rice water, turned to gold by time',
-    benefit: 'Radiance + tone clarity',
-    story: 'Rice grows in flooded fields under months of sun. Fermentation with Saccharomyces yeast transforms the grain into a concentrate of amino acids and organic acids — compounds that weren\'t in the raw rice. Paired with 5% niacinamide, the most proven active in dermatology for radiance and even tone.',
-    effects: ['Radiance', 'Even tone', 'Brightening'],
-    compatibleBonuses: ['centella', 'ghk_cu', 'licorice'],
     heroImage: '/lines_no_background/rice-removebg-preview.png',
     icon: '/icon_rice.png',
   },
   plump: {
-    id: 'plump',
-    name: 'PLUMP',
     num: '02',
     element: 'Forest',
     color: '#4A7C59',
     toneRgb: '149, 193, 143',
     toneInk: '#245833',
     btnText: '#1d5030',
-    heroIngredient: 'Snow Mushroom',
-    activeIngredient: 'Sodium Hyaluronate',
-    tagline: 'The translucent mushroom that drinks clouds',
-    benefit: 'Water cushion + bounce',
-    story: 'Tremella grows in tropical forests — a translucent, coral-like fungus that holds 500 times its weight in water. In China it was called "silver ear" and prized for its ability to restore freshness to the skin. Paired with low-molecular sodium hyaluronate that penetrates to the deeper layers, not just the surface.',
-    effects: ['Deep hydration', 'Plumping', 'Softness'],
-    compatibleBonuses: ['centella', 'ghk_cu', 'beta_glucan'],
     heroImage: '/lines_no_background/mushroom-removebg-preview.png',
     icon: '/icon_mushroom.png',
   },
   firm: {
-    id: 'firm',
-    name: 'FIRM',
     num: '03',
     element: 'Sea',
     color: '#1E3A5F',
     toneRgb: '132, 182, 207',
     toneInk: '#225571',
     btnText: '#1c4d67',
-    heroIngredient: 'Sea Kelp Bioferment',
-    activeIngredient: 'Matrixyl 3000',
-    tagline: 'An underwater forest, fermented by tides',
-    benefit: 'Lifted feel + elastic skin',
-    story: 'Brown kelp grows in the cold currents of the Atlantic — entire underwater forests swaying to the rhythm of the tides. Fermentation with Lactobacillus probiotics breaks open the algae cells, releasing minerals and amino acids in a form the skin accepts immediately. Matrixyl peptides complete the work — a signal to cells: build collagen.',
-    effects: ['Firmness', 'Lifting', 'Tone'],
-    compatibleBonuses: ['centella', 'pga', 'beta_glucan'],
     heroImage: '/lines_no_background/sea_kelp-removebg-preview.png',
     icon: '/icon_seaweed.png',
   },
 }
 
-export const BONUSES = {
-  centella: {
-    id: 'centella',
-    name: 'Centella Asiatica',
-    nickname: 'Tiger Grass',
-    tagline: 'The herb that heals hunters',
-    story: 'In the jungles of Southeast Asia, wounded tigers seek out this creeping herb. Science confirmed what they knew: it calms, repairs, and strengthens skin.',
-    effects: ['Calms', 'Repairs barrier', 'Reduces redness'],
-    image: '/lines_no_background/centella-removebg-preview.png',
-  },
-  ghk_cu: {
-    id: 'ghk_cu',
-    name: 'GHK-Cu',
-    nickname: 'Copper Peptide',
-    tagline: 'The signal to rebuild',
-    story: 'A signal peptide your body already produces — but less and less with age. GHK-Cu tells skin to rebuild collagen, elastin, and the structures that keep it firm. The blue tint is the copper — and it\'s your freshness indicator.',
-    effects: ['Anti-aging', 'Collagen boost', 'Skin remodeling'],
-    image: '/molecule-1.png',
-  },
-  licorice: {
-    id: 'licorice',
-    name: 'Licorice Root Extract',
-    nickname: 'Ancient Root',
-    tagline: 'The oldest brightener known to humankind',
-    story: 'One of the oldest medicines in human history — used in Egypt, China, and Greece. The water-soluble actives inside (liquiritin, glycyrrhizin) gently even out skin tone without any harshness.',
-    effects: ['Tone-evening', 'Antioxidant', 'Calms redness'],
-    image: '/lines_no_background/licorice-removebg-preview.png',
-  },
-  beta_glucan: {
-    id: 'beta_glucan',
-    name: 'Beta-Glucan',
-    nickname: 'Barrier Intelligence',
-    tagline: 'What mushrooms taught our skin',
-    story: 'Mushrooms use beta-glucan to build their cell walls. Applied to skin, the same polysaccharide triggers barrier repair — your skin learns from fungi how to protect itself.',
-    effects: ['Barrier repair', 'Deep hydration', 'Skin resilience'],
-    image: '/molecule-2.png',
-  },
-  pga: {
-    id: 'pga',
-    name: 'PGA (Polyglutamic Acid)',
-    nickname: 'Natto Thread',
-    tagline: 'The fermented water-holder',
-    story: 'A biopolymer spun by bacteria during natto fermentation. PGA holds 5× more water than hyaluronic acid — but its real trick is protecting your skin\'s own HA by inhibiting the enzyme that breaks it down.',
-    effects: ['Lifting', 'HA protection', 'Moisture lock'],
-    image: '/molecule-3.png',
-  },
+// UI-only metadata for bonus ingredients — artwork
+const BONUS_UI = {
+  centella:    { image: '/lines_no_background/centella-removebg-preview.png' },
+  ghk_cu:      { image: '/molecule-1.png' },
+  licorice:    { image: '/lines_no_background/licorice-removebg-preview.png' },
+  beta_glucan: { image: '/molecule-2.png' },
+  pga:         { image: '/molecule-3.png' },
 }
 
-export const RED_GOLD = {
-  id: 'red_gold',
-  name: 'Red Gold',
-  ingredient: 'Astaxanthin',
-  nickname: 'Red gold of the ocean',
-  tagline: 'The color that protects',
-  story: 'Why are flamingos pink? They eat shrimp. Shrimp eat algae. Algae produce astaxanthin — a carotenoid that turned out to be one of the most powerful natural antioxidants on Earth. We take it directly from Haematococcus pluvialis microalgae. No middlemen in the food chain.',
-  effects: ['Antioxidant: 6,000× vitamin C', '550× vitamin E', 'Photoaging protection'],
-  evidence: 'In vitro: singlet oxygen quenching activity 6,000× greater than vitamin C, 550× greater than vitamin E. Clinical studies demonstrate improvements in wrinkles, elasticity, and moisture with oral and topical use.',
-  color: '#D4534B',
-  coralRgb: '212, 83, 75',
-  image: '/lines_no_background/red_splash-removebg-preview.png',
-}
-
-export const BOOSTER_ORDER = ['glow', 'plump', 'firm']
+// Populated by loadProducts() before app mount.
+// Same references are shared with all components that import them.
+export const BOOSTERS = {}
+export const BONUSES = {}
 
 // Position map for bonus ingredient drawings around the flask
 export const BONUS_POSITIONS = {
@@ -132,4 +63,24 @@ export const BONUS_POSITIONS = {
   licorice:    { bottom: '11%', left: '-2%', width: '40%' },
   beta_glucan: { bottom: '15%', right: '-2%', width: '38%' },
   pga:         { top: '45%', right: '-2%', width: '38%' },
+}
+
+// Temporary: Red Gold was removed from the product but some components still
+// reference it. Keeping a stub until FlaskComposition/cart/FAQ are cleaned up.
+export const RED_GOLD = {
+  id: 'red_gold',
+  name: 'Red Gold',
+  ingredient: 'Astaxanthin',
+  image: '/lines_no_background/red_splash-removebg-preview.png',
+}
+
+export async function loadProducts() {
+  const [boosters, bonuses] = await Promise.all([getBoosters(), getBonuses()])
+
+  for (const b of boosters) {
+    BOOSTERS[b.id] = { ...b, ...(BOOSTER_UI[b.id] || {}) }
+  }
+  for (const b of bonuses) {
+    BONUSES[b.id] = { ...b, ...(BONUS_UI[b.id] || {}) }
+  }
 }
