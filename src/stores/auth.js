@@ -18,7 +18,7 @@ const state = reactive({
   },
 })
 
-function hydrateState() {
+function hydrateLocal() {
   try {
     const saved = sessionStorage.getItem('auth')
     if (saved) {
@@ -27,6 +27,28 @@ function hydrateState() {
       state.token = parsed.token
     }
   } catch {}
+}
+
+// Fetches the latest profile from the server and replaces the local copy.
+// Called once on app start (see main.js → awaits hydrateAuth) so that stale
+// fields (addresses, orders, hasPassword) stay in sync across tabs and after
+// server-side changes. If the token is rejected, the session is dropped.
+export async function hydrateAuth() {
+  hydrateLocal()
+  if (!state.token) return
+  try {
+    const fresh = await userApi.getProfile()
+    state.user = fresh
+    persistState()
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 401) {
+      state.user = null
+      state.token = null
+      persistState()
+    }
+    // Other errors (server down, network) → keep the local copy so the user
+    // still sees their data; the next authenticated request will retry.
+  }
 }
 
 function persistState() {
@@ -48,7 +70,7 @@ function describeError(err, fallback) {
   return err?.message || fallback
 }
 
-hydrateState()
+hydrateLocal()
 
 export function useAuth() {
   const isAuthenticated = computed(() => !!state.user)
@@ -191,40 +213,108 @@ export function useAuth() {
     persistState()
   }
 
-  // --- Profile / addresses / orders: still local-only; Blocks 4 & 5 wire these to the API.
+  // --- Profile & addresses: backed by /user/* endpoints.
+  // All methods resolve with `{ ok, data?, code?, message? }` so callers can
+  // await + show feedback without leaking API shapes into components.
+  // Orders remain local-only until Block 5.
 
-  function updateProfile(fields) {
-    if (!state.user) return
-    Object.assign(state.user, fields)
-    persistState()
-  }
-
-  function addAddress(address) {
-    if (!state.user) return
-    const newAddr = { ...address, id: 'addr_local_' + Date.now().toString(36) }
-    if (newAddr.isDefault) {
-      state.user.addresses.forEach(a => (a.isDefault = false))
+  async function updateProfile(fields) {
+    if (!state.user) return { ok: false }
+    state.loading = true
+    state.error = null
+    try {
+      const updated = await userApi.updateProfile(fields)
+      // Server returns the full user object (with addresses + orders), so we
+      // replace rather than merge to drop any stale fields.
+      state.user = updated
+      persistState()
+      return { ok: true, data: updated }
+    } catch (err) {
+      state.error = describeError(err, 'Could not update profile')
+      return {
+        ok: false,
+        code: err instanceof ApiError ? err.code : null,
+        message: state.error,
+      }
+    } finally {
+      state.loading = false
     }
-    state.user.addresses.push(newAddr)
-    persistState()
-    return newAddr
   }
 
-  function updateAddress(id, fields) {
-    if (!state.user) return
-    const addr = state.user.addresses.find(a => a.id === id)
-    if (!addr) return
-    if (fields.isDefault) {
-      state.user.addresses.forEach(a => (a.isDefault = false))
+  // Keeps state.user.addresses sorted with the default first — matches the
+  // order used by the server (ORDER BY is_default DESC, id).
+  function sortAddresses() {
+    if (!state.user?.addresses) return
+    state.user.addresses.sort((a, b) => {
+      if (a.isDefault !== b.isDefault) return a.isDefault ? -1 : 1
+      // Numeric id compare by stripping the `addr_` prefix.
+      return parseInt(String(a.id).replace('addr_', ''), 10)
+           - parseInt(String(b.id).replace('addr_', ''), 10)
+    })
+  }
+
+  async function addAddress(address) {
+    if (!state.user) return null
+    state.loading = true
+    state.error = null
+    try {
+      const created = await userApi.createAddress(address)
+      // Server enforced the "only one default" rule — mirror it locally.
+      if (created.isDefault) {
+        state.user.addresses.forEach(a => { a.isDefault = false })
+      }
+      state.user.addresses.push(created)
+      sortAddresses()
+      persistState()
+      return created
+    } catch (err) {
+      state.error = describeError(err, 'Could not save address')
+      return null
+    } finally {
+      state.loading = false
     }
-    Object.assign(addr, fields)
-    persistState()
   }
 
-  function deleteAddress(id) {
-    if (!state.user) return
-    state.user.addresses = state.user.addresses.filter(a => a.id !== id)
-    persistState()
+  async function updateAddress(id, fields) {
+    if (!state.user) return null
+    state.loading = true
+    state.error = null
+    try {
+      const updated = await userApi.updateAddress(id, fields)
+      if (updated.isDefault) {
+        state.user.addresses.forEach(a => {
+          if (a.id !== updated.id) a.isDefault = false
+        })
+      }
+      const idx = state.user.addresses.findIndex(a => a.id === id)
+      if (idx >= 0) state.user.addresses.splice(idx, 1, updated)
+      else state.user.addresses.push(updated)
+      sortAddresses()
+      persistState()
+      return updated
+    } catch (err) {
+      state.error = describeError(err, 'Could not update address')
+      return null
+    } finally {
+      state.loading = false
+    }
+  }
+
+  async function deleteAddress(id) {
+    if (!state.user) return false
+    state.loading = true
+    state.error = null
+    try {
+      await userApi.deleteAddress(id)
+      state.user.addresses = state.user.addresses.filter(a => a.id !== id)
+      persistState()
+      return true
+    } catch (err) {
+      state.error = describeError(err, 'Could not delete address')
+      return false
+    } finally {
+      state.loading = false
+    }
   }
 
   function addOrder(order) {

@@ -43,8 +43,11 @@ async function handlePlaceOrder() {
       accountFields.value.password,
     )
     if (!ok) { placing.value = false; return }
-    // Save address to new account
-    addAddress({
+    // Save address to new account. Awaited so the order (and navigation to the
+    // confirmation page) doesn't race with the POST — a failure here isn't
+    // fatal for the order itself, but we don't want to land on the account
+    // page moments later with no saved address yet.
+    await addAddress({
       label: 'Home',
       fullName: shippingAddress.value.fullName,
       line1: shippingAddress.value.line1,

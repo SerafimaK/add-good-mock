@@ -31,9 +31,26 @@ function startEdit() {
   editing.value = true
 }
 
-function saveProfile() {
-  updateProfile({ name: editName.value, email: editEmail.value, phone: editPhone.value })
-  editing.value = false
+// Error banner for profile/address actions. Cleared by the next action.
+const profileError = ref('')
+
+async function saveProfile() {
+  profileError.value = ''
+  // Only send fields that actually changed — avoids the server's uniqueness
+  // checks re-firing on the user's own current email/phone.
+  const fields = {}
+  const current = state.user || {}
+  if (editName.value !== (current.name || ''))   fields.name  = editName.value
+  if (editEmail.value !== (current.email || '')) fields.email = editEmail.value
+  if (editPhone.value !== (current.phone || '')) fields.phone = editPhone.value
+  if (!Object.keys(fields).length) { editing.value = false; return }
+
+  const result = await updateProfile(fields)
+  if (result.ok) {
+    editing.value = false
+  } else {
+    profileError.value = result.message || 'Could not update profile'
+  }
 }
 
 function handleLogout() {
@@ -104,17 +121,27 @@ function openEditAddress(addr) {
   showAddrForm.value = true
 }
 
-function saveAddress() {
-  if (editingAddrId.value) {
-    updateAddress(editingAddrId.value, { ...addrForm.value })
+const addrError = ref('')
+
+async function saveAddress() {
+  addrError.value = ''
+  // Strip the `id` field before sending — the server assigns it, and it's
+  // also encoded in the URL for PATCH.
+  const { id: _ignore, ...payload } = addrForm.value
+  const result = editingAddrId.value
+    ? await updateAddress(editingAddrId.value, payload)
+    : await addAddress(payload)
+  if (result) {
+    showAddrForm.value = false
   } else {
-    addAddress({ ...addrForm.value })
+    addrError.value = state.error || 'Could not save address'
   }
-  showAddrForm.value = false
 }
 
-function removeAddress(id) {
-  deleteAddress(id)
+async function removeAddress(id) {
+  addrError.value = ''
+  const ok = await deleteAddress(id)
+  if (!ok) addrError.value = state.error || 'Could not delete address'
 }
 
 // Orders
@@ -190,9 +217,12 @@ function itemName(item) {
           <FormInput v-model="editName" label="Name" />
           <FormInput v-model="editEmail" label="Email" type="email" />
           <FormInput v-model="editPhone" label="Phone" type="tel" />
+          <div v-if="profileError" class="pw-error">{{ profileError }}</div>
           <div class="prof-actions">
-            <button class="btn-primary" @click="saveProfile">Save</button>
-            <button class="btn-secondary" @click="editing = false">Cancel</button>
+            <button class="btn-primary" :disabled="state.loading" @click="saveProfile">
+              {{ state.loading ? 'Saving...' : 'Save' }}
+            </button>
+            <button class="btn-secondary" @click="editing = false; profileError = ''">Cancel</button>
           </div>
         </template>
       </div>
@@ -218,6 +248,7 @@ function itemName(item) {
               <button class="btn-sm btn-sm--danger" @click="removeAddress(addr.id)">Delete</button>
             </div>
           </div>
+          <div v-if="addrError" class="pw-error">{{ addrError }}</div>
           <button class="btn-secondary" @click="openNewAddress" style="margin-top: 1rem;">+ Add address</button>
         </div>
 
@@ -239,9 +270,12 @@ function itemName(item) {
             <input type="checkbox" v-model="addrForm.isDefault" />
             <span>Set as default address</span>
           </label>
+          <div v-if="addrError" class="pw-error">{{ addrError }}</div>
           <div class="prof-actions">
-            <button class="btn-primary" @click="saveAddress">Save address</button>
-            <button class="btn-secondary" @click="showAddrForm = false">Cancel</button>
+            <button class="btn-primary" :disabled="state.loading" @click="saveAddress">
+              {{ state.loading ? 'Saving...' : 'Save address' }}
+            </button>
+            <button class="btn-secondary" @click="showAddrForm = false; addrError = ''">Cancel</button>
           </div>
         </div>
       </div>
