@@ -39,8 +39,8 @@ export const MOCK_USERS = [
         date: '2026-03-10T14:30:00Z',
         status: 'delivered',
         items: [
-          { boosterId: 'glow', bonuses: ['centella'], redGold: true, price: 12.90, sub: 'Rice Ferment + Niacinamide + Centella + Red Gold' },
-          { boosterId: 'plump', bonuses: [], redGold: false, price: 11.90, sub: 'Snow Mushroom + HA' },
+          { boosterId: 'glow', bonuses: ['centella'], price: 12.90, sub: 'Rice Ferment + Niacinamide + Centella' },
+          { boosterId: 'plump', bonuses: [], price: 11.90, sub: 'Snow Mushroom + HA' },
         ],
         total: 24.80,
         shippingAddress: {
@@ -53,7 +53,7 @@ export const MOCK_USERS = [
         date: '2026-03-18T09:15:00Z',
         status: 'shipped',
         items: [
-          { boosterId: 'trio', bonuses: [], redGold: false, price: 29.90, sub: 'Glow + Plump + Firm' },
+          { boosterId: 'trio', bonuses: [], price: 29.90, sub: 'Glow + Plump + Firm' },
         ],
         total: 29.90,
         shippingAddress: {
@@ -66,7 +66,7 @@ export const MOCK_USERS = [
         date: '2026-03-20T16:00:00Z',
         status: 'processing',
         items: [
-          { boosterId: 'firm', bonuses: ['squalane', 'bakuchiol'], redGold: false, price: 11.90, sub: 'Sea Kelp + Peptides + Squalane, Bakuchiol' },
+          { boosterId: 'firm', bonuses: ['squalane', 'bakuchiol'], price: 11.90, sub: 'Sea Kelp + Peptides + Squalane, Bakuchiol' },
         ],
         total: 11.90,
         shippingAddress: {

@@ -6,6 +6,7 @@ defineProps({
   total: { type: Number, required: true },
   address: { type: Object, required: true },
   loading: { type: Boolean, default: false },
+  error: { type: String, default: '' },
 })
 const emit = defineEmits(['placeOrder', 'back'])
 </script>
@@ -26,6 +27,8 @@ const emit = defineEmits(['placeOrder', 'back'])
         <div>{{ address.country }}</div>
       </div>
     </div>
+
+    <div v-if="error" class="csr-error">{{ error }}</div>
 
     <div class="csr-actions">
       <button class="csr-back" @click="emit('back')">Back</button>
@@ -74,4 +77,12 @@ const emit = defineEmits(['placeOrder', 'back'])
 }
 .csr-place:hover { background: var(--forest); }
 .csr-place:disabled { opacity: .6; cursor: not-allowed; }
+.csr-error {
+  margin-top: 1rem;
+  padding: .55rem .8rem;
+  font-size: .82rem;
+  color: #c44;
+  background: rgba(204,68,68,.06);
+  border-radius: 8px;
+}
 </style>

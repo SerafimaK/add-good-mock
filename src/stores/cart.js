@@ -2,7 +2,6 @@ import { reactive, computed } from 'vue'
 
 export const BASE_PRICE = 11.90
 export const BONUS_PRICE = 1.00
-export const RED_GOLD_PRICE = 2.00
 export const FREE_SHIPPING_QTY = 3
 
 export const PRODUCTS = {
@@ -33,21 +32,17 @@ export function useCart() {
 
   const freeShipping = computed(() => state.items.length >= FREE_SHIPPING_QTY)
 
-  function add(boosterId, bonuses = [], redGold = false) {
-    const price = BASE_PRICE
-      + (bonuses.length * BONUS_PRICE)
-      + (redGold ? RED_GOLD_PRICE : 0)
+  function add(boosterId, bonuses = []) {
+    const price = BASE_PRICE + (bonuses.length * BONUS_PRICE)
 
     const bonusNames = bonuses.map(b => BONUS_NAMES[b] || b)
     let sub = PRODUCTS[boosterId].sub
     if (bonusNames.length) sub += ' + ' + bonusNames.join(', ')
-    if (redGold) sub += ' + Red Gold'
 
     state.items.push({
       uid: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
       boosterId,
       bonuses: [...bonuses],
-      redGold,
       price,
       sub,
     })

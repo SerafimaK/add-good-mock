@@ -1,6 +1,7 @@
 import { reactive, computed } from 'vue'
 import * as authApi from '../api/auth.js'
 import * as userApi from '../api/user.js'
+import * as ordersApi from '../api/orders.js'
 import { ApiError } from '../api/client.js'
 
 const state = reactive({
@@ -317,18 +318,38 @@ export function useAuth() {
     }
   }
 
-  function addOrder(order) {
-    const newOrder = {
-      ...order,
-      id: 'ord_local_' + Date.now().toString(36),
-      date: new Date().toISOString(),
-      status: 'processing',
+  // Sends the cart to POST /orders. Works for guests (no token required) and
+  // for authenticated users; in the latter case we also prepend the returned
+  // order to state.user.orders so the account page reflects it immediately
+  // without a re-hydration round-trip.
+  //
+  // Body shape (see backend/orders.js):
+  //   { items: [{ boosterId, bonuses, price, sub }], total, shippingAddress,
+  //     contact?: { email, phone? } }
+  //
+  // The server re-computes the total from the DB and returns 422 TOTAL_MISMATCH
+  // if the client's figure disagrees — surfaces as result.code.
+  async function placeOrder(body) {
+    state.loading = true
+    state.error = null
+    try {
+      const order = await ordersApi.createOrder(body)
+      if (state.user) {
+        // Server orders are DESC by created_at — new one goes first.
+        state.user.orders.unshift(order)
+        persistState()
+      }
+      return { ok: true, data: order }
+    } catch (err) {
+      state.error = describeError(err, 'Could not place order')
+      return {
+        ok: false,
+        code: err instanceof ApiError ? err.code : null,
+        message: state.error,
+      }
+    } finally {
+      state.loading = false
     }
-    if (state.user) {
-      state.user.orders.unshift(newOrder)
-      persistState()
-    }
-    return newOrder
   }
 
   return {
@@ -347,6 +368,6 @@ export function useAuth() {
     addAddress,
     updateAddress,
     deleteAddress,
-    addOrder,
+    placeOrder,
   }
 }

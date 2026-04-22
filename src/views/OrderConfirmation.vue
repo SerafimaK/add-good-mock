@@ -1,16 +1,38 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuth } from '../stores/auth.js'
 import { PRODUCTS } from '../stores/cart.js'
+import { getOrder } from '../api/orders.js'
 import OrderSummary from '../components/checkout/OrderSummary.vue'
 
 const route = useRoute()
 const { state } = useAuth()
 
-const order = computed(() => {
+// Guests don't have a user.orders list, so fall back to GET /orders/:id.
+// Authenticated users usually find the order locally (it was unshifted into
+// state.user.orders right after placeOrder), but we still fetch on miss to
+// survive page reloads of stale links.
+const fetchedOrder = ref(null)
+const fetchError = ref('')
+
+const orderId = computed(() => route.params.orderId)
+
+const localOrder = computed(() => {
   if (!state.user) return null
-  return state.user.orders.find(o => o.id === route.params.orderId)
+  return state.user.orders.find(o => o.id === orderId.value) || null
+})
+
+const order = computed(() => localOrder.value || fetchedOrder.value)
+
+watchEffect(async () => {
+  if (localOrder.value || !orderId.value) return
+  fetchError.value = ''
+  try {
+    fetchedOrder.value = await getOrder(orderId.value)
+  } catch (err) {
+    fetchError.value = err?.message || 'Could not load order'
+  }
 })
 
 function itemName(item) {
@@ -33,6 +55,9 @@ function estimatedDelivery() {
       <h1 class="oc-title">Order confirmed!</h1>
       <p class="oc-subtitle" v-if="order">
         Order <b>#{{ order.id }}</b> has been placed successfully.
+      </p>
+      <p class="oc-subtitle" v-else-if="fetchError">
+        {{ fetchError }}
       </p>
       <p class="oc-subtitle" v-else>
         Your order has been placed successfully.

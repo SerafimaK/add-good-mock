@@ -66,7 +66,7 @@ export const reviewsData = {
       id: 'r7',
       author: 'Daniel R.',
       rating: 5,
-      text: 'Minimal ingredients, maximum results. Exactly what skincare should be. The Red Gold add-on is worth every penny — my skin has this healthy glow that people keep commenting on.',
+      text: 'Minimal ingredients, maximum results. Exactly what skincare should be. My skin has this healthy glow that people keep commenting on.',
       date: '2026-01-30',
       source: 'trustpilot',
       verified: false,

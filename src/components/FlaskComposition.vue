@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { BONUSES, BONUS_POSITIONS, RED_GOLD } from '../data/boosterData.js'
+import { BONUSES, BONUS_POSITIONS } from '../data/boosterData.js'
 
 const props = defineProps({
   boosterId: String,
@@ -8,7 +8,6 @@ const props = defineProps({
   heroImage: String,
   selectedBonuses: Array,
   hoveredBonus: String,
-  redGoldActive: Boolean,
 })
 
 const BASE_SPOT_RGB = {
@@ -43,27 +42,14 @@ const visibleBonuses = computed(() =>
 <template>
   <div class="flask-wrap" :style="spotStyle">
     <!-- Layer 1: Base watercolor spots -->
-    <template v-if="!redGoldActive">
-      <span class="flask-spot flask-spot-base"></span>
-      <span class="flask-spot flask-spot-base spot-b"></span>
-      <span class="flask-spot flask-spot-base spot-c"></span>
-      <!-- Bokeh orbs -->
-      <span class="flask-bokeh bokeh-1"></span>
-      <span class="flask-bokeh bokeh-2"></span>
-      <span class="flask-bokeh bokeh-3"></span>
-      <span class="flask-bokeh bokeh-4"></span>
-    </template>
-
-    <!-- Red Gold: single watercolor wash in the background -->
-    <Transition name="wash-fade">
-      <img
-        v-if="redGoldActive"
-        :src="RED_GOLD.image"
-        alt=""
-        class="flask-redgold-wash"
-        loading="lazy"
-      >
-    </Transition>
+    <span class="flask-spot flask-spot-base"></span>
+    <span class="flask-spot flask-spot-base spot-b"></span>
+    <span class="flask-spot flask-spot-base spot-c"></span>
+    <!-- Bokeh orbs -->
+    <span class="flask-bokeh bokeh-1"></span>
+    <span class="flask-bokeh bokeh-2"></span>
+    <span class="flask-bokeh bokeh-3"></span>
+    <span class="flask-bokeh bokeh-4"></span>
 
     <!-- Layer 2: Hero ingredient -->
     <img :src="heroImage" alt="" class="flask-hero" loading="lazy">
@@ -221,41 +207,6 @@ const visibleBonuses = computed(() =>
   50% { opacity: 0.82; }
 }
 
-.flask-redgold-wash {
-  position: absolute;
-  width: 122%;
-  left: 51%;
-  top: -11%;
-  transform: translateX(-50%);
-  opacity: 0.3;
-  mix-blend-mode: multiply;
-  filter: saturate(1.08) blur(1px);
-  z-index: 1;
-  pointer-events: none;
-  animation: redGoldWashPulse 7.4s ease-in-out infinite;
-}
-
-@keyframes redGoldWashPulse {
-  0%, 100% {
-    transform: translateX(-50%) scale(1);
-    opacity: 0.25;
-  }
-  50% {
-    transform: translateX(-50%) scale(1.08);
-    opacity: 0.36;
-  }
-}
-
-.wash-fade-enter-active,
-.wash-fade-leave-active {
-  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
-}
-.wash-fade-enter-from,
-.wash-fade-leave-to {
-  opacity: 0;
-  transform: translateX(-50%) scale(0.92);
-}
-
 /* Layer 2: Hero ingredient */
 .flask-hero {
   position: absolute;
@@ -334,11 +285,6 @@ const visibleBonuses = computed(() =>
   .flask-wrap {
     width: 300px;
     height: 340px;
-  }
-
-  .flask-redgold-wash {
-    width: 112%;
-    top: -7%;
   }
 }
 </style>

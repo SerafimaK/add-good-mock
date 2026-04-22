@@ -231,7 +231,6 @@ onBeforeUnmount(() => {
                   :hero-image="booster.heroImage"
                   :selected-bonuses="[...selectedBonuses]"
                   :hovered-bonus="hoveredBonusId"
-                  :red-gold-active="false"
                 />
               </div>
             </div>

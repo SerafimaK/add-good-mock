@@ -65,15 +65,6 @@ export const BONUS_POSITIONS = {
   pga:         { top: '45%', right: '-2%', width: '38%' },
 }
 
-// Temporary: Red Gold was removed from the product but some components still
-// reference it. Keeping a stub until FlaskComposition/cart/FAQ are cleaned up.
-export const RED_GOLD = {
-  id: 'red_gold',
-  name: 'Red Gold',
-  ingredient: 'Astaxanthin',
-  image: '/lines_no_background/red_splash-removebg-preview.png',
-}
-
 export async function loadProducts() {
   const [boosters, bonuses] = await Promise.all([getBoosters(), getBonuses()])
 

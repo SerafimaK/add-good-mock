@@ -34,15 +34,7 @@ const groups = [
       },
       {
         q: 'What are bonus ingredients?',
-        a: 'Each booster comes with a selection of compatible bonus ingredients you can add to customize your formula. Options include Centella Asiatica (soothes and repairs), Bakuchiol (plant-based retinol alternative), Licorice Root (brightening), and Squalane (moisture lock). Every combination within a booster is safe and effective — you can add one, two, three, or none.'
-      },
-      {
-        q: 'What is Red Gold?',
-        a: 'Red Gold is our optional astaxanthin add-on — a carotenoid from Haematococcus pluvialis microalgae. It\'s one of the most powerful natural antioxidants on Earth. It tints your booster a warm coral color but leaves no visible color on your skin. Available for all three boosters.'
-      },
-      {
-        q: 'Will the Red Gold color stain my skin?',
-        a: 'No. The concentration of astaxanthin is sufficient for antioxidant benefit but too low to leave visible pigment on the skin. The coral tint is only visible in the product itself.'
+        a: 'Each booster comes with a selection of compatible bonus ingredients you can add to customize your formula. Options include Centella Asiatica (soothes and repairs), GHK-Cu (copper peptide for repair), Licorice Root (brightening), Beta-Glucan (barrier support), and PGA (deep hydration). Every combination within a booster is safe and effective — you can add one, two, three, or none.'
       }
     ]
   },
@@ -72,7 +64,7 @@ const groups = [
     items: [
       {
         q: 'Are your products vegan?',
-        a: 'Yes. Everything is 100% plant and fungi based. No animal-derived ingredients — ever. Our squalane comes from olives, not sharks. Our astaxanthin comes from microalgae, not fish.'
+        a: 'Yes. Everything is 100% plant and fungi based. No animal-derived ingredients — ever.'
       },
       {
         q: 'Are your products cruelty-free?',
@@ -97,7 +89,7 @@ const groups = [
     items: [
       {
         q: 'How much does a booster cost?',
-        a: 'A single booster starts at $11.90. Custom actives are +$1.00 each, Red Gold (Astaxanthin) is +$2.00. Maximum customization is $16.90. Buy any 3 boosters and shipping is free.'
+        a: 'A single booster starts at $11.90. Custom actives are +$1.00 each. Maximum customization is $16.90. Buy any 3 boosters and shipping is free.'
       },
       {
         q: 'Do you ship internationally?',

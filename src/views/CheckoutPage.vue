@@ -9,13 +9,14 @@ import OrderSummary from '../components/checkout/OrderSummary.vue'
 
 const router = useRouter()
 const { state: cartState, total, clearCart } = useCart()
-const { state: authState, isAuthenticated, register, addOrder, addAddress } = useAuth()
+const { state: authState, isAuthenticated, register, placeOrder, addAddress } = useAuth()
 
 const step = ref(1)
 const shippingAddress = ref(null)
 const contactInfo = ref(null)
 const accountFields = ref(null)
 const placing = ref(false)
+const placeError = ref('')
 
 // Redirect if cart is empty
 if (cartState.items.length === 0) {
@@ -34,6 +35,7 @@ function handleShippingSubmit({ address, contact, accountFields: accFields }) {
 
 async function handlePlaceOrder() {
   placing.value = true
+  placeError.value = ''
 
   // Create account if user opted in
   if (accountFields.value) {
@@ -60,11 +62,12 @@ async function handlePlaceOrder() {
     })
   }
 
-  const order = addOrder({
+  // Send the order to the server. Total is re-computed server-side from the
+  // booster/bonus tables; our number is only a sanity check.
+  const result = await placeOrder({
     items: cartState.items.map(item => ({
       boosterId: item.boosterId,
       bonuses: item.bonuses,
-      redGold: item.redGold,
       price: item.price,
       sub: item.sub,
     })),
@@ -73,9 +76,15 @@ async function handlePlaceOrder() {
     ...(contactInfo.value && { contact: contactInfo.value }),
   })
 
+  if (!result.ok) {
+    placeError.value = result.message || 'Could not place order'
+    placing.value = false
+    return
+  }
+
   clearCart()
   placing.value = false
-  router.push({ name: 'order-confirmation', params: { orderId: order.id } })
+  router.push({ name: 'order-confirmation', params: { orderId: result.data.id } })
 }
 </script>
 
@@ -114,6 +123,7 @@ async function handlePlaceOrder() {
             :total="total"
             :address="shippingAddress"
             :loading="placing"
+            :error="placeError"
             @placeOrder="handlePlaceOrder"
             @back="step = 1"
           />
