@@ -8,6 +8,7 @@ import FormInput from '../components/auth/FormInput.vue'
 const router = useRouter()
 const {
   state, logout, updateProfile, addAddress, updateAddress, deleteAddress,
+  setPassword,
 } = useAuth()
 
 const activeTab = ref('profile')
@@ -38,6 +39,52 @@ function saveProfile() {
 function handleLogout() {
   logout()
   router.push('/')
+}
+
+// Password management — set (if account has none) or change (if it does).
+// The backend is the source of truth on whether currentPassword is required.
+const showPasswordForm = ref(false)
+const pwCurrent = ref('')
+const pwNew = ref('')
+const pwConfirm = ref('')
+const pwError = ref('')
+const pwSuccess = ref('')
+const hasPassword = computed(() => !!state.user?.hasPassword)
+
+function openPasswordForm() {
+  pwCurrent.value = ''
+  pwNew.value = ''
+  pwConfirm.value = ''
+  pwError.value = ''
+  pwSuccess.value = ''
+  showPasswordForm.value = true
+}
+
+async function submitPasswordForm() {
+  pwError.value = ''
+  pwSuccess.value = ''
+  if (hasPassword.value && !pwCurrent.value) {
+    pwError.value = 'Please enter your current password'
+    return
+  }
+  if (!pwNew.value || pwNew.value.length < 6) {
+    pwError.value = 'New password must be at least 6 characters'
+    return
+  }
+  if (pwNew.value !== pwConfirm.value) {
+    pwError.value = 'Passwords do not match'
+    return
+  }
+  const result = await setPassword({
+    currentPassword: hasPassword.value ? pwCurrent.value : undefined,
+    newPassword: pwNew.value,
+  })
+  if (result.ok) {
+    pwSuccess.value = hasPassword.value ? 'Password updated' : 'Password set'
+    showPasswordForm.value = false
+  } else {
+    pwError.value = result.message || 'Could not update password'
+  }
 }
 
 // Address editing
@@ -114,8 +161,30 @@ function itemName(item) {
           </div>
           <div class="prof-actions">
             <button class="btn-secondary" @click="startEdit">Edit profile</button>
+            <button class="btn-secondary" @click="openPasswordForm">
+              {{ hasPassword ? 'Change password' : 'Set password' }}
+            </button>
             <button class="btn-outline-danger" @click="handleLogout">Log out</button>
           </div>
+
+          <!-- Password set/change — expands inline under the profile actions -->
+          <div v-if="showPasswordForm" class="pw-form">
+            <h3 class="pw-title">{{ hasPassword ? 'Change password' : 'Set password' }}</h3>
+            <p v-if="!hasPassword" class="pw-note">
+              Your account was created with a one-time code. Set a password to enable email + password login.
+            </p>
+            <FormInput v-if="hasPassword" v-model="pwCurrent" label="Current password" type="password" />
+            <FormInput v-model="pwNew" label="New password" type="password" placeholder="At least 6 characters" />
+            <FormInput v-model="pwConfirm" label="Confirm new password" type="password" />
+            <div v-if="pwError" class="pw-error">{{ pwError }}</div>
+            <div class="prof-actions">
+              <button class="btn-primary" :disabled="state.loading" @click="submitPasswordForm">
+                {{ state.loading ? 'Saving...' : 'Save password' }}
+              </button>
+              <button class="btn-secondary" @click="showPasswordForm = false">Cancel</button>
+            </div>
+          </div>
+          <div v-else-if="pwSuccess" class="pw-success">{{ pwSuccess }}</div>
         </template>
         <template v-else>
           <FormInput v-model="editName" label="Name" />
@@ -282,7 +351,46 @@ function itemName(item) {
 }
 .prof-row:last-child { border: none; }
 .prof-label { color: var(--lt); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
-.prof-actions { display: flex; gap: .8rem; margin-top: 1rem; }
+.prof-actions { display: flex; gap: .8rem; margin-top: 1rem; flex-wrap: wrap; }
+
+/* Password form — inline panel under profile actions */
+.pw-form {
+  margin-top: 1.5rem;
+  padding: 1.3rem 1.4rem 1.1rem;
+  background: var(--bg2);
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 14px;
+}
+.pw-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--dark);
+  margin: 0 0 .4rem;
+}
+.pw-note {
+  font-size: .82rem;
+  color: var(--mid);
+  margin: 0 0 1rem;
+  line-height: 1.45;
+}
+.pw-error {
+  font-size: .78rem;
+  color: #c44;
+  margin: .2rem 0 .4rem;
+  padding: .45rem .6rem;
+  background: rgba(204,68,68,.06);
+  border-radius: 8px;
+}
+.pw-success {
+  font-size: .82rem;
+  color: var(--forest);
+  margin-top: 1rem;
+  padding: .55rem .8rem;
+  background: rgba(27,133,74,.08);
+  border-radius: 8px;
+  display: inline-block;
+}
 
 /* Buttons */
 .btn-primary {

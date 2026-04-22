@@ -1,5 +1,7 @@
 import { reactive, computed } from 'vue'
-import { MOCK_USERS, MOCK_OTP } from '../data/mockUsers.js'
+import * as authApi from '../api/auth.js'
+import * as userApi from '../api/user.js'
+import { ApiError } from '../api/client.js'
 
 const state = reactive({
   user: null,
@@ -8,27 +10,13 @@ const state = reactive({
   error: null,
   authModal: {
     isOpen: false,
-    mode: 'login', // 'login' | 'register' | 'otp'
-    otpTarget: null, // email or phone that OTP was sent to
-    otpPurpose: null, // 'login' | 'register'
-    pendingRegistration: null, // { name, emailOrPhone, type }
+    mode: 'login', // 'login' | 'register' | 'reset'
+    otpTarget: null,
+    otpPurpose: null, // 'login' | 'register' | 'reset'
+    pendingRegistration: null, // { name, password } kept between sendOtp and verifyOtp
+    pendingReset: null, // { password } — new password for the reset flow
   },
 })
-
-// Deep clone users for mock DB
-let mockDb = JSON.parse(JSON.stringify(MOCK_USERS))
-
-function delay(ms = 500) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
-function generateId(prefix) {
-  return prefix + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)
-}
-
-function findUser(emailOrPhone) {
-  return mockDb.find(u => u.email === emailOrPhone || u.phone === emailOrPhone)
-}
 
 function hydrateState() {
   try {
@@ -49,7 +37,17 @@ function persistState() {
   }
 }
 
-// Hydrate on module load
+function applyAuthResult({ token, user }) {
+  state.user = user
+  state.token = token
+  persistState()
+}
+
+function describeError(err, fallback) {
+  if (err instanceof ApiError) return err.message || err.code || fallback
+  return err?.message || fallback
+}
+
 hydrateState()
 
 export function useAuth() {
@@ -67,153 +65,145 @@ export function useAuth() {
     state.authModal.otpTarget = null
     state.authModal.otpPurpose = null
     state.authModal.pendingRegistration = null
+    state.authModal.pendingReset = null
   }
 
   async function login(emailOrPhone, password) {
     state.loading = true
     state.error = null
-    await delay()
-    const user = findUser(emailOrPhone)
-    if (!user || user.password !== password) {
-      state.error = 'Invalid credentials. Try jane@example.com / password123'
-      state.loading = false
+    try {
+      const data = await authApi.login(emailOrPhone, password)
+      applyAuthResult(data)
+      closeAuthModal()
+      return true
+    } catch (err) {
+      state.error = describeError(err, 'Login failed')
       return false
+    } finally {
+      state.loading = false
     }
-    state.user = JSON.parse(JSON.stringify(user))
-    state.token = 'mock_jwt_' + user.id
-    state.loading = false
-    persistState()
-    closeAuthModal()
-    return true
   }
 
-  async function sendOtp(emailOrPhone) {
+  async function sendOtp(emailOrPhone, intent) {
     state.loading = true
     state.error = null
-    await delay(300)
-    state.authModal.otpTarget = emailOrPhone
-    state.loading = false
-    return true
+    try {
+      await authApi.sendOtp(emailOrPhone, intent)
+      state.authModal.otpTarget = emailOrPhone
+      state.authModal.otpPurpose = intent
+      return { ok: true }
+    } catch (err) {
+      state.error = describeError(err, 'Could not send code')
+      return {
+        ok: false,
+        code: err instanceof ApiError ? err.code : null,
+        message: state.error,
+      }
+    } finally {
+      state.loading = false
+    }
   }
 
   async function verifyOtp(code) {
     state.loading = true
     state.error = null
-    await delay(300)
-    if (code !== MOCK_OTP) {
-      state.error = 'Invalid code. Use 123456'
-      state.loading = false
-      return false
-    }
-
-    if (state.authModal.otpPurpose === 'login') {
-      const user = findUser(state.authModal.otpTarget)
-      if (user) {
-        state.user = JSON.parse(JSON.stringify(user))
-        state.token = 'mock_jwt_' + user.id
-        persistState()
-        closeAuthModal()
-      } else {
-        // New user via OTP login — create minimal account
-        const isPhone = state.authModal.otpTarget.startsWith('+')
-        const newUser = {
-          id: generateId('usr'),
-          email: isPhone ? '' : state.authModal.otpTarget,
-          phone: isPhone ? state.authModal.otpTarget : '',
-          name: '',
-          password: '',
-          avatar: null,
-          provider: isPhone ? 'phone' : 'email',
-          addresses: [],
-          orders: [],
-        }
-        mockDb.push(newUser)
-        state.user = JSON.parse(JSON.stringify(newUser))
-        state.token = 'mock_jwt_' + newUser.id
-        persistState()
-        closeAuthModal()
+    try {
+      const intent = state.authModal.otpPurpose
+      let extras = {}
+      if (intent === 'register' && state.authModal.pendingRegistration) {
+        extras = { ...state.authModal.pendingRegistration }
+      } else if (intent === 'reset' && state.authModal.pendingReset) {
+        extras = { ...state.authModal.pendingReset }
       }
+      const data = await authApi.verifyOtp(state.authModal.otpTarget, code, intent, extras)
+      applyAuthResult(data)
+      closeAuthModal()
+      return true
+    } catch (err) {
+      state.error = describeError(err, 'Invalid code')
+      return false
+    } finally {
+      state.loading = false
     }
+  }
 
-    state.loading = false
-    return true
+  // Change or set the current account's password. For accounts that already
+  // have one, currentPassword is required and verified server-side. OTP-only
+  // and Google-only accounts can set an initial password without it.
+  async function setPassword({ currentPassword, newPassword }) {
+    state.loading = true
+    state.error = null
+    try {
+      await userApi.setPassword({ currentPassword, newPassword })
+      if (state.user) {
+        state.user.hasPassword = true
+        persistState()
+      }
+      return { ok: true }
+    } catch (err) {
+      state.error = describeError(err, 'Could not update password')
+      return {
+        ok: false,
+        code: err instanceof ApiError ? err.code : null,
+        message: state.error,
+      }
+    } finally {
+      state.loading = false
+    }
   }
 
   async function register(name, emailOrPhone, password) {
     state.loading = true
     state.error = null
-    await delay()
-    const existing = findUser(emailOrPhone)
-    if (existing) {
-      state.error = 'An account with this email or phone already exists'
-      state.loading = false
+    try {
+      const data = await authApi.register(name, emailOrPhone, password)
+      applyAuthResult(data)
+      closeAuthModal()
+      return true
+    } catch (err) {
+      state.error = describeError(err, 'Registration failed')
       return false
+    } finally {
+      state.loading = false
     }
-    const isPhone = emailOrPhone.startsWith('+')
-    const newUser = {
-      id: generateId('usr'),
-      email: isPhone ? '' : emailOrPhone,
-      phone: isPhone ? emailOrPhone : '',
-      name,
-      password,
-      avatar: null,
-      provider: isPhone ? 'phone' : 'email',
-      addresses: [],
-      orders: [],
-    }
-    mockDb.push(newUser)
-    state.user = JSON.parse(JSON.stringify(newUser))
-    state.token = 'mock_jwt_' + newUser.id
-    state.loading = false
-    persistState()
-    closeAuthModal()
-    return true
   }
 
   async function loginWithGoogle() {
     state.loading = true
     state.error = null
-    await delay(800)
-    // Mock Google user — always logs in as Alex Kim or creates new
-    const googleUser = findUser('alex@example.com') || {
-      id: generateId('usr'),
-      email: 'alex@example.com',
-      phone: '',
-      name: 'Alex Kim',
-      password: '',
-      avatar: null,
-      provider: 'google',
-      addresses: [],
-      orders: [],
-    }
-    state.user = JSON.parse(JSON.stringify(googleUser))
-    state.token = 'mock_jwt_' + googleUser.id
+    // TODO: integrate Google Identity Services SDK to obtain a real idToken.
+    // For now surface a clear error so the flow is not silently broken.
+    state.error = 'Google Sign-In is not configured yet'
     state.loading = false
-    persistState()
-    closeAuthModal()
-    return true
+    return false
   }
 
-  function logout() {
+  async function logout() {
+    if (state.token) {
+      try {
+        await authApi.logout()
+      } catch {
+        // best-effort — clear local session regardless
+      }
+    }
     state.user = null
     state.token = null
     persistState()
   }
 
+  // --- Profile / addresses / orders: still local-only; Blocks 4 & 5 wire these to the API.
+
   function updateProfile(fields) {
     if (!state.user) return
     Object.assign(state.user, fields)
-    // Sync to mock DB
-    const dbUser = mockDb.find(u => u.id === state.user.id)
-    if (dbUser) Object.assign(dbUser, fields)
     persistState()
   }
 
   function addAddress(address) {
     if (!state.user) return
-    const newAddr = { ...address, id: generateId('addr') }
+    const newAddr = { ...address, id: 'addr_local_' + Date.now().toString(36) }
     if (newAddr.isDefault) {
-      state.user.addresses.forEach(a => a.isDefault = false)
+      state.user.addresses.forEach(a => (a.isDefault = false))
     }
     state.user.addresses.push(newAddr)
     persistState()
@@ -225,7 +215,7 @@ export function useAuth() {
     const addr = state.user.addresses.find(a => a.id === id)
     if (!addr) return
     if (fields.isDefault) {
-      state.user.addresses.forEach(a => a.isDefault = false)
+      state.user.addresses.forEach(a => (a.isDefault = false))
     }
     Object.assign(addr, fields)
     persistState()
@@ -240,7 +230,7 @@ export function useAuth() {
   function addOrder(order) {
     const newOrder = {
       ...order,
-      id: generateId('ord'),
+      id: 'ord_local_' + Date.now().toString(36),
       date: new Date().toISOString(),
       status: 'processing',
     }
@@ -260,6 +250,7 @@ export function useAuth() {
     sendOtp,
     verifyOtp,
     register,
+    setPassword,
     loginWithGoogle,
     logout,
     updateProfile,
